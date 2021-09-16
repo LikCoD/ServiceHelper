@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<Stage fx:id="stage" fullScreenExitHint="" minHeight="400.0" minWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ldcapps.servicehelper.controllers.tools.ToolSelector">
+    <scene>
+        <Scene>
+            <HBox minHeight="380.0" prefHeight="380.0" prefWidth="650.0" spacing="20.0" style="-fx-background-color: rgb(255,200,118);" >
+                <VBox prefHeight="380.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <ToggleButton fx:id="addCarTb" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS" prefWidth="300.0" selected="true" stylesheets="@../../css/toolsBtns.css" text=" ">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="tools" />
+                        </toggleGroup>
+                        <graphic>
+                            <AnchorPane>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <image>
+                                        <Image url="@../../drawable/car.png" />
+                                    </image>
+                                </ImageView>
+                                <padding>
+                                    <Insets left="10.0" />
+                                </padding>
+                            </AnchorPane>
+                        </graphic>
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </ToggleButton>
+                    <ToggleButton fx:id="createContractTb" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS" prefWidth="300.0" stylesheets="@../../css/toolsBtns.css" text=" " toggleGroup="$tools">
+
+                        <graphic>
+                            <AnchorPane>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <image>
+                                        <Image url="@../../drawable/contract.png" />
+                                    </image>
+                                </ImageView>
+                                <padding>
+                                    <Insets left="10.0" />
+                                </padding>
+                            </AnchorPane>
+                        </graphic>
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </ToggleButton>
+                    <ToggleButton fx:id="redactDBTb" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS" prefWidth="300.0" styleClass="..\..\css\toolsBtns.css" stylesheets="@../../css/toolsBtns.css" text=" " toggleGroup="$tools">
+
+                        <graphic>
+                            <AnchorPane>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <image>
+                                        <Image url="@../../drawable/db.png" />
+                                    </image>
+                                </ImageView>
+                                <padding>
+                                    <Insets left="10.0" />
+                                </padding>
+                            </AnchorPane>
+                        </graphic>
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </ToggleButton>
+                    <ToggleButton fx:id="getReportTb" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS" prefWidth="300.0" styleClass="..\..\css\toolsBtns.css" stylesheets="@../../css/toolsBtns.css" text=" " toggleGroup="$tools">
+                        <graphic>
+                            <AnchorPane>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <image>
+                                        <Image url="@../../drawable/report.png" />
+                                    </image>
+                                </ImageView>
+                                <padding>
+                                    <Insets left="10.0" />
+                                </padding>
+                            </AnchorPane>
+                        </graphic>
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </ToggleButton>
+                    <ToggleButton fx:id="settingsTb" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS" prefWidth="300.0" styleClass="..\..\css\toolsBtns.css" stylesheets="@../../css/toolsBtns.css" text=" " toggleGroup="$tools">
+
+                        <graphic>
+                            <AnchorPane>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <image>
+                                        <Image url="@../../drawable/settings.png" />
+                                    </image>
+                                </ImageView>
+                                <padding>
+                                    <Insets left="10.0" />
+                                </padding>
+                            </AnchorPane>
+                        </graphic>
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </ToggleButton>
+                </VBox>
+                <AnchorPane fx:id="pane" prefHeight="320.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="20.0" top="20.0" right="20.0" />
+               </HBox.margin></AnchorPane>
+            </HBox>
+        </Scene>
+    </scene>
+</Stage>

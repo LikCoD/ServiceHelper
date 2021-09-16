@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<?import java.lang.*?>
+<?import javafx.geometry.Insets?>
+<Stage fx:id="stage" fullScreenExitHint="" minHeight="300.0" minWidth="390.0" title="Печать"
+       xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+       fx:controller="ldcapps.servicehelper.controllers.Print">
+    <scene>
+        <Scene>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                  prefHeight="260.0" prefWidth="370.0" style="-fx-background-color: rgb(255,200,118);" spacing="10">
+                <HBox spacing="10">
+                    <ComboBox fx:id="printerCb" prefHeight="30.0" prefWidth="220.0" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                              promptText="Принтер">
+                        <tooltip>
+                            <Tooltip text="Принтер"/>
+                        </tooltip>
+                    </ComboBox>
+                </HBox>
+                <HBox spacing="10">
+                    <ComboBox fx:id="paperCb" prefHeight="30.0" prefWidth="90.0" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                              promptText="Формат" value="A4">
+                        <tooltip>
+                            <Tooltip text="Формат бумаги"/>
+                        </tooltip>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="A0"/>
+                                <String fx:value="A1"/>
+                                <String fx:value="A2"/>
+                                <String fx:value="A3"/>
+                                <String fx:value="A4"/>
+                                <String fx:value="A5"/>
+                                <String fx:value="A6"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+                <HBox spacing="10">
+                    <ComboBox fx:id="orientationCb" prefHeight="30.0" prefWidth="190.0" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                              promptText="Ориентация">
+                        <tooltip>
+                            <Tooltip text="Ориентация"/>
+                        </tooltip>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Альбомная"/>
+                                <String fx:value="Портретная"/>
+                                <String fx:value="Альбомная перевернутая"/>
+                                <String fx:value="Портретная перевернутая"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+                <HBox spacing="10">
+                    <ComboBox fx:id="printTypeCb" prefHeight="30.0" prefWidth="360.0" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                              promptText="Вид печати" value="Односторонняя">
+                        <tooltip>
+                            <Tooltip text="Вид печати"/>
+                        </tooltip>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Односторонняя"/>
+                                <String fx:value="Двухсторонняя портретная"/>
+                                <String fx:value="Двухсторонняя альбомная"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <ComboBox fx:id="printAreaCb" prefHeight="30.0" prefWidth="360.0" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                              promptText="Область печати" value="Вся область">
+                        <tooltip>
+                            <Tooltip text="Область печати"/>
+                        </tooltip>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Выделенная область"/>
+                                <String fx:value="Вся область"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+                <HBox spacing="10">
+                    <Spinner fx:id="copiesSpn" prefHeight="30.0" minWidth="80.0" maxWidth="80.0">
+                        <tooltip>
+                            <Tooltip text="Число копий"/>
+                        </tooltip>
+                    </Spinner>
+                    <ComboBox fx:id="fieldsCb" prefHeight="30.0" prefWidth="360.0" maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                              promptText="Поля" value="Узкие">
+                        <tooltip>
+                            <Tooltip text="Поля"/>
+                        </tooltip>
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="Узкие"/>
+                                <String fx:value="Обычные"/>
+                                <String fx:value="Широкие"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <CheckBox fx:id="solveToCopiesCb" mnemonicParsing="false" maxWidth="150.0" minWidth="150.0"
+                              prefHeight="20.0" selected="true" text="Разобрать по копиям">
+                        <tooltip>
+                            <Tooltip text="Разобрать по копиям"/>
+                        </tooltip>
+                    </CheckBox>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER">
+                    <Button id="confirm" fx:id="confirmBtn" defaultButton="true"
+                            mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0"
+                            stylesheets="@../css/buttonsStyle.css" text="Подтвердить"/>
+                </HBox>
+                <padding>
+                    <Insets left="20.0" right="20.0" top="20.0" bottom="20.0"/>
+                </padding>
+            </VBox>
+        </Scene>
+    </scene>
+</Stage>

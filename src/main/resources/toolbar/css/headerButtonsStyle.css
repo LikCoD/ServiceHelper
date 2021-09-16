@@ -1,0 +1,20 @@
+.button {
+    -fx-font-size: 12;
+    -fx-background-color: white;
+    -fx-border-radius: 0;
+}
+
+#x.button:hover {
+    -fx-background-color: red;
+}
+
+#x.button:pressed {
+    -fx-background-color: rgba(255, 0, 0, 0.5);
+}
+#i.button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+#i.button:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}

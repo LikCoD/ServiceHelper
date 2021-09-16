@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.*?>
+<?import ldclibs.javafx.controls.*?>
+<?import java.lang.*?>
+<AnchorPane prefHeight="900.0" prefWidth="1120.0"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            style="-fx-background-color: rgb(255,200,118);" fx:controller="ldcapps.servicehelper.controllers.OO">
+    <HBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <VBox spacing="10.0">
+            <Button id="cancel" fx:id="createActBtn" mnemonicParsing="false"
+                    prefHeight="35.0" minWidth="150.0" maxWidth="150.0"
+                    stylesheets="@../css/buttonsStyle.css"
+                    text="Создать акт" textAlignment="JUSTIFY"/>
+            <Button id="confirm" fx:id="confirmBtn" contentDisplay="CENTER" defaultButton="true"
+                    mnemonicParsing="false" prefHeight="35.0"
+                    minWidth="150.0" maxWidth="150.0" stylesheets="@../css/buttonsStyle.css"
+                    text="Подтвердить"/>
+            <Button id="cancel" fx:id="cancelBtn" cancelButton="true"
+                    mnemonicParsing="false" prefHeight="35.0" minWidth="150.0" maxWidth="150.0"
+                    stylesheets="@../css/buttonsStyle.css" text="Отмена"/>
+        </VBox>
+        <VBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+            <HBox spacing="10">
+                <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <AutoCompletedTextField fx:id="workNameTf"
+                                            onKeyReleased="#onWorkTfKeyPressed"
+                                            onMouseClicked="#onPositionsMouseClicked"
+                                            prefHeight="30.0"
+                                            prefWidth="520.0" promptText="Работа"
+                                            maxWidth="Infinity"
+                                            HBox.hgrow="ALWAYS"/>
+                    <PriceTextField fx:id="workPriceTf"
+                                    onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                    minWidth="50.0" maxWidth="50.0"
+                                    promptText="Цена"/>
+                    <ComboBox fx:id="workExecutorsCb"
+                              onMouseClicked="#onPositionsMouseClicked"
+                              prefHeight="30.0" prefWidth="180.0" maxWidth="Infinity"
+                              HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="excelWorkBtn" style="-fx-background-color: transparent; -fx-padding: 0">
+                        <graphic>
+                            <ImageView fitHeight="30.0" fitWidth="30">
+                                <Image url="@../drawable/excel.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+                <PriceTextField fx:id="totalWorkPriceTf" editable="false" prefHeight="30.0"
+                                minWidth="60.0" maxWidth="60.0" prefWidth="60.0"/>
+                <AutoCompletedTextField fx:id="carNumberTf"
+                                        onMouseClicked="#onPositionsMouseClicked"
+                                        prefHeight="30.0"
+                                        minWidth="80.0" maxWidth="80.0"/>
+                <IntTextField fx:id="carMileageTf" onMouseClicked="#onPositionsMouseClicked"
+                              prefHeight="30.0" minWidth="70.0" maxWidth="70.0"
+                              promptText="Пробег"/>
+                <IntTextField fx:id="ooNumberTf" onMouseClicked="#onPositionsMouseClicked"
+                              prefHeight="30.0" minWidth="40.0" maxWidth="40.0" promptText="№"/>
+            </HBox>
+            <HBox spacing="10">
+                <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <AutoCompletedTextField fx:id="dpcNameTf" onKeyReleased="#onDPCTfKeyPressed"
+                                            onMouseClicked="#onPositionsMouseClicked"
+                                            prefHeight="30.0"
+                                            prefWidth="270.0"
+                                            promptText="Детали опл. заказчиком"
+                                            maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                    <IntTextField fx:id="dpcCountTf"
+                                  onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                  minWidth="50.0"
+                                  maxWidth="50.0"
+                                  promptText="Кол-во"/>
+                    <PriceTextField fx:id="dpcPriceTf"
+                                    onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                    minWidth="50.0"
+                                    maxWidth="50.0"
+                                    promptText="Цена"/>
+                    <PriceTextField fx:id="dpcSumTf"
+                                    onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                    minWidth="50.0"
+                                    maxWidth="50.0"
+                                    promptText="Сумма"/>
+                    <ComboBox fx:id="dpcUnitCb"
+                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                              minWidth="60.0"
+                              maxWidth="60.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="ш"/>
+                                <String fx:value="л"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <ComboBox fx:id="dpcStateCb"
+                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                              prefWidth="50.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="н"/>
+                                <String fx:value="б"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <ComboBox fx:id="dpcExecutorsCb"
+                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                              prefWidth="180.0"
+                              maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="excelDPCBtn" style="-fx-background-color: transparent; -fx-padding: 0">
+                        <graphic>
+                            <ImageView fitHeight="30.0" fitWidth="30">
+                                <Image url="@../drawable/excel.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+                <PriceTextField fx:id="totalDPCPriceTf" editable="false"
+                                prefHeight="30.0" minWidth="60.0" maxWidth="60.0"/>
+                <DatePicker fx:id="registrationDp"
+                            onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                            minWidth="100.0" maxWidth="100.0"/>
+                <DatePicker fx:id="executionDp"
+                            onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                            minWidth="100.0" maxWidth="100.0"/>
+            </HBox>
+            <HBox spacing="10">
+                <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <AutoCompletedTextField fx:id="dfcNameTf" onKeyReleased="#onDFCTfKeyPressed"
+                                            onMouseClicked="#onPositionsMouseClicked"
+                                            prefHeight="30.0"
+                                            prefWidth="390.0" promptText="Детали от заказчика"
+                                            maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                    <IntTextField fx:id="dfcCountTf"
+                                  onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                  minWidth="50.0"
+                                  maxWidth="50.0"
+                                  promptText="Кол-во"/>
+                    <ComboBox fx:id="dfcUnitCb"
+                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                              minWidth="60.0"
+                              maxWidth="60.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="ш"/>
+                                <String fx:value="л"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <ComboBox fx:id="dfcStateCb"
+                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                              minWidth="50.0"
+                              maxWidth="50.0">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="н"/>
+                                <String fx:value="б"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <ComboBox fx:id="dfcExecutorsCb"
+                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                              prefWidth="180.0"
+                              maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="excelDFCBtn" style="-fx-background-color: transparent; -fx-padding: 0">
+                        <graphic>
+                            <ImageView fitHeight="30.0" fitWidth="30">
+                                <Image url="@../drawable/excel.png"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+                <PriceTextField fx:id="totalPriceTf" editable="false"
+                                prefHeight="30.0" minWidth="60.0" maxWidth="60.0"/>
+                <MyTextField fx:id="ownerTf" editable="false" prefHeight="30.0"
+                             minWidth="210.0" maxWidth="210.0"/>
+            </HBox>
+            <padding>
+                <Insets top="10.0"/>
+            </padding>
+        </VBox>
+        <padding>
+            <Insets top="20.0" right="20.0" left="20.0"/>
+        </padding>
+    </HBox>
+    <ScrollPane prefHeight="200.0" prefWidth="200.0"
+                style="-fx-background-color: rgb(255,200,118); -fx-background: rgb(255,200,118);"
+                AnchorPane.bottomAnchor="20.0"
+                AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                AnchorPane.topAnchor="170.0">
+        <AnchorPane fx:id="ooAndBillAp" minHeight="0.0" minWidth="0.0" prefHeight="1130.0"
+                    prefWidth="1650.0" style="-fx-background-color: rgb(255,200,118);">
+            <AnchorPane fx:id="ooAp" layoutX="-6.0" prefHeight="1130.0" prefWidth="800.0"
+                        style="-fx-background-color: white;">
+                <Label fx:id="ooNumberTx" alignment="CENTER" layoutY="20.0" prefHeight="25.0"
+                       prefWidth="800.0">
+                    <font>
+                        <Font name="Arial Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="ooToBillTx" alignment="CENTER" layoutY="45.0" prefHeight="20.0"
+                       prefWidth="800.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Text fx:id="executor1Tx" layoutX="10.0" layoutY="80.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Text>
+                <Label fx:id="executorPA1Tx" alignment="TOP_LEFT" layoutX="10.0" layoutY="85.0"
+                       prefHeight="25.0" prefWidth="550.0" wrapText="true">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Text fx:id="customer1Tx" layoutX="10.0" layoutY="120.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="customerAddress" layoutX="10.0" layoutY="135.0"
+                      strokeType="OUTSIDE"
+                      strokeWidth="0.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="customerPA1Tx" layoutX="10.0" layoutY="150.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="customerPRNTx" layoutX="10.0" layoutY="165.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="ownerTx" layoutX="10.0" layoutY="180.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="executor2Tx" layoutX="10.0" layoutY="195.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Text>
+                <Label alignment="CENTER" graphicTextGap="1.0" layoutX="610.0" layoutY="90.0"
+                       prefHeight="60.0" prefWidth="20.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 1;"
+                       text="Д&#10;а&#10;т&#10;а">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="630.0" layoutY="90.0" prefHeight="20.0" prefWidth="90.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 1;"
+                       text=" оформления">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="registrationDateTx" alignment="CENTER" layoutX="720.0"
+                       layoutY="90.0"
+                       prefHeight="20.0" prefWidth="70.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 1 0 1;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="630.0" layoutY="110.0" prefHeight="20.0" prefWidth="90.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 1;"
+                       text=" исполнения">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="executionDate1Tx" alignment="CENTER" layoutX="720.0"
+                       layoutY="110.0"
+                       prefHeight="20.0" prefWidth="70.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 1 0 1;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="630.0" layoutY="130.0" prefHeight="20.0" prefWidth="90.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 1;"
+                       text=" факт. исполнения">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="executionDate2Tx" alignment="CENTER" layoutX="720.0"
+                       layoutY="130.0"
+                       prefHeight="20.0" prefWidth="70.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 1 0 1;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="610.0" layoutY="150.0" prefHeight="20.0"
+                       prefWidth="180.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 1 0 1;"
+                       text="Код оплаты">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="cashTx" alignment="CENTER" depthTest="ENABLE" layoutX="610.0"
+                       layoutY="170.0"
+                       prefHeight="20.0" prefWidth="180.0" style="-fx-border-color: black;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="10.0" layoutY="200.0" prefHeight="40.0"
+                       prefWidth="80.0"
+                       style="-fx-border-color: black;" text="Транспортное&#10;средство"
+                       textAlignment="CENTER">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="90.0" layoutY="200.0" prefHeight="20.0"
+                       prefWidth="220.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 0;"
+                       text="Модель">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="carModelLb" alignment="CENTER" layoutX="90.0" layoutY="220.0"
+                       prefHeight="20.0" prefWidth="220.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 1 0;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="310.0" layoutY="200.0" prefHeight="20.0"
+                       prefWidth="70.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 1;"
+                       text="Показания">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="carMileageLb" alignment="CENTER" layoutX="310.0" layoutY="220.0"
+                       prefHeight="20.0" prefWidth="70.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 1 1;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="380.0" layoutY="200.0" prefHeight="20.0"
+                       prefWidth="50.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 1;" text="Двиг.">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="carEngineLb" alignment="CENTER" layoutX="380.0" layoutY="220.0"
+                       prefHeight="20.0" prefWidth="50.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 1 1;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="430.0" layoutY="200.0" prefHeight="20.0"
+                       prefWidth="50.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 1;" text="Г. в.">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="carYearLb" alignment="CENTER" layoutX="430.0" layoutY="220.0"
+                       prefHeight="20.0" prefWidth="50.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 1 1;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="480.0" layoutY="200.0" prefHeight="20.0"
+                       prefWidth="220.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 0 1;"
+                       text="VIN / Кузов №">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="carVINLb" alignment="CENTER" layoutX="480.0" layoutY="220.0"
+                       prefHeight="20.0"
+                       prefWidth="220.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 0 1 1;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="700.0" layoutY="200.0" prefHeight="20.0"
+                       prefWidth="90.0"
+                       style="-fx-border-color: black; -fx-border-width: 1 1 0 1;"
+                       text="Номерной знак">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="carNumberLb" alignment="CENTER" layoutX="700.0" layoutY="220.0"
+                       prefHeight="20.0" prefWidth="90.0" style="-fx-border-color: black;">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <TableView fx:id="workTable" editable="true" fixedCellSize="0.0" layoutX="10.0"
+                           layoutY="250.0" onKeyPressed="#onWorkTableKeyPressed"
+                           prefHeight="75.0"
+                           prefWidth="780.0" style="-fx-background-color: white;"
+                           stylesheets="@../css/ooTableStyle.css">
+                    <placeholder>
+                        <Text/>
+                    </placeholder>
+                    <columns>
+                        <Column prefWidth="75.0" text="1. Выполненные работы">
+                            <columns>
+                                <Column fx:id="workNumberCol" prefWidth="25.0"
+                                        style="-fx-border-width: 0 0 1 1;" text="&#10;№&#10; "/>
+                                <Column fx:id="workNameCol"
+                                        onEditCommit="#changeWorkNameCellEvent"
+                                        prefWidth="530.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Наименование работ"/>
+                                <Column fx:id="workHourNormCol" prefWidth="40.0"
+                                        style="-fx-border-width: 0 0 1 1;" text="Н/ч"/>
+                                <Column fx:id="workPriceCol"
+                                        onEditCommit="#changeWorkPriceCellEvent"
+                                        style="-fx-border-width: 0 0 1 1;"
+                                        text="Стоимость &#10;     услуг"/>
+                                <Column fx:id="workExecutorsCol" minWidth="0.0"
+                                        onEditCommit="#changeWorkExecutorCellEvent"
+                                        prefWidth="100.0"
+                                        style="-fx-border-width: 0 1 1 1;" text="Исполнитель"/>
+                            </columns>
+                        </Column>
+                    </columns>
+                </TableView>
+                <TableView fx:id="dpcTable" editable="true" fixedCellSize="0.0" layoutX="10.0"
+                           layoutY="315.0" onKeyPressed="#onDPCTableKeyPressed"
+                           prefHeight="75.0"
+                           prefWidth="780.0" style="-fx-background-color: white;"
+                           stylesheets="@../css/ooTableStyle.css">
+                    <placeholder>
+                        <Text/>
+                    </placeholder>
+                    <columns>
+                        <Column prefWidth="75.0"
+                                text="2. Запасные части и материалы, оплачиваемые заказчиком">
+                            <columns>
+                                <Column fx:id="dpcNumberCol" prefWidth="25.0"
+                                        style="-fx-border-width: 0 0 1 1;" text="&#10;№&#10; "/>
+                                <Column fx:id="dpcDetailCol"
+                                        onEditCommit="#changeDPCDetailCellEvent"
+                                        prefWidth="360.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Наименование запчастей и материалов"/>
+                                <Column fx:id="dpcUnitCol"
+                                        onEditCommit="#changeDPCUnitCellEvent"
+                                        prefWidth="70.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Ед. изм."/>
+                                <Column fx:id="dpcCountCol"
+                                        onEditCommit="#changeDPCCountCellEvent"
+                                        prefWidth="50.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Кол-во"/>
+                                <Column fx:id="dpcStateCol"
+                                        onEditCommit="#changeDPCStateCellEvent"
+                                        prefWidth="70.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Состояние"/>
+                                <Column fx:id="dpcPriceCol"
+                                        onEditCommit="#changeDPCPriceCellEvent"
+                                        prefWidth="50.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Цена"/>
+                                <Column fx:id="dpcSumCol" onEditCommit="#changeDPCSumCellEvent"
+                                        prefWidth="50.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Сумма"/>
+                                <Column fx:id="dpcExecutorsCol"
+                                        onEditCommit="#changeDPCExecutorCellEvent"
+                                        prefWidth="100.0" style="-fx-border-width: 0 1 1 1;"
+                                        text="Отпустил &#10;(получил)"/>
+                            </columns>
+                        </Column>
+                    </columns>
+                </TableView>
+                <TableView fx:id="dfcTable" editable="true" fixedCellSize="0.0" layoutX="10.0"
+                           layoutY="380.0" onKeyPressed="#onDFCTableKeyPressed"
+                           prefHeight="75.0"
+                           prefWidth="780.0" style="-fx-background-color: white;"
+                           stylesheets="@../css/ooTableStyle.css">
+                    <placeholder>
+                        <Text/>
+                    </placeholder>
+                    <columns>
+                        <Column prefWidth="75.0"
+                                text=" 3. Запасные части и материалы, принятые от заказчика">
+                            <columns>
+                                <Column fx:id="dfcNumberCol" prefWidth="25.0"
+                                        style="-fx-border-width: 0 0 1 1;" text="&#10;№&#10; "/>
+                                <Column fx:id="dfcDetailCol"
+                                        onEditCommit="#changeDFCDetailCellEvent"
+                                        prefWidth="470.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Наименование запчастей и материалов"/>
+                                <Column fx:id="dfcUnitCol"
+                                        onEditCommit="#changeDFCUnitCellEvent"
+                                        prefWidth="60.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Ед. изм."/>
+                                <Column fx:id="dfcCountCol"
+                                        onEditCommit="#changeDFCCountCellEvent"
+                                        prefWidth="50.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Кол-во"/>
+                                <Column fx:id="dfcStateCol"
+                                        onEditCommit="#changeDFCStateCellEvent"
+                                        prefWidth="70.0" style="-fx-border-width: 0 0 1 1;"
+                                        text="Состояние"/>
+                                <Column fx:id="dfcExecutorsCol"
+                                        onEditCommit="#changeDFCExecutorCellEvent"
+                                        prefWidth="100.0" style="-fx-border-width: 0 1 1 1;"
+                                        text="Принял в &#10;произв-во&#10;"/>
+                            </columns>
+                        </Column>
+                    </columns>
+                </TableView>
+                <AnchorPane fx:id="ooFooterAp" layoutX="10.0" layoutY="445.0" minWidth="780.0"
+                            prefHeight="265.0" prefWidth="780.0"
+                            style="-fx-border-color: black;">
+                    <Text layoutX="5.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                          text="Первоначальная стоимость заказа">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Label alignment="CENTER" layoutX="5.0" layoutY="30.0" prefHeight="20.0"
+                           prefWidth="160.0" style="-fx-border-color: black;" text="Работ">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <PriceLabel fx:id="workPrice1Tx" alignment="CENTER" layoutX="5.0"
+                                layoutY="50.0"
+                                prefHeight="20.0" prefWidth="160.0"
+                                style="-fx-border-color: black; -fx-border-width: 0 1 1 1;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </PriceLabel>
+                    <Label alignment="CENTER" layoutX="165.0" layoutY="30.0" prefHeight="20.0"
+                           prefWidth="160.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 0 1 0;"
+                           text="Запчастей">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <PriceLabel fx:id="detailPrice1Tx" alignment="CENTER" layoutX="165.0"
+                                layoutY="50.0"
+                                prefHeight="20.0" prefWidth="160.0"
+                                style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </PriceLabel>
+                    <Label alignment="CENTER" layoutX="325.0" layoutY="30.0" prefHeight="20.0"
+                           prefWidth="185.0" style="-fx-border-color: black;" text="Всего">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <PriceLabel fx:id="totalPrice1Tx" alignment="CENTER" layoutX="325.0"
+                                layoutY="50.0"
+                                prefHeight="20.0" prefWidth="185.0"
+                                style="-fx-border-color: black; -fx-border-width: 0 1 1 1;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </PriceLabel>
+                    <Label fx:id="startPriceTx" layoutY="75.0" prefHeight="20.0"
+                           prefWidth="510.0"
+                           style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                        <padding>
+                            <Insets left="5.0"/>
+                        </padding>
+                    </Label>
+                    <Text layoutX="5.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                          text="Окончательная стоимость заказа ">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Label alignment="CENTER" layoutX="5.0" layoutY="120.0" prefHeight="20.0"
+                           prefWidth="85.0" style="-fx-border-color: black;" text="Работ">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <PriceLabel fx:id="workPrice2Tx" alignment="CENTER" layoutX="5.0"
+                                layoutY="140.0"
+                                prefHeight="30.0" prefWidth="85.0"
+                                style="-fx-border-color: black; -fx-border-width: 0 1 1 1;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </PriceLabel>
+                    <Label alignment="CENTER" layoutX="90.0" layoutY="120.0" prefHeight="20.0"
+                           prefWidth="85.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 1 1 0;"
+                           text="Запчастей">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <PriceLabel fx:id="detailPrice2Tx" alignment="CENTER" layoutX="90.0"
+                                layoutY="140.0"
+                                prefHeight="30.0" prefWidth="85.0"
+                                style="-fx-border-color: black; -fx-border-width: 0 1 1 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </PriceLabel>
+                    <Label alignment="CENTER" layoutX="175.0" layoutY="120.0" prefHeight="20.0"
+                           prefWidth="85.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 1 1 0;"
+                           text="Всего">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <PriceLabel fx:id="totalPrice2Tx" alignment="CENTER" layoutX="175.0"
+                                layoutY="140.0"
+                                prefHeight="30.0" prefWidth="85.0"
+                                style="-fx-border-color: black; -fx-border-width: 0 1 1 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </PriceLabel>
+                    <Label alignment="CENTER" layoutX="260.0" layoutY="120.0" prefHeight="20.0"
+                           prefWidth="75.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 1 1 0;"
+                           text="Ставка НДС" textAlignment="CENTER">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="vatTx" alignment="CENTER" layoutX="260.0" layoutY="140.0"
+                           prefHeight="30.0" prefWidth="75.0"
+                           style="-fx-border-color: black; -fx-border-width: 0 1 1 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Label alignment="CENTER" layoutX="335.0" layoutY="120.0" prefHeight="20.0"
+                           prefWidth="85.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 0 1 0;"
+                           text="Сумма НДС">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="vatPriceTx" alignment="CENTER" layoutX="335.0" layoutY="140.0"
+                           prefHeight="30.0" prefWidth="85.0"
+                           style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Label alignment="CENTER" layoutX="420.0" layoutY="120.0" prefHeight="20.0"
+                           prefWidth="90.0" style="-fx-border-color: black;"
+                           text="Ок. стоим. с НДС">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <PriceLabel fx:id="totalPriceWithVAT1Tx" alignment="CENTER" layoutX="420.0"
+                                layoutY="140.0" prefHeight="30.0" prefWidth="90.0"
+                                style="-fx-border-color: black; -fx-border-width: 0 1 1 1;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </PriceLabel>
+                    <Label fx:id="endPriceTx" layoutY="175.0" prefHeight="20.0"
+                           prefWidth="510.0"
+                           style="-fx-border-color: black; -fx-border-width: 0 0 1 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                        <padding>
+                            <Insets left="5.0"/>
+                        </padding>
+                    </Label>
+                    <Label alignment="TOP_LEFT" layoutX="515.0" layoutY="5.0" prefHeight="55.0"
+                           prefWidth="260.0" style="-fx-border-color: black;"
+                           text="Объем и качество выполненных работ проверил">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                        <padding>
+                            <Insets left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                    </Label>
+                    <Text fx:id="executionDate5Tx" layoutX="715.0" layoutY="45.0"
+                          strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Text layoutX="5.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                          text="С объемом работ согласен, с правилами пользования услугами СТО ознакомлен">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Label alignment="CENTER" layoutX="510.0" layoutY="240.0" prefHeight="20.0"
+                           prefWidth="150.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 0 0 -1;"
+                           text="Подпись заказчика">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="customer2Tx" alignment="BASELINE_CENTER" layoutX="670.0"
+                           layoutY="220.0"
+                           prefHeight="40.0" prefWidth="100.0" textAlignment="CENTER"
+                           wrapText="true">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Label alignment="CENTER" layoutX="10.0" layoutY="240.0" prefHeight="20.0"
+                           prefWidth="150.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 0 0 -1;"
+                           text="Заказ оформил">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Text fx:id="executor3Tx" layoutX="170.0" layoutY="240.0"
+                          strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Label alignment="CENTER" layoutX="260.0" layoutY="240.0" prefHeight="20.0"
+                           prefWidth="150.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 0 0 -1;"
+                           text="Заказ исполнил">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Text fx:id="executor4Tx" layoutX="420.0" layoutY="240.0"
+                          strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Label alignment="TOP_LEFT" layoutX="515.0" layoutY="140.0"
+                           prefHeight="55.0"
+                           prefWidth="260.0" style="-fx-border-color: black;"
+                           text="Претензий к выполненым работам не имею">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                        <padding>
+                            <Insets left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                    </Label>
+                    <Text fx:id="executionDate3Tx" layoutX="715.0" layoutY="180.0"
+                          strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Label alignment="TOP_LEFT" layoutX="515.0" layoutY="60.0" prefHeight="80.0"
+                           prefWidth="260.0"
+                           style="-fx-border-color: black; -fx-border-width: 0 1 0 1;"
+                           text="Замененные за плату дефектные узлы, блоки,&#10;модули и другие детали получил/отказался &#10;получать (нужное подчеркнуть)">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                        <padding>
+                            <Insets left="5.0" right="5.0" top="5.0"/>
+                        </padding>
+                    </Label>
+                    <Text fx:id="executionDate4Tx" layoutX="715.0" layoutY="125.0"
+                          strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Label fx:id="customer3Tx" alignment="CENTER" layoutX="555.0"
+                           layoutY="180.0"
+                           prefHeight="15.0" prefWidth="150.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 0 0 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="customer4Tx" alignment="CENTER" layoutX="555.0"
+                           layoutY="125.0"
+                           prefHeight="15.0" prefWidth="150.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 0 0 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="executor5Tx" alignment="CENTER" layoutX="555.0" layoutY="45.0"
+                           prefHeight="15.0" prefWidth="155.0"
+                           style="-fx-border-color: black; -fx-border-width: 1 0 0 0;">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Label>
+                </AnchorPane>
+            </AnchorPane>
+            <AnchorPane fx:id="billAp" layoutX="850.0" prefHeight="1130.0" prefWidth="800.0"
+                        style="-fx-background-color: white;">
+                <Text fx:id="executor6Tx" layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0" underline="true">
+                    <font>
+                        <Font name="Arial Bold" size="10.0"/>
+                    </font>
+                </Text>
+                <Label fx:id="executorPA2Tx" alignment="TOP_LEFT" layoutX="10.0" layoutY="25.0"
+                       prefHeight="30.0" prefWidth="780.0" wrapText="true">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="billNumberTx" alignment="CENTER" layoutY="65.0" prefHeight="25.0"
+                       prefWidth="800.0">
+                    <font>
+                        <Font name="Arial Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutY="90.0" prefHeight="20.0" prefWidth="800.0"
+                       text="Счёт является протоколом согласования цен и действителен в течении 5 рабочих дней">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="contractDateTx" alignment="CENTER" layoutY="110.0"
+                       prefHeight="20.0"
+                       prefWidth="800.0">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Text fx:id="customer5Tx" layoutX="10.0" layoutY="140.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0">
+                    <font>
+                        <Font name="Arial Bold" size="10.0"/>
+                    </font>
+                </Text>
+                <Label fx:id="customerPA2Tx" layoutX="10.0" layoutY="150.0" prefHeight="30.0"
+                       prefWidth="780.0" wrapText="true">
+                    <font>
+                        <Font name="Arial" size="10.0"/>
+                    </font>
+                </Label>
+                <Text layoutX="10.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Цель приобретения: Для собственного потребления" underline="true">
+                    <font>
+                        <Font name="Arial Bold Italic" size="10.0"/>
+                    </font>
+                </Text>
+                <Line endX="780.0" layoutX="10.0" layoutY="200.0"/>
+                <TableView fx:id="billTable" layoutX="10.0" layoutY="200.0" prefHeight="40.0"
+                           prefWidth="780.0" style="-fx-background-color: white;"
+                           stylesheets="@../css/ooTableStyle.css">
+                    <placeholder>
+                        <Text/>
+                    </placeholder>
+                    <columns>
+                        <Column fx:id="billNumberCol" prefWidth="28.0"
+                                style="-fx-border-width: 0 0 1 1;"
+                                text="&#10;№&#10; "/>
+                        <Column fx:id="billNameCol" prefWidth="360.0"
+                                style="-fx-border-width: 0 0 1 1;"
+                                text="Наименование товара"/>
+                        <Column fx:id="billUnitCol" prefWidth="60.0"
+                                style="-fx-border-width: 0 0 1 1;"
+                                text="Ед. изм."/>
+                        <Column fx:id="billCountCol" prefWidth="50.0"
+                                style="-fx-border-width: 0 0 1 1;"
+                                text="Кол-во"/>
+                        <Column fx:id="billPriceCol" prefWidth="50.0"
+                                style="-fx-border-width: 0 0 1 1;"
+                                text="Цена&#10; BYN"/>
+                        <Column fx:id="billSumCol" prefWidth="50.0"
+                                style="-fx-border-width: 0 0 1 1;"
+                                text="Сумма&#10;  BYN"/>
+                        <Column fx:id="billVatCol" prefWidth="60.0"
+                                style="-fx-border-width: 0 0 1 1;"
+                                text="Ставка&#10;  НДС"/>
+                        <Column fx:id="billVatPriceCol" prefWidth="60.0"
+                                style="-fx-border-width: 0 0 1 1;"
+                                text="  Сумма&#10;НДС BYN"/>
+                        <Column fx:id="billTotalPriceWithVatCol" prefWidth="60.0"
+                                style="-fx-border-width: 0 1 1 1;" text=" Всего с&#10;НДС BYN"/>
+                    </columns>
+                </TableView>
+                <AnchorPane fx:id="billFooterAp" layoutX="10.0" layoutY="255.0"
+                            prefHeight="150.0"
+                            prefWidth="780.0">
+                    <Text fx:id="totalPrice3Tx" layoutY="10.0" strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial Bold" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Text fx:id="totalPriceWithVAT2Tx" layoutY="30.0" strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial Bold" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Text layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                          text="ИСПОЛНИТЕЛЬ"
+                          underline="true">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Text layoutX="390.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                          text="ЗАКАЗЧИК" underline="true">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Text fx:id="executor7Tx" layoutY="70.0" strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Text fx:id="customer6Tx" layoutX="390.0" layoutY="70.0"
+                          strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Line endX="250.0" layoutY="150.0"/>
+                    <Text fx:id="executor8Tx" layoutX="255.0" layoutY="150.0"
+                          strokeType="OUTSIDE"
+                          strokeWidth="0.0">
+                        <font>
+                            <Font name="Arial" size="10.0"/>
+                        </font>
+                    </Text>
+                    <Line endX="250.0" layoutX="390.0" layoutY="150.0"/>
+                </AnchorPane>
+            </AnchorPane>
+        </AnchorPane>
+    </ScrollPane>
+</AnchorPane>

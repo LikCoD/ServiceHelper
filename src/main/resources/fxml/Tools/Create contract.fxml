@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import ldclibs.javafx.controls.*?>
+<?import ldclibs.javafx.controls.pickers.BankPicker?>
+<?import ldclibs.javafx.controls.pickers.PhonePicker?>
+<?import ldclibs.javafx.controls.pickers.PRNPicker?>
+<AnchorPane prefHeight="1280.0" prefWidth="1660.0" style="-fx-background-color: transparent;"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ldcapps.servicehelper.controllers.tools.CreateContract" fx:id="pane">
+    <HBox style="-fx-background-color: transparent;" spacing="10" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0" AnchorPane.rightAnchor="20.0">
+        <VBox spacing="10">
+            <Button id="confirm" fx:id="confirmBtn" defaultButton="true" mnemonicParsing="false" maxHeight="Infinity" prefHeight="20"
+                    minWidth="150.0" stylesheets="@../../css/buttonsStyle.css" text="Подтвердить" VBox.vgrow="ALWAYS"/>
+            <Button id="cancel" fx:id="openBtn" mnemonicParsing="false" minWidth="150.0" prefHeight="20" maxHeight="Infinity"
+                    stylesheets="@../../css/buttonsStyle.css" text="Открыть" textAlignment="CENTER" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <HBox spacing="10">
+                <BankPicker fx:id="cusPATf" prefHeight="30.0"
+                            prefWidth="350.0" promptText="Р/с / Банк / Адрес банка / БИК" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <PRNPicker fx:id="cusPRNTf" prefHeight="30.0"
+                              prefWidth="250.0" promptText="УНП / Компания / Адрес" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <HBox spacing="10">
+                <DatePicker fx:id="dateP" editable="false" onAction="#initContract"
+                            prefHeight="30.0" prefWidth="100.0" promptText="Дата" maxWidth="100" minWidth="100" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="cusFullNameTf"  onKeyReleased="#initContract" prefHeight="30.0"
+                           prefWidth="300.0" promptText="Ф.И.О. Заказчика" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <AutoCompletedTextField fx:id="cusInPersonTf" onKeyReleased="#initContract"
+                                        prefHeight="30.0" prefWidth="200.0" minWidth="100" promptText="В лице" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <AutoCompletedTextField fx:id="footingTf" onKeyReleased="#initContract"
+                                        prefHeight="30.0" prefWidth="300.0" promptText="На основании" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <PhonePicker fx:id="cusPhoneTf"
+                             prefHeight="30.0" prefWidth="200.0" minWidth="100" promptText="Телефон" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="cusEmailTf" onKeyReleased="#initContract"
+                           prefHeight="30.0" prefWidth="200.0" minWidth="100" promptText="E-mail" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </HBox>
+    <ScrollPane layoutY="150.0" prefHeight="200.0" prefWidth="200.0"
+                style="-fx-background-color: transparent; -fx-background: transparent;" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1130.0" prefWidth="1650.0"
+                    style="-fx-background-color: transparent;">
+            <AnchorPane fx:id="page1" prefHeight="1130.0" prefWidth="800.0" style="-fx-background-color: white;">
+                <Text layoutX="350.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Договор б/н"
+                      textAlignment="CENTER">
+                    <font>
+                        <Font name="Times New Roman Bold" size="16.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="dateTx" layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="740.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="г. Минск">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="headerTx" layoutX="10.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      wrappingWidth="780.0">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="170.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="1      ПРЕДМЕТ ДОГОВОРА">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="190.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="1.1.&#9;ИСПОЛНИТЕЛЬ обязуется оказывать услуги по ремонту и техническому обслуживаниюавтотранспортных средств ЗАКАЗЧИКА, а &#10;        ЗАКАЗЧИК обязуется принимать эти услуги и оплачивать их в порядке и сроки, определенные настоящим договором (далее Договор).&#9;">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="230.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="2      ПОРЯДОК ПРОВЕДЕНИЯ РАБОТ">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="250.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="2.1.&#9;ИСПОЛНИТЕЛЬ принимает автотранспортные средства ЗАКАЗЧИКА и осуществляет их ремонт на основании Заявки &#10;        (акта приемки-сдачи в ремонт), подписанной уполномоченными лицами сторон с указанием комплектности сдаваемых в ремонт&#10;         автотранспортных средств, а также предполагаемого объема ремонтных работ, запасных частей и расходных материалов.&#9;&#10;2.2&#9;ИСПОЛНИТЕЛЬ обязуется уведомлять ЗАКАЗЧИКА в случае обнаружения скрытых дефектов и устранять их только с согласия&#10;        ЗАКАЗЧИКА, а также дополнительно согласовывать установку дорогостоящих запасных частей.&#9;&#10;2.3.&#9;ИСПОЛНИТЕЛЬ обязуется выдавать ЗАКАЗЧИКУ замененные в процессе ремонта детали и узлы после его окончания.&#9;&#10;2.4.&#9;ЗАКАЗЧИК в любое время вправе проверять ход и качество выполнения работ, не вмешиваясь&#10;        в производственный процесс ИСПОЛНИТЕЛЯ.&#9;&#10;2.5.&#9;ИСПОЛНИТЕЛЬ заблаговременно извещает ЗАКАЗЧИКА о сроках окончания работ.&#9;&#10;2.6.&#9;По окончании ремонта автотранспортные средства выдаются ИСПОЛНИТЕЛЕМ представителю ЗАКАЗЧИКА&#10;        на основании доверенности. Передача автотранспортных средств от ИСПОЛНИТЕЛЯ ЗАКАЗЧИКУ завершается&#10;        подписанием согласованного сторонами Заказа-наряда уполномоченным представителем ЗАКАЗЧИКА. &#9;&#10;">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="450.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="3      ПЛАТЕЖИ">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="470.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="3.1.&#9;Стоимость каждой произведенной услуги указывается в Заказе-наряде, которой подписывается сторонами&#10;        и является неотъемлемой частью Договора.&#9;&#10;3.2.&#9;Платежи по настоящему договору осуществляется на р/с ИСПОЛНИТЕЛЯ в виде аванса либо&#10;        не позднее 3-х рабочих дней после оказания услуги.&#9;&#10;&#10;">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="540.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="4      СРОКИ ВЫПОЛНЕНИЯ, КАЧЕСТВО РАБОТ">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="560.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="4.1.&#9;ИСПОЛНИТЕЛЬ обязуется выполнять ремонт автотранспортных средств ЗАКАЗЧИКА в соответствии с очередностью заявок.&#9;&#10;4.2.&#9;Сроки выполнения работ: начало – дата подписания согласованной сторонами Заявки (акта приемки-сдачи в ремонт),&#10;        окончание – в соответствии с датой, согласованной в Заказе-наряде.&#9;&#10;4.3.&#9;В случае увеличения объем работ (если ИСПОЛНИТЕЛЬ обнаружил скрытые дефекты, которые не удалось обнаружить&#10;        при первом осмотре), ИСПОЛНИТЕЛЬ может продлить срок ремонта по согласованию с ЗАКАЗЧИКОМ.&#9;&#10;4.4.&#9;ИСПОЛНИТЕЛЬ гарантирует нормальную работу отремонтированных узлов и агрегатов согласно Заказу-наряду в течение сроков,&#10;        предусмотренных законодательством РБ, при соблюдении ЗАКАЗЧИКОМ правил эксплуатации и обслуживании автотранспортных средств.&#9;&#10;4.5.&#9;В случае обнаружения ЗАКАЗЧИКОМ в течение указанного в п.4.4. Договора срока каких-либо недостатков в выполненных ремонтных &#10;        работах или в работе замененных агрегатов, узлов, такие недостатки устраняются ИСПОЛНИТЕЛЕМ бесплатно в срок, установленный&#10;        сторонами. Недостатки в работе предоставленных ЗАКАЗЧИКОМ деталей, узлов и агрегатов устраняются бесплатно, если таковые&#10;        вызваны фактом некачественной работы ИСПОЛНИТЕЛЯ, подтвержденным данными государственной экспертизы, которую ЗАКАЗЧИК&#10;        производит за собственный счет с последующим возмещением этих расходов ИСПОЛНИТЕЛЕМ, если данные экспертизы подтвердят&#10;        виновность ИСПОЛНИТЕЛЯ.&#9;&#10;">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="770.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="5      ОТВЕТСТВЕННОСТЬ СТОРОН">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="790.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="5.1.&#9;ИСПОЛНИТЕЛЬ несет полную материальную ответственность за находящиеся на ремонте автомобили &#10;        ЗАКАЗЧИКА с момента приемки в ремонт до момента передачи ЗАКАЗЧИКУ.&#9;&#10;5.2.&#9;В случае невыполнения ИСПОЛНИТЕЛЕМ ремонтных работ в сроки, установленные п.4.2. ИСПОЛНИТЕЛЬ выплачивает ЗАКАЗЧИКУ&#10;        пеню в размере 0,1% от окончательной стоимости ремонтных работ за каждый день просрочки исполнения обязательств.&#9;&#10;5.3.&#9;За несвоевременную оплату принятых в установленном порядке работ по настоящему договору&#10;        ЗАКАЗЧИК выплачивает ИСПОЛНИТЕЛЮ пеню в размере 0,1% от неоплаченной суммы, указанной в&#10;        согласованном сторонами Заказе-наряде, за каждый день просрочки исполнения обязательств.&#9;&#10;5.4.&#9;Стороны имеют право не применять штрафные санкции, указанные в п. п. 5.2. и 5.3. Договора.">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="920.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="6      ФОРС-МАЖОР">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="940.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="6.1.&#9;Стороны освобождаются от ответственности за неисполнение обязательств, принятых по Договору, если неисполнение явилось&#10;        следствием обстоятельств непреодолимой силы, а именно: стихийные бедствия, военные действия, издание акта государственного органа,&#10;        забастовки. Указанные обстоятельства должны быть подтверждены документально Бел ТПП.&#9;&#10;6.2.&#9;В случае, если любое из названных обстоятельств непосредственно повлияло на исполнение обязательств, установленных в Договоре, в срок, &#10;        то этот срок соразмерно отодвигается на время действия соответствующих обстоятельств.&#9;">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="1030.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="7     ПРОЧИЯ УСЛОВИЯ">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="1050.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="7.1.&#9;Договор составлен в 2-х экземплярах, имеющих одинаковую юридическую силу, по одному для каждой стороны.&#9;&#10;7.2.&#9;Все Споры, по настоящему договору, возникающие между сторонами, разрешаются путем переговоров, или в Хозяйственном суде г. Минска, &#10;        при этом, по соглашению сторон, соблюдения досудебного (Претензионного) порядка не требуется.&#9;&#10;7.3.&#9;Во всем остальном, что не предусмотрено Договором, стороны руководствуются законодательством Республики Беларусь&#9;">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+            </AnchorPane>
+            <AnchorPane fx:id="page2" layoutX="850.0" prefHeight="1130.0" prefWidth="800.0"
+                        style="-fx-background-color: white;">
+                <Text layoutX="20.0" layoutY="30.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="8      СРОК ДЕЙСТВИЯ ДОГОВОРА">
+                    <font>
+                        <Font name="Times New Roman Bold" size="12.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="20.0" layoutY="50.0" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="8.1.&#9;Договор вступает в силу с момента подписания и действует в течение неопределённого срока.&#9;&#10;8.2.&#9;Расторжение договора допускается по взаимному согласию сторон, при этом стороны должны урегулировать &#10;        все взаимные претензии и произвести полный взаимный расчет.&#9;">
+                    <font>
+                        <Font name="Times New Roman" size="12.0"/>
+                    </font>
+                </Text>
+                <AnchorPane layoutX="20.0" layoutY="150.0" prefHeight="260.0" prefWidth="760.0">
+                    <AnchorPane prefHeight="360.0" prefWidth="380.0">
+                        <AnchorPane prefHeight="260.0" prefWidth="380.0" style="-fx-border-color: black;">
+                            <Text layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                  text="Исполнитель:">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="executorTx" layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman Bold" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text layoutX="10.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                  text="Юридический адрес:">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="exAddressTx" layoutX="10.0" layoutY="80.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Label fx:id="exPATx" layoutX="10.0" layoutY="90.0" prefHeight="30.0" prefWidth="360.0"
+                                   wrapText="true" style="-fx-text-fill: black">
+                                <font>
+                                    <Font name="Times New Roman Bold" size="12.0"/>
+                                </font>
+                            </Label>
+                            <Text fx:id="exBankAddressTx" layoutX="10.0" layoutY="140.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="exBIKTx" layoutX="10.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="exPRNTx" layoutX="10.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="exPhoneTx" layoutX="10.0" layoutY="200.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="exEmailTx" layoutX="10.0" layoutY="220.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                        </AnchorPane>
+                        <AnchorPane layoutY="259.0" prefHeight="60.0" prefWidth="380.0"
+                                    style="-fx-border-color: black;">
+                            <Text fx:id="exFullNameTx" layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="exDateTx" layoutX="10.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                        </AnchorPane>
+                        <Text layoutX="10.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="М. П."/>
+                    </AnchorPane>
+                    <AnchorPane layoutX="379.0" prefHeight="260.0" prefWidth="380.0">
+                        <AnchorPane prefHeight="260.0" prefWidth="380.0" style="-fx-border-color: black;">
+                            <Text layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Заказчик:">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="customerTx" layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman Bold" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text layoutX="10.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                  text="Юридический адрес:">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="cusAddressTx" layoutX="10.0" layoutY="80.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Label fx:id="cusPATx" layoutX="10.0" layoutY="90.0" prefHeight="30.0" prefWidth="360.0"
+                                   wrapText="true" style="-fx-text-fill: black">
+                                <font>
+                                    <Font name="Times New Roman Bold" size="12.0"/>
+                                </font>
+                            </Label>
+                            <Text fx:id="cusBankAddressTx" layoutX="10.0" layoutY="140.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="cusBIKTx" layoutX="10.0" layoutY="160.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="cusPRNTx" layoutX="10.0" layoutY="180.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="cusPhoneTx" layoutX="10.0" layoutY="200.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="cusEmailTx" layoutX="10.0" layoutY="220.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                        </AnchorPane>
+                        <AnchorPane layoutY="259.0" prefHeight="60.0" prefWidth="380.0"
+                                    style="-fx-border-color: black;">
+                            <Text layoutX="10.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                                  text="__________________________________________/_________________">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                            <Text fx:id="cusDateTx" layoutX="10.0" layoutY="45.0" strokeType="OUTSIDE"
+                                  strokeWidth="0.0">
+                                <font>
+                                    <Font name="Times New Roman" size="12.0"/>
+                                </font>
+                            </Text>
+                        </AnchorPane>
+                        <Text layoutX="10.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="М. П."/>
+                    </AnchorPane>
+                </AnchorPane>
+            </AnchorPane>
+        </AnchorPane>
+    </ScrollPane>
+</AnchorPane>

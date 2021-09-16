@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<?import ldclibs.javafx.controls.IntTextField?>
+<?import ldclibs.javafx.controls.MyTextField?>
+<Stage fx:id="stage" fullScreenExitHint="" minHeight="100.0" minWidth="100.0" title="Загрузка"
+       xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+       fx:controller="ldcapps.servicehelper.controllers.ChangeDBHost" resizable="false">
+    <scene>
+        <Scene>
+            <AnchorPane prefHeight="210.0" prefWidth="150.0"
+                        style="-fx-background-color: rgb(255,200,118);">
+                <VBox spacing="10" alignment="CENTER">
+                    <MyTextField fx:id="hostTf" promptText="Host" prefHeight="30.0" prefWidth="120.0"/>
+                    <IntTextField fx:id="portTf" promptText="Port" prefHeight="30.0" prefWidth="120.0" maxSize="4"/>
+                    <MyTextField fx:id="loginTf" promptText="Логин" prefHeight="30.0" prefWidth="120.0"/>
+                    <MyTextField fx:id="passwordTf" promptText="Пароль" prefHeight="30.0" prefWidth="120.0"/>
+                    <MyTextField fx:id="dbNameTf" promptText="БД" prefHeight="30.0" prefWidth="120.0"/>
+                    <Button fx:id="confirmBtn" defaultButton="true" text="Сохранить" prefWidth="90.0"/>
+                    <padding>
+                        <Insets top="20" bottom="20" right="20" left="20"/>
+                    </padding>
+                </VBox>
+            </AnchorPane>
+        </Scene>
+    </scene>
+</Stage>

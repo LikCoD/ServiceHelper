@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import ldclibs.javafx.controls.*?>
+<AnchorPane prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: trnansparent;" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ldcapps.servicehelper.controllers.tools.GetReport">
+    <HBox>
+        <VBox>
+            <VBox spacing="10">
+            <Button id="confirm" fx:id="confirmBtn" defaultButton="true" maxWidth="Infinity" mnemonicParsing="false"
+                    prefHeight="40.0" prefWidth="150.0" stylesheets="@../../css/buttonsStyle.css" text="Подтвердить"
+                    VBox.vgrow="ALWAYS"/>
+            <Button id="cancel" fx:id="fillBtn" maxWidth="Infinity" mnemonicParsing="false"
+                    prefHeight="40.0" prefWidth="150.0" stylesheets="@../../css/buttonsStyle.css" text="Заполнить Excel"
+                    VBox.vgrow="ALWAYS"/>
+            </VBox>
+            <ComboBox fx:id="monthsCb" maxWidth="Infinity" prefHeight="30.0" prefWidth="120.0" visibleRowCount="12"
+                      VBox.vgrow="ALWAYS"/>
+            <ToggleButton id="db" fx:id="cashlessTb" alignment="CENTER_RIGHT" maxWidth="Infinity"
+                          mnemonicParsing="false" prefHeight="48.0" prefWidth="70.0" selected="true"
+                          stylesheets="@../../css/toolsBtns.css" text=" " VBox.vgrow="ALWAYS">
+                <toggleGroup>
+                    <ToggleGroup fx:id="cash"/>
+                </toggleGroup>
+                <graphic>
+                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../drawable/cashless.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </ToggleButton>
+            <ToggleButton id="db" fx:id="cashTb" alignment="CENTER_RIGHT" maxWidth="Infinity" mnemonicParsing="false"
+                          prefHeight="48.0" prefWidth="70.0" stylesheets="@../../css/toolsBtns.css" text=" "
+                          toggleGroup="$cash" VBox.vgrow="ALWAYS">
+                <graphic>
+                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../drawable/cash.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </ToggleButton>
+        </VBox>
+        <AnchorPane>
+            <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                       minWidth="-Infinity" prefHeight="970.0" prefWidth="1400.0">
+                <columns>
+                    <Column fx:id="ooNumberCol" prefWidth="-1.0" style="-fx-text-aligment: CENTER-RIGHT;" text="№"/>
+                    <Column fx:id="executorCol" prefWidth="-1.0" text="Исполнитель"/>
+                    <Column fx:id="customerCol" prefWidth="-1.0" text="Заказчик"/>
+                    <Column fx:id="ownerCol" prefWidth="-1.0" text="Владелец"/>
+                    <Column fx:id="carNumberCol" prefWidth="-1.0" text="Номер&#10; авто"/>
+                    <Column fx:id="carMileageCol" prefWidth="-1.0" text="Пробег &#10;  авто"/>
+                    <Column fx:id="registrationDateCol" prefWidth="-1.0" text="Дата &#10;оформл."/>
+                    <Column fx:id="executionDateCol" prefWidth="-1.0" text="Дата&#10;испол."/>
+                    <Column fx:id="hourNormCol" prefWidth="-1.0" text="Н/ч"/>
+                    <Column fx:id="totalWorkPriceCol" prefWidth="-1.0" text="Сумма &#10; работ"/>
+                    <Column fx:id="totalDPCPriceCol" prefWidth="-1.0" text=" Сумма&#10;зап. част."/>
+                    <Column fx:id="totalPriceCol" prefWidth="-1.0" text="Итого"/>
+                    <Column fx:id="vatCol" prefWidth="-1.0" text="  %&#10;НДС"/>
+                    <Column fx:id="vatPriceCol" prefWidth="-1.0" text="Сумма &#10;  НДС"/>
+                    <Column fx:id="totalPriceWithVATCol" prefWidth="-1.0" text="Итого&#10;с НДС"/>
+                    <Column fx:id="workCountCol" prefWidth="-1.0" text="Р"/>
+                    <Column fx:id="dfcCountCol" prefWidth="-1.0" text="ДО"/>
+                    <Column fx:id="dpcCountCol" prefWidth="-1.0" text="ДП"/>
+                    <Column fx:id="totalPosCountCol" prefWidth="-1.0" text="В"/>
+                </columns>
+            </TableView>
+        </AnchorPane>
+    </HBox>
+
+</AnchorPane>

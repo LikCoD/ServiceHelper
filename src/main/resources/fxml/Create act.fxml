@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.text.*?>
+<?import javafx.stage.Stage?>
+<?import ldclibs.javafx.controls.DoubleTextField?>
+<Stage fx:id="stage" fullScreenExitHint="" minHeight="500.0" minWidth="700.0" title="Печать"
+       xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+       fx:controller="ldcapps.servicehelper.controllers.CreateAct">
+    <scene>
+        <Scene>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                        prefHeight="750.0" prefWidth="835.0" style="-fx-background-color: rgb(255,200,118);">
+                <HBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <VBox>
+                        <Button id="confirm" fx:id="confirmBtn" defaultButton="true" mnemonicParsing="false"
+                                prefHeight="40.0" minWidth="150.0" prefWidth="150.0"
+                                stylesheets="@../css/buttonsStyle.css" text="Подтвердить"/>
+                        <padding>
+                            <Insets top="20"/>
+                        </padding>
+                    </VBox>
+                    <VBox maxWidth="Infinity" HBox.hgrow="ALWAYS" spacing="10">
+                        <HBox spacing="10">
+                            <DatePicker fx:id="dateP" onAction="#initAct" prefHeight="30.0" minWidth="100.0"
+                                    promptText="Дата" maxWidth="100.0" HBox.hgrow="ALWAYS"/>
+                            <DoubleTextField fx:id="mileageTf" onKeyReleased="#initAct" prefHeight="30.0"
+                                             prefWidth="170.0" promptText="Пробег" maxWidth="Infinity"
+                                             HBox.hgrow="ALWAYS"/>
+                            <TextField fx:id="reasonTf" onKeyReleased="#initAct" prefHeight="30.0" prefWidth="220.0"
+                                       promptText="Причина обращения" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                            <TextField fx:id="defectTf" onKeyReleased="#initAct" prefHeight="30.0" prefWidth="220.0"
+                                       promptText="Дефект" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                        <HBox spacing="10">
+                            <HBox maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                                <ToggleButton fx:id="cashlessTb" minHeight="30.0" mnemonicParsing="false"
+                                              prefHeight="30.0" minWidth="25.0" selected="true" text="Б">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="cash"/>
+                                    </toggleGroup>
+                                </ToggleButton>
+                                <ToggleButton fx:id="cashTb" minHeight="30.0" mnemonicParsing="false" prefHeight="30.0"
+                                              minWidth="25.0" text="Н" toggleGroup="$cash"/>
+                                <Button fx:id="ooLocateBtn" mnemonicParsing="false" prefHeight="30.0" minWidth="30.0"
+                                        text="🔎"/>
+                                <ComboBox fx:id="ooCb" prefHeight="30.0" prefWidth="180.0" maxWidth="Infinity"
+                                          HBox.hgrow="ALWAYS"/>
+                            </HBox>
+                            <ComboBox fx:id="workCb" editable="true" onAction="#initAct" onKeyReleased="#initAct"
+                                      prefHeight="30.0" prefWidth="200.0" promptText="Работа" maxWidth="Infinity"
+                                      HBox.hgrow="ALWAYS"/>
+                            <ComboBox fx:id="detailCb" editable="true" onAction="#initAct" onKeyReleased="#initAct"
+                                      prefHeight="30.0" prefWidth="200.0" promptText="Деталь" maxWidth="Infinity"
+                                      HBox.hgrow="ALWAYS"/>
+                        </HBox>
+                    </VBox>
+                    <padding>
+                        <Insets top="20.0" left="20.0" right="20.0"/>
+                    </padding>
+                </HBox>
+                <ScrollPane style="-fx-background: rgb(255,200,118); -fx-background-color: rgb(255,200,118);"
+                            AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                            AnchorPane.topAnchor="110.0">
+                    <AnchorPane fx:id="actAp" minHeight="0.0" minWidth="0.0" prefHeight="1130.0" prefWidth="800.0"
+                                style="-fx-background-color: white;">
+                        <Label alignment="CENTER" layoutY="40.0" prefHeight="30.0" prefWidth="800.0"
+                               text="Дефектный акт">
+                            <font>
+                                <Font name="Arial" size="18.0"/>
+                            </font>
+                        </Label>
+                        <Text fx:id="headerTx" layoutX="10.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              wrappingWidth="780.0"/>
+                        <Text fx:id="reasonTx" layoutX="10.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              wrappingWidth="780.0"/>
+                        <Text fx:id="diagnosticTx" layoutX="10.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              wrappingWidth="780.0"/>
+                        <Text fx:id="defectTx" layoutX="10.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              wrappingWidth="780.0"/>
+                        <Text fx:id="detailTx" layoutX="10.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              wrappingWidth="780.0"/>
+                        <Text fx:id="companyTx" layoutX="10.0" layoutY="430.0" strokeType="OUTSIDE" strokeWidth="0.0"/>
+                    </AnchorPane>
+                </ScrollPane>
+            </AnchorPane>
+        </Scene>
+    </scene>
+</Stage>

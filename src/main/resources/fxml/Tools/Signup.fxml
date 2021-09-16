@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import ldclibs.javafx.controls.DoubleTextField?>
+<?import ldclibs.javafx.controls.pickers.BankPicker?>
+<?import ldclibs.javafx.controls.pickers.PhonePicker?>
+<?import ldclibs.javafx.controls.pickers.PRNPicker?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            xmlns="http://javafx.com/javafx/15.0.1" style="-fx-background-color: transparent;"
+            fx:controller="ldcapps.servicehelper.controllers.tools.Signup" AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0">
+    <VBox spacing="10" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0">
+        <HBox spacing="10" alignment="CENTER">
+            <TextField fx:id="loginTf" prefHeight="30.0" promptText="Логин"
+                       maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <RadioButton fx:id="stayOfflineBtn" text="Работать автономно" AnchorPane.leftAnchor="0.0"
+                         AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"/>
+        </HBox>
+        <HBox spacing="10">
+            <PasswordField fx:id="passwordTf" prefHeight="30.0" promptText="Пароль"
+                           maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <PasswordField fx:id="passwordRepeatTf" prefHeight="30.0" promptText="Повтор"
+                           maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="nameTf" prefHeight="30.0" prefWidth="205.0" promptText="Имя"
+                       maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="oosLocateTf" prefHeight="30.0" prefWidth="460.0"
+                       promptText="Расположение ЗН" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="oosLocateBtn" mnemonicParsing="false" prefHeight="30.0"
+                    prefWidth="30.0" text="🔎"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="actsLocateTf" prefHeight="30.0" prefWidth="460.0"
+                       promptText="Расположение актов" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="actsLocateBtn" mnemonicParsing="false" prefHeight="30.0"
+                    prefWidth="30.0" text="🔎"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="contractsLocateTf" prefHeight="30.0" prefWidth="460.0"
+                       promptText="Расположение договоров" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="contractsLocateBtn" mnemonicParsing="false" prefHeight="30.0"
+                    prefWidth="30.0" text="🔎"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="workerTf" prefHeight="30.0" prefWidth="205.0" promptText="Рабочий"
+                       maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="addWorkerBtn" mnemonicParsing="false" prefHeight="30.0"
+                    prefWidth="30.0" text="+"/>
+            <ComboBox fx:id="workersCb" prefHeight="30.0" prefWidth="205.0"
+                      promptText="Рабочие" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="deleteWorkerBtn" mnemonicParsing="false" prefHeight="30.0"
+                    prefWidth="30.0" text="-"/>
+        </HBox>
+        <HBox spacing="10">
+            <DoubleTextField fx:id="hourNormTf" prefHeight="30.0" prefWidth="45.0" promptText="Н/ч"/>
+            <DoubleTextField fx:id="vatTf" prefHeight="30.0" prefWidth="45.0"
+                             promptText="НДС"/>
+            <ComboBox fx:id="standardUnitCb" prefHeight="30.0" prefWidth="105.0"
+                      promptText="ед. и. (п. у.)" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="standardStateCb" prefHeight="30.0" prefWidth="105.0"
+                      promptText="сост (п. у.)" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="standardWorkerCb" prefHeight="30.0" prefWidth="160.0"
+                      promptText="рабочий (п. у.)" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="companyNameTf" prefHeight="30.0" prefWidth="500.0"
+                       promptText="Название компании (Полное)" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="10">
+            <BankPicker fx:id="bankPicker" prefHeight="30.0" prefWidth="500.0" promptText="Р/с"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="10">
+            <PRNPicker fx:id="prnPicker" prefHeight="30.0" prefWidth="120.0"
+                       promptText="УНП" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="10">
+            <PhonePicker fx:id="phoneTf" prefHeight="30.0" prefWidth="180.0" promptText="Телефон"
+                         maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="emailTf" prefHeight="30.0" prefWidth="180.0"
+                       promptText="Email" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="serviceAddressTf" prefHeight="30.0" prefWidth="245.0"
+                       promptText="Адрес СТО" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="certificateOfStateRegistrationTf" prefHeight="30.0" prefWidth="370.0"
+                       promptText="Свидетельство о гос. рег. (Кого, №)" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox alignment="CENTER" spacing="10">
+            <Button id="confirm" fx:id="confirmBtn" mnemonicParsing="false"
+                    prefHeight="40.0" prefWidth="150.0" stylesheets="@../../css/buttonsStyle.css" text="Подтвердить"
+                    maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <padding>
+            <Insets bottom="20.0" top="20.0" right="20.0" left="20.0"/>
+        </padding>
+    </VBox>
+</AnchorPane>

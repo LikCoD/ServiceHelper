@@ -1,0 +1,64 @@
+.toggle-button {
+    -fx-background-color: rgb(22,43,63);
+    -fx-background-radius: 0;
+}
+.toggle-button:hover {
+    -fx-background-color: rgba(22,43,63, 0.5);
+}
+.toggle-button:pressed {
+    -fx-background-color: transparent;
+}
+
+.toggle-button:selected {
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-background-color: rgb(22, 43, 63);
+    -fx-background-radius: 0;
+}
+
+#logout.button {
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+}
+
+#login.button {
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+    -fx-text-fill: white;
+}
+
+#delete.button {
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+    -fx-text-fill: white;
+    -fx-background-color: rgb(128, 34, 34);
+}
+
+#delete.button:hover {
+    -fx-background-color: rgba(128, 34, 34, 0.5);
+}
+
+#delete.button:pressed {
+    -fx-background-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color: rgba(22, 43, 63, 0.5);
+}
+
+.button:pressed {
+    -fx-background-color: transparent;
+}
+
+.button:selected {
+    -fx-background-color: transparent;
+}
+
+#db.toggle-button:pressed{
+    -fx-background-color: rgb(245,243,235);
+}
+#db.toggle-button:selected{
+    -fx-background-color: rgb(245,243,235);
+}

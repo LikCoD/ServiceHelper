@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import ldclibs.javafx.controls.AutoCompletedTextField?>
+<?import ldclibs.javafx.controls.IntTextField?>
+<HBox spacing="20" style="-fx-background-color: rgb(255,200,118);" xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="ldcapps.servicehelper.controllers.CarData">
+    <VBox prefHeight="380.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <Button fx:id="openBtn" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS" prefWidth="70.0"
+                text=" " stylesheets="@../css/toolsBtns.css">
+            <font>
+                <Font size="10.0"/>
+            </font>
+            <graphic>
+                <AnchorPane>
+                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <image>
+                            <Image url="@../drawable/open.png"/>
+                        </image>
+                    </ImageView>
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                </AnchorPane>
+            </graphic>
+        </Button>
+        <Button fx:id="toolsBtn" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS" prefWidth="70.0"
+                text=" " stylesheets="@../css/toolsBtns.css">
+            <font>
+                <Font size="9.5"/>
+            </font>
+            <graphic>
+                <AnchorPane>
+                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <image>
+                            <Image url="@../drawable/tools.png"/>
+                        </image>
+                    </ImageView>
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                </AnchorPane>
+            </graphic>
+        </Button>
+        <Button fx:id="createActBtn" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS"
+                prefWidth="70.0" text=" " stylesheets="@../css/toolsBtns.css">
+            <font>
+                <Font size="10.0"/>
+            </font>
+            <graphic>
+                <AnchorPane>
+                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <image>
+                            <Image url="@../drawable/act.png"/>
+                        </image>
+                    </ImageView>
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                </AnchorPane>
+            </graphic>
+        </Button>
+        <Button fx:id="blankBtn" prefHeight="48.0" maxHeight="Infinity" VBox.vgrow="ALWAYS" prefWidth="70.0"
+                text=" " stylesheets="@../css/toolsBtns.css">
+            <font>
+                <Font size="9.5"/>
+            </font>
+            <graphic>
+                <AnchorPane>
+                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <image>
+                            <Image url="@../drawable/blank.png"/>
+                        </image>
+                    </ImageView>
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                </AnchorPane>
+            </graphic>
+        </Button>
+    </VBox>
+    <VBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+        <HBox alignment="CENTER_RIGHT" spacing="10">
+            <Text fx:id="userTx"/>
+            <ImageView fx:id="userBtn" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true"
+                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <image>
+                    <Image url="@../drawable/avatar.png"/>
+                </image>
+            </ImageView>
+        </HBox>
+        <HBox>
+            <DatePicker fx:id="registrationDp" editable="false" prefHeight="30.0" prefWidth="130.0"
+                        promptText="Д. оформления" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox>
+            <DatePicker fx:id="executionDp" editable="false" prefHeight="30.0" prefWidth="130.0"
+                        promptText="Д. исполнения" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox>
+            <AutoCompletedTextField fx:id="keyTf" prefHeight="30.0" prefWidth="130.0" promptText="Ключ"
+                                    maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox spacing="10">
+            <IntTextField fx:id="carMileageTf" prefHeight="30.0" prefWidth="80.0" promptText="Пробег"
+                          maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            <IntTextField fx:id="ooNumberTf" prefHeight="30.0" prefWidth="40.0" promptText="#" maxWidth="70"
+                          HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <HBox alignment="CENTER">
+            <Button id="confirm" fx:id="confirmBtn" defaultButton="true" layoutX="10.0" layoutY="165.0"
+                    mnemonicParsing="false" prefHeight="35.0" prefWidth="130.0"
+                    stylesheets="@../css/buttonsStyle.css" text="Подтвердить" textAlignment="CENTER"/>
+        </HBox>
+        <padding>
+            <Insets top="10" right="20"/>
+        </padding>
+    </VBox>
+</HBox>

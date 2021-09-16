@@ -1,0 +1,26 @@
+.table-view .column-header {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-font-size: 10px;
+    -fx-font-family: Arial;
+}
+
+.table-view .table-cell {
+    -fx-font-size: 10px;
+    -fx-font-family: Arial;
+    -fx-border-color: black;
+}
+
+.table-row-cell {
+    -fx-cell-size: 20;
+}
+
+.table-view .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}

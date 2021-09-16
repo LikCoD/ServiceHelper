@@ -1,0 +1,29 @@
+.button {
+    -fx-font-size: 15;
+    -fx-text-fill: rgb(245, 243, 235);
+    -fx-background-color: yellow;
+}
+
+#confirm.button {
+    -fx-background-color: rgb(26, 119, 111);
+}
+
+#cancel.button {
+    -fx-background-color: rgb(195, 123, 82);
+}
+
+.button:hover {
+    -fx-background-color: rgba(230, 250, 100, 1);
+}
+
+#confirm.button:hover {
+    -fx-background-color: rgba(55, 200, 120, 1);
+}
+
+#cancel.button:hover {
+    -fx-background-color: rgba(225, 90, 140, 1);
+}
+
+.button:pressed {
+    -fx-border-color: black;
+}

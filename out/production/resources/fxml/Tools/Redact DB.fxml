@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import ldclibs.javafx.controls.*?>
+<AnchorPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ldcapps.servicehelper.controllers.tools.RedactDB">
+    <HBox>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <Button id="confirm" fx:id="confirmBtn" defaultButton="true" maxWidth="Infinity" mnemonicParsing="false"
+                    prefHeight="40.0" prefWidth="150.0" minWidth="150.0" stylesheets="@../../css/buttonsStyle.css"
+                    text="Подтвердить" VBox.vgrow="ALWAYS"/>
+            <ToggleButton fx:id="carsTb" alignment="CENTER_RIGHT" maxWidth="Infinity" mnemonicParsing="false"
+                          prefHeight="48.0" prefWidth="48.0" selected="true" stylesheets="@../../css/toolsBtns.css"
+                          text=" " VBox.vgrow="ALWAYS" id="db">
+                <toggleGroup>
+                    <ToggleGroup fx:id="redactDB"/>
+                </toggleGroup>
+                <graphic>
+                    <AnchorPane>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <image>
+                                <Image url="@../../drawable/car.png"/>
+                            </image>
+                        </ImageView>
+                        <padding>
+                            <Insets left="10.0"/>
+                        </padding>
+                    </AnchorPane>
+                </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="companiesTb" alignment="CENTER_RIGHT" maxWidth="Infinity" mnemonicParsing="false"
+                          prefHeight="30.0" prefWidth="48.0" stylesheets="@../../css/toolsBtns.css" text=" "
+                          toggleGroup="$redactDB" VBox.vgrow="ALWAYS" id="db">
+                <graphic>
+                    <AnchorPane>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <image>
+                                <Image url="@../../drawable/company.png"/>
+                            </image>
+                        </ImageView>
+                        <padding>
+                            <Insets left="10.0"/>
+                        </padding>
+                    </AnchorPane>
+                </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="ownersAndIndividualsTb" alignment="CENTER_RIGHT" maxWidth="Infinity"
+                          mnemonicParsing="false" prefHeight="30.0" prefWidth="48.0"
+                          stylesheets="@../../css/toolsBtns.css" text=" " toggleGroup="$redactDB" VBox.vgrow="ALWAYS" id="db">
+                <graphic>
+                    <AnchorPane>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <image>
+                                <Image url="@../../drawable/person.png"/>
+                            </image>
+                        </ImageView>
+                        <padding>
+                            <Insets left="10.0"/>
+                        </padding>
+                    </AnchorPane>
+                </graphic>
+            </ToggleButton>
+        </VBox>
+        <AnchorPane>
+            <TableView fx:id="carsTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity"
+                       minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#onKeyReleasedRedactCar"
+                       prefHeight="970.0" prefWidth="1400.0">
+                <columns>
+                    <Column fx:id="carNumberCol" onEditCommit="#changeCarNumberCellEvent" prefWidth="-1.0"
+                            text="Гос. Номер"/>
+                    <Column fx:id="carShortNumberCol" onEditCommit="#changeShortCarNumberCellEvent" prefWidth="-1.0"
+                            text="Гос. Номер (сокр.)"/>
+                    <Column fx:id="carModelCol" onEditCommit="#changeCarModelCellEvent" prefWidth="-1.0" text="Модель"/>
+                    <Column fx:id="carVINCol" onEditCommit="#changeCarVINCellEvent" prefWidth="-1.0" text="VIN №"/>
+                    <Column fx:id="carYearCol" onEditCommit="#changeCarYearCellEvent" prefWidth="-1.0" text="Год вып."/>
+                    <Column fx:id="carEngineCol" onEditCommit="#changeCarEngineCellEvent" prefWidth="-1.0"
+                            text="V Двиг."/>
+                    <Column fx:id="carOwnerCol" onEditCommit="#changeCarOwnerCellEvent" prefWidth="-1.0"
+                            text="Владелец"/>
+                </columns>
+            </TableView>
+            <TableView fx:id="companiesTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity"
+                       minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#onKeyReleasedRedactCompany"
+                       prefHeight="970.0" prefWidth="1400.0" visible="false">
+                <columns>
+                    <Column fx:id="companyCol" onEditCommit="#changeCompanyCellEvent" prefWidth="-1.0" text="Компания"/>
+                    <Column fx:id="companyAddressCol" onEditCommit="#changeCompanyAddressCellEvent" prefWidth="-1.0"
+                            text="Адрес владельца"/>
+                    <Column fx:id="companyPACol" onEditCommit="#changeCompanyPACellEvent" prefWidth="-1.0" text="Р/с"/>
+                    <Column fx:id="companyBIKCol" onEditCommit="#changeCompanyBIKCellEvent" prefWidth="-1.0"
+                            text="БИК"/>
+                    <Column fx:id="companyPRNCol" onEditCommit="#changeCompanyPRNCellEvent" prefWidth="-1.0"
+                            text="УНП"/>
+                    <Column fx:id="companyContractDateCol" onEditCommit="#changeCompanyContractDateCellEvent"
+                            prefWidth="-1.0" text="Дата закл. договора"/>
+                </columns>
+            </TableView>
+            <AnchorPane fx:id="ownersAndIndividualsAp" visible="false">
+                <TableView fx:id="ownersTable" editable="true" onKeyReleased="#onKeyReleasedRedactOwner"
+                           prefHeight="970.0" prefWidth="700.0">
+                    <columns>
+                        <Column prefWidth="700.0" text="Владельцы">
+                            <columns>
+                                <Column fx:id="ownerCol" maxWidth="1.7976931348623157E308"
+                                        onEditCommit="#changeOwnerCellEvent" prefWidth="-1.0" text="Владелец"/>
+                                <Column fx:id="ownerCompanyCol" maxWidth="1.7976931348623157E308"
+                                        onEditCommit="#changeOwnerCompanyCellEvent" prefWidth="-1.0" text="Компания"/>
+                            </columns>
+                        </Column>
+                    </columns>
+                </TableView>
+                <TableView fx:id="individualsTable" editable="true" layoutX="700.0"
+                           onKeyReleased="#onKeyReleasedRedactIndividual" prefHeight="970.0" prefWidth="700.0">
+                    <columns>
+                        <Column prefWidth="700.0" text="Физ. лица">
+                            <columns>
+                                <Column fx:id="individualCol" maxWidth="1.7976931348623157E308"
+                                        onEditCommit="#changeIndividualCellEvent" prefWidth="-1.0" text="Физ. лицо"/>
+                                <Column fx:id="individualAddressCol" maxWidth="1.7976931348623157E308"
+                                        onEditCommit="#changeIndividualAddressCellEvent" prefWidth="-1.0" text="Адрес"/>
+                            </columns>
+                        </Column>
+                    </columns>
+                </TableView>
+            </AnchorPane>
+        </AnchorPane>
+    </HBox>
+</AnchorPane>
