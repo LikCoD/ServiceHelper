@@ -92,12 +92,12 @@ class CreateAct : Initializable {
         }
     }
 
-    fun initOO(oo: OO.OOAndBill, path: String) {
+    fun initOO(ooAndBill: OOController.OOAndBill, path: String) {
         ooCb.value = path.substringAfterLast("\\")
-        with(oo) {
-            act.ooNumber = oo.number
-            workCb.items = oo.works.map { it.name }.toFXList()
-            detailCb.items = (oo.dfcs.map { it.name } + oo.dpcs.map { it.name }).toFXList()
+        with(ooAndBill) {
+            act.ooNumber = ooAndBill.number
+            workCb.items = ooAndBill.works.map { it.name }.toFXList()
+            detailCb.items = (ooAndBill.dfcs.map { it.name } + ooAndBill.dpcs.map { it.name }).toFXList()
             act.abbreviatedFullName = abbreviatedCompanyName
             act.executionDate = executionDate.toString()
             act.carNumber = carNumber

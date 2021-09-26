@@ -28,7 +28,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class OO : Initializable {
+class OOController : Initializable {
     lateinit var createActBtn: Button
     lateinit var confirmBtn: Button
     lateinit var cancelBtn: Button
@@ -168,7 +168,7 @@ class OO : Initializable {
         }
 
         excelWorkBtn.setOnAction { _ ->
-            Dialogs.getFile(Main.stage, null, "xlsx" to "Excel")?.let { path ->
+            Dialogs.getFile(MainController.stage, null, "xlsx" to "Excel")?.let { path ->
                 XSSFWorkbook(File(path)).use {
                     val sheet = it.getSheetAt(0)
                     val sequence = Dialogs.filter(0, "Позиция", "Цена", "Исполнитель")
@@ -192,7 +192,7 @@ class OO : Initializable {
         }
 
         excelDPCBtn.setOnAction { _ ->
-            Dialogs.getFile(Main.stage, null, "xlsx" to "Excel")?.let { path ->
+            Dialogs.getFile(MainController.stage, null, "xlsx" to "Excel")?.let { path ->
                 XSSFWorkbook(File(path)).use {
                     val sheet = it.getSheetAt(0)
                     val sequence = Dialogs.filter(1, "Позиция", "Ед. изм.", "Кол-во", "Состояние", "Цена", "Принял")
@@ -219,7 +219,7 @@ class OO : Initializable {
         }
 
         excelDFCBtn.setOnAction { _ ->
-            Dialogs.getFile(Main.stage, null, "xlsx" to "Excel")?.let { path ->
+            Dialogs.getFile(MainController.stage, null, "xlsx" to "Excel")?.let { path ->
                 XSSFWorkbook(File(path)).use {
                     val sheet = it.getSheetAt(0)
                     val sequence = Dialogs.filter(2, "Позиция", "Ед. изм.", "Кол-во", "Состояние", "Принял")
@@ -261,7 +261,7 @@ class OO : Initializable {
         cancelBtn.setOnAction {
             when (action) {
                 0 -> Dialogs.confirmation("Подтвердите выход") {
-                    Main.closeSelectedTab()
+                    MainController.closeSelectedTab()
                 }
                 4 -> {
                     registrationDp.editor.text = registrationDateTx.text
@@ -327,8 +327,8 @@ class OO : Initializable {
                     toJSON(".data", data)
 
                     Dialogs.confirmation("Заказ-Наряд №${oo.number} успешно создан и находится по пути:\n$path\nРаспечатать его?") {
-                        oo.customerPA?.let { Dialogs.print(Main.stage, PageOrientation.PORTRAIT, ooAp, billAp) }
-                            ?: Dialogs.print(Main.stage, PageOrientation.PORTRAIT, ooAp)
+                        oo.customerPA?.let { Dialogs.print(MainController.stage, PageOrientation.PORTRAIT, ooAp, billAp) }
+                            ?: Dialogs.print(MainController.stage, PageOrientation.PORTRAIT, ooAp)
                     }
                 }
                 1 -> {
@@ -399,7 +399,7 @@ class OO : Initializable {
                     carMileageLb.text = carMileageTf.text
                     ooNumberTx.text = "ЗАКАЗ-НАРЯД №${oo.number}"
                     billNumberTx.text = "СЧЕТ №${oo.number} от ${formatter.format(executionDp.value)}"
-                    Main.selectedTab.text = "Б ЗН №${oo.number}, ${oo.carModel}"
+                    MainController.selectedTab.text = "Б ЗН №${oo.number}, ${oo.carModel}"
                 }
                 5 -> {
                     cars.find { it.keyNum == carNumberTf.text }?.let {
@@ -546,7 +546,7 @@ class OO : Initializable {
         ownerTx.text = "Владелец: ${oo.customerOwner}"
         customerAddress.text = "Адрес: ${oo.customerAddress}"
         oo.customerPA?.let {
-            Main.selectedTab.text = "Б ЗН №${oo.number}, ${oo.carModel}"
+            MainController.selectedTab.text = "Б ЗН №${oo.number}, ${oo.carModel}"
             cashTx.text = "Безналичный"
             cash = false
             customerPA1Tx.text = "Р/с: $it в ${oo.customerBank} БИК ${oo.customerBIK}"
@@ -567,7 +567,7 @@ class OO : Initializable {
             customer6Tx.text = oo.customer
             billAp.isVisible = true
         } ?: run {
-            Main.selectedTab.text = "Н ЗН №${oo.number}, ${oo.carModel}"
+            MainController.selectedTab.text = "Н ЗН №${oo.number}, ${oo.carModel}"
             cashTx.text = "Наличный"
             customerPA1Tx.text = ""
             customerPRNTx.text = ""

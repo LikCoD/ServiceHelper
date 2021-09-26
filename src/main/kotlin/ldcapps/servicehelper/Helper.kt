@@ -3,6 +3,7 @@ package ldcapps.servicehelper
 import com.google.gson.Gson
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
+import javafx.fxml.FXMLLoader
 import javafx.scene.Node
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TableView
@@ -25,7 +26,7 @@ data class Settings(
     var port: Int = 0,
     var login: String = "",
     var password: String = "",
-    var dbName: String = ""
+    var dbName: String = "",
 )
 
 class Data {
@@ -77,7 +78,7 @@ fun open(path: String? = null) {
                 "settings" -> Panes.SETTINGS.show(controller.settingsTb)
                 "contract" -> (Panes.CREATE_CONTRACT.show<CreateContract>(controller.createContractTb)).loadData(path)
                 "act" -> Windows.act()?.fill(fromJSON(path), path)
-                "oab", "oo" -> mainController?.fill(fromJSON(path), path)
+                "oab", "oo" -> mainController?.fillOO(fromJSON(path), path)
                 else -> Dialogs.warning("Ошибка инициализации файла")
             }
     } else {
@@ -122,12 +123,14 @@ fun inSize(vararg p: Pair<Node, Int>): Boolean {
     return isSize
 }
 
-inline fun <reified T> fromJSON(fileName: String, textNotExist: String = "{}"): T {
-    val file = File(fileName)
+inline fun <reified T> fromJSON(file: File, textNotExist: String = "{}"): T {
     if (!file.exists()) file.writeText(textNotExist)
 
     return Gson().fromJson(file.readText(), T::class.java)
 }
+
+inline fun <reified T> fromJSON(fileName: String, textNotExist: String = "{}"): T =
+    fromJSON(File(fileName), textNotExist)
 
 inline fun <reified T : Any> arrFromJSON(file: String): MutableList<T> = fromJSON<Array<T>>(file, "[]").toMutableList()
 
@@ -155,3 +158,6 @@ fun TableView<*>.initTableSize(vararg proportions: Int) {
 
     columns.forEachIndexed { i, tableColumn -> tableColumn.prefWidth = proportions[i] * w }
 }
+
+fun <T> loadFXML(fxml: FXML): T = fxmlLoader(fxml).load()
+fun fxmlLoader(fxml: FXML) = FXMLLoader(Windows::class.java.classLoader.getResource("fxml/${fxml.path}.fxml"))

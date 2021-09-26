@@ -4,7 +4,6 @@ import it.sauronsoftware.junique.AlreadyLockedException
 import it.sauronsoftware.junique.JUnique
 import javafx.application.Application
 import javafx.application.Platform
-import javafx.fxml.FXMLLoader
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import ldcapps.servicehelper.controllers.*
@@ -39,24 +38,23 @@ fun main(arguments: Array<String>) {
 
 class Windows : Application() {
 
-    override fun start(stage: Stage) =
-        FXMLLoader(Windows::class.java.classLoader.getResource("fxml/Main.fxml")).load<Stage>().show()
+    override fun start(stage: Stage) = loadFXML<Stage>(FXML.Main).show()
 
     companion object {
-        val ooController: Main? by lazy {
+        val ooController: MainController? by lazy {
             Signup.type = Signup.Companion.Type.SETTINGS
-            init<Main>("Main")
+            init<MainController>(FXML.Main)
         }
 
-        fun tools() = init<ToolSelector>("Tools/Main")
-        fun print(stage: Stage) = init<Print>("Print", stage)
-        fun act() = init<CreateAct>("Create act")
-        fun blank() = init<Blank>("Blank")
-        fun login() = init<Login>("Login")
+        fun tools() = init<ToolSelector>(FXML.ToolSelector)
+        fun print(stage: Stage) = init<Print>(FXML.Print, stage)
+        fun act() = init<CreateAct>(FXML.CreateAct)
+        fun blank() = init<Blank>(FXML.Blank)
+        fun login() = init<Login>(FXML.Login)
 
-        private fun <T> init(file: String, primaryStage: Stage? = null): T? {
+        private fun <T> init(FXML: FXML, primaryStage: Stage? = null): T? {
             try {
-                val loader = FXMLLoader(Windows::class.java.classLoader.getResource("fxml/$file.fxml"))
+                val loader = fxmlLoader(FXML)
                 loader.load<Stage>().apply {
                     if (primaryStage != null) {
                         initStyle(StageStyle.UTILITY)

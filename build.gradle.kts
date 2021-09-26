@@ -31,6 +31,7 @@ dependencies {
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("reflect"))
+    testImplementation(kotlin("test"))
 }
 
 javafx {
@@ -39,7 +40,7 @@ javafx {
 }
 
 tasks.test {
-    useTestNG()
+    useJUnitPlatform()
 }
 
 launch4j {

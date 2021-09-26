@@ -17,7 +17,6 @@ import ldcapps.servicehelper.db.DataClasses.Companion.user
 import ldclibs.javafx.controls.AutoCompletedTextField
 import ldclibs.javafx.controls.IntTextField
 import java.net.URL
-import java.sql.Date
 import java.time.LocalDate
 import java.util.*
 
@@ -47,7 +46,7 @@ class CarData : Initializable {
         executionDp.value = LocalDate.now()
 
         openBtn.setOnAction {
-            Dialogs.getFile(Main.stage, settings.oosLocate)?.let {
+            Dialogs.getFile(MainController.stage, settings.oosLocate)?.let {
                 open(it)
             }
         }
@@ -70,10 +69,10 @@ class CarData : Initializable {
                         val customer = owners.find { o -> o.owner == it.owner }?.company ?: it.owner
                         var number = 0
                         individuals.find { i -> i.individual == customer }?.let { i ->
-                            number = Main.lastCashNumber++
+                            number = MainController.currentCashNumber++
                             address = i.address
                         } ?: companies.find { c -> c.company == customer }?.let { c ->
-                            number = Main.lastCashlessNumber++
+                            number = MainController.currentCashlessNumber++
                             address = c.address
                             pa = c.pa
                             bank = c.bank
@@ -85,8 +84,8 @@ class CarData : Initializable {
                         if (ooNumberTf.text != "")
                             number = ooNumberTf.text.toInt()
 
-                        Windows.ooController?.fill(
-                            OO.OOAndBill(
+                        Windows.ooController?.fillOO(
+                            OOController.OOAndBill(
                                 number,
                                 DataClasses.Date(registrationDp.value),
                                 DataClasses.Date(executionDp.value),
