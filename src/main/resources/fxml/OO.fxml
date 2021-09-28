@@ -11,188 +11,205 @@
 <?import java.lang.*?>
 <AnchorPane prefHeight="900.0" prefWidth="1120.0"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            style="-fx-background-color: rgb(255,200,118);" fx:controller="ldcapps.servicehelper.controllers.OOController">
-    <HBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <VBox spacing="10.0">
-            <Button id="cancel" fx:id="createActBtn" mnemonicParsing="false"
-                    prefHeight="35.0" minWidth="150.0" maxWidth="150.0"
-                    stylesheets="@../css/buttonsStyle.css"
-                    text="Создать акт" textAlignment="JUSTIFY"/>
-            <Button id="confirm" fx:id="confirmBtn" contentDisplay="CENTER" defaultButton="true"
-                    mnemonicParsing="false" prefHeight="35.0"
-                    minWidth="150.0" maxWidth="150.0" stylesheets="@../css/buttonsStyle.css"
-                    text="Подтвердить"/>
-            <Button id="cancel" fx:id="cancelBtn" cancelButton="true"
-                    mnemonicParsing="false" prefHeight="35.0" minWidth="150.0" maxWidth="150.0"
-                    stylesheets="@../css/buttonsStyle.css" text="Отмена"/>
-        </VBox>
-        <VBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-            <HBox spacing="10">
-                <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                    <AutoCompletedTextField fx:id="workNameTf"
+            style="-fx-background-color: rgb(255,200,118);"
+            fx:controller="ldcapps.servicehelper.controllers.OOController">
+    <VBox spacing="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" fx:id="mainVBox">
+        <HBox spacing="20.0" fx:id="firstHBox">
+            <VBox spacing="10.0">
+                <Button id="cancel" fx:id="createActBtn" mnemonicParsing="false"
+                        prefHeight="35.0" minWidth="150.0" maxWidth="150.0"
+                        stylesheets="@../css/buttonsStyle.css"
+                        text="Создать акт" textAlignment="JUSTIFY"/>
+                <Button id="confirm" fx:id="confirmBtn" contentDisplay="CENTER" defaultButton="true"
+                        mnemonicParsing="false" prefHeight="35.0"
+                        minWidth="150.0" maxWidth="150.0" stylesheets="@../css/buttonsStyle.css"
+                        text="Подтвердить"/>
+                <Button id="cancel" fx:id="cancelBtn" cancelButton="true"
+                        mnemonicParsing="false" prefHeight="35.0" minWidth="150.0" maxWidth="150.0"
+                        stylesheets="@../css/buttonsStyle.css" text="Отмена"/>
+            </VBox>
+            <VBox spacing="10.0">
+                <HBox spacing="10">
+                    <PriceTextField fx:id="totalWorkPriceTf" editable="false" prefHeight="30.0"
+                                    minWidth="60.0" maxWidth="60.0" prefWidth="60.0"/>
+                    <AutoCompletedTextField fx:id="carNumberTf"
                                             onMouseClicked="#onPositionsMouseClicked"
                                             prefHeight="30.0"
-                                            prefWidth="520.0" promptText="Работа"
-                                            maxWidth="Infinity"
-                                            HBox.hgrow="ALWAYS"/>
-                    <PriceTextField fx:id="workPriceTf"
-                                    onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                                    minWidth="50.0" maxWidth="50.0"
-                                    promptText="Цена"/>
-                    <ComboBox fx:id="workExecutorsCb"
-                              onMouseClicked="#onPositionsMouseClicked"
-                              prefHeight="30.0" prefWidth="180.0" maxWidth="Infinity"
-                              HBox.hgrow="ALWAYS"/>
-                    <Button fx:id="excelWorkBtn" style="-fx-background-color: transparent; -fx-padding: 0">
+                                            minWidth="80.0" maxWidth="80.0"/>
+                    <IntTextField fx:id="carMileageTf" onMouseClicked="#onPositionsMouseClicked"
+                                  prefHeight="30.0" minWidth="70.0" maxWidth="70.0"
+                                  promptText="Пробег"/>
+                    <IntTextField fx:id="ooNumberTf" onMouseClicked="#onPositionsMouseClicked"
+                                  prefHeight="30.0" minWidth="40.0" maxWidth="40.0" promptText="№"/>
+                </HBox>
+                <HBox spacing="10">
+                    <PriceTextField fx:id="totalDPCPriceTf" editable="false"
+                                    prefHeight="30.0" minWidth="60.0" maxWidth="60.0"/>
+                    <DatePicker fx:id="registrationDp"
+                                onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                minWidth="100.0" maxWidth="100.0"/>
+                    <DatePicker fx:id="executionDp"
+                                onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                minWidth="100.0" maxWidth="100.0"/>
+                </HBox>
+                <HBox spacing="10">
+                    <PriceTextField fx:id="totalPriceTf" editable="false"
+                                    prefHeight="30.0" minWidth="60.0" maxWidth="60.0"/>
+                    <MyTextField fx:id="ownerTf" editable="false" prefHeight="30.0"
+                                 minWidth="170.0" maxWidth="170.0"/>
+                    <Button fx:id="previewBtn" style="-fx-background-color: transparent; -fx-padding: 0">
                         <graphic>
                             <ImageView fitHeight="30.0" fitWidth="30">
-                                <Image url="@../drawable/excel.png"/>
+                                <Image url="@../drawable/preview.png"/>
                             </ImageView>
                         </graphic>
                     </Button>
                 </HBox>
-                <PriceTextField fx:id="totalWorkPriceTf" editable="false" prefHeight="30.0"
-                                minWidth="60.0" maxWidth="60.0" prefWidth="60.0"/>
-                <AutoCompletedTextField fx:id="carNumberTf"
+                <padding>
+                    <Insets top="10.0"/>
+                </padding>
+            </VBox>
+        </HBox>
+        <VBox fx:id="positionsVBox" spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+            <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <AutoCompletedTextField fx:id="workNameTf"
                                         onMouseClicked="#onPositionsMouseClicked"
                                         prefHeight="30.0"
-                                        minWidth="80.0" maxWidth="80.0"/>
-                <IntTextField fx:id="carMileageTf" onMouseClicked="#onPositionsMouseClicked"
-                              prefHeight="30.0" minWidth="70.0" maxWidth="70.0"
-                              promptText="Пробег"/>
-                <IntTextField fx:id="ooNumberTf" onMouseClicked="#onPositionsMouseClicked"
-                              prefHeight="30.0" minWidth="40.0" maxWidth="40.0" promptText="№"/>
+                                        prefWidth="520.0" promptText="Работа"
+                                        maxWidth="Infinity"
+                                        HBox.hgrow="ALWAYS"/>
+                <PriceTextField fx:id="workPriceTf"
+                                onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                minWidth="50.0" maxWidth="50.0"
+                                promptText="Цена"/>
+                <ComboBox fx:id="workExecutorsCb"
+                          onMouseClicked="#onPositionsMouseClicked"
+                          prefHeight="30.0" prefWidth="180.0" maxWidth="Infinity"
+                          HBox.hgrow="ALWAYS"/>
+                <Button fx:id="excelWorkBtn" style="-fx-background-color: transparent; -fx-padding: 0">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30">
+                            <Image url="@../drawable/excel.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </HBox>
-            <HBox spacing="10">
-                <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                    <AutoCompletedTextField fx:id="dpcNameTf"
-                                            onMouseClicked="#onPositionsMouseClicked"
-                                            prefHeight="30.0"
-                                            prefWidth="270.0"
-                                            promptText="Детали опл. заказчиком"
-                                            maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
-                    <IntTextField fx:id="dpcCountTf"
-                                  onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                                  minWidth="50.0"
-                                  maxWidth="50.0"
-                                  promptText="Кол-во"/>
-                    <PriceTextField fx:id="dpcPriceTf"
-                                    onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                                    minWidth="50.0"
-                                    maxWidth="50.0"
-                                    promptText="Цена"/>
-                    <PriceTextField fx:id="dpcSumTf"
-                                    onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                                    minWidth="50.0"
-                                    maxWidth="50.0"
-                                    promptText="Сумма"/>
-                    <ComboBox fx:id="dpcUnitCb"
-                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                              minWidth="60.0"
-                              maxWidth="60.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="ш"/>
-                                <String fx:value="л"/>
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                    <ComboBox fx:id="dpcStateCb"
-                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                              prefWidth="50.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="н"/>
-                                <String fx:value="б"/>
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                    <ComboBox fx:id="dpcExecutorsCb"
-                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                              prefWidth="180.0"
-                              maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
-                    <Button fx:id="excelDPCBtn" style="-fx-background-color: transparent; -fx-padding: 0">
-                        <graphic>
-                            <ImageView fitHeight="30.0" fitWidth="30">
-                                <Image url="@../drawable/excel.png"/>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                </HBox>
-                <PriceTextField fx:id="totalDPCPriceTf" editable="false"
-                                prefHeight="30.0" minWidth="60.0" maxWidth="60.0"/>
-                <DatePicker fx:id="registrationDp"
-                            onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                            minWidth="100.0" maxWidth="100.0"/>
-                <DatePicker fx:id="executionDp"
-                            onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                            minWidth="100.0" maxWidth="100.0"/>
-            </HBox>
-            <HBox spacing="10">
-                <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
-                    <AutoCompletedTextField fx:id="dfcNameTf"
-                                            onMouseClicked="#onPositionsMouseClicked"
-                                            prefHeight="30.0"
-                                            prefWidth="390.0" promptText="Детали от заказчика"
-                                            maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
-                    <IntTextField fx:id="dfcCountTf"
-                                  onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                                  minWidth="50.0"
-                                  maxWidth="50.0"
-                                  promptText="Кол-во"/>
-                    <ComboBox fx:id="dfcUnitCb"
-                              onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                              minWidth="60.0"
-                              maxWidth="60.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="ш"/>
-                                <String fx:value="л"/>
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                    <ComboBox fx:id="dfcStateCb"
+            <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <AutoCompletedTextField fx:id="dpcNameTf"
+                                        onMouseClicked="#onPositionsMouseClicked"
+                                        prefHeight="30.0"
+                                        prefWidth="270.0"
+                                        promptText="Детали опл. заказчиком"
+                                        maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <IntTextField fx:id="dpcCountTf"
                               onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
                               minWidth="50.0"
-                              maxWidth="50.0">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="н"/>
-                                <String fx:value="б"/>
-                            </FXCollections>
-                        </items>
-                    </ComboBox>
-                    <ComboBox fx:id="dfcExecutorsCb"
+                              maxWidth="50.0"
+                              promptText="Кол-во"/>
+                <PriceTextField fx:id="dpcPriceTf"
+                                onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                minWidth="50.0"
+                                maxWidth="50.0"
+                                promptText="Цена"/>
+                <PriceTextField fx:id="dpcSumTf"
+                                onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                                minWidth="50.0"
+                                maxWidth="50.0"
+                                promptText="Сумма"/>
+                <ComboBox fx:id="dpcUnitCb"
+                          onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                          minWidth="60.0"
+                          maxWidth="60.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="ш"/>
+                            <String fx:value="л"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox fx:id="dpcStateCb"
+                          onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                          prefWidth="50.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="н"/>
+                            <String fx:value="б"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox fx:id="dpcExecutorsCb"
+                          onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                          prefWidth="180.0"
+                          maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="excelDPCBtn" style="-fx-background-color: transparent; -fx-padding: 0">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30">
+                            <Image url="@../drawable/excel.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox spacing="10" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <AutoCompletedTextField fx:id="dfcNameTf"
+                                        onMouseClicked="#onPositionsMouseClicked"
+                                        prefHeight="30.0"
+                                        prefWidth="390.0" promptText="Детали от заказчика"
+                                        maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <IntTextField fx:id="dfcCountTf"
                               onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                              prefWidth="180.0"
-                              maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
-                    <Button fx:id="excelDFCBtn" style="-fx-background-color: transparent; -fx-padding: 0">
-                        <graphic>
-                            <ImageView fitHeight="30.0" fitWidth="30">
-                                <Image url="@../drawable/excel.png"/>
-                            </ImageView>
-                        </graphic>
-                    </Button>
-                </HBox>
-                <PriceTextField fx:id="totalPriceTf" editable="false"
-                                prefHeight="30.0" minWidth="60.0" maxWidth="60.0"/>
-                <MyTextField fx:id="ownerTf" editable="false" prefHeight="30.0"
-                             minWidth="210.0" maxWidth="210.0"/>
+                              minWidth="50.0"
+                              maxWidth="50.0"
+                              promptText="Кол-во"/>
+                <ComboBox fx:id="dfcUnitCb"
+                          onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                          minWidth="60.0"
+                          maxWidth="60.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="ш"/>
+                            <String fx:value="л"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox fx:id="dfcStateCb"
+                          onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                          minWidth="50.0"
+                          maxWidth="50.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="н"/>
+                            <String fx:value="б"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <ComboBox fx:id="dfcExecutorsCb"
+                          onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
+                          prefWidth="180.0"
+                          maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="excelDFCBtn" style="-fx-background-color: transparent; -fx-padding: 0">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30">
+                            <Image url="@../drawable/excel.png"/>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </HBox>
             <padding>
                 <Insets top="10.0"/>
             </padding>
         </VBox>
+
         <padding>
             <Insets top="20.0" right="20.0" left="20.0"/>
         </padding>
-    </HBox>
-    <ScrollPane prefHeight="200.0" prefWidth="200.0"
+    </VBox>
+    <ScrollPane fx:id="ooAndBillScroll" prefHeight="200.0" prefWidth="200.0"
                 style="-fx-background-color: rgb(255,200,118); -fx-background: rgb(255,200,118);"
                 AnchorPane.bottomAnchor="20.0"
                 AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-                AnchorPane.topAnchor="170.0">
+                AnchorPane.topAnchor="170.0"
+                visible="false">
         <AnchorPane fx:id="ooAndBillAp" minHeight="0.0" minWidth="0.0" prefHeight="1130.0"
                     prefWidth="1650.0" style="-fx-background-color: rgb(255,200,118);">
             <AnchorPane fx:id="ooAp" layoutX="-6.0" prefHeight="1130.0" prefWidth="800.0"

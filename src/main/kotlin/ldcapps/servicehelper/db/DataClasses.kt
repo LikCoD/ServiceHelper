@@ -5,30 +5,27 @@ import ldcapps.servicehelper.fromJSON
 import ldcapps.servicehelper.settings
 import java.io.File
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 sealed class DataClasses {
 
-    data class Date(var year: Int? = null, var month: Int? = null, var day: Int? = null) {
+    data class Date(val year: Int = 0, val month: Int = 0, val day: Int = 0) {
+        val localDate: LocalDate
+        get() = LocalDate.of(year, month, day)
+
+        val value: String
+        get() = DateTimeFormatter.ofPattern("dd.MM.yyyy").format(localDate).format()
+
         override fun toString() = "$year-$month-$day"
-
-        fun get() = "${if (day!! < 10) "0$day" else day}.${if (month!! < 10) "0$month" else month}.$year"
-
-        fun toLocalDate() =
-            if (year != 0 && month != null && day != null) LocalDate.of(year!!, month!!, day!!) else null
 
         constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
 
         constructor(date: java.sql.Date) : this(
-            date.toString().substring(0..3).toIntOrNull(),
-            date.toString().substring(5..6).toIntOrNull(),
-            date.toString().substring(8..9).toIntOrNull()
+            date.toString().substring(0..3).toIntOrNull() ?: 0,
+            date.toString().substring(5..6).toIntOrNull() ?: 0,
+            date.toString().substring(8..9).toIntOrNull() ?: 0
         )
 
-        constructor(date: String) : this(
-            date.substring(6..9).toIntOrNull(),
-            date.substring(3..4).toIntOrNull(),
-            date.substring(0..1).toIntOrNull(),
-        )
     }
 
     data class Report(
@@ -48,7 +45,7 @@ sealed class DataClasses {
         val vat: Double? = null,
         val workCount: Int = 0,
         val dfcCount: Int = 0,
-        val dpcCount: Int = 0
+        val dpcCount: Int = 0,
     )
 
     data class User(
@@ -70,7 +67,7 @@ sealed class DataClasses {
         val phone: String = "",
         val email: String = "",
         val footing: String = "",
-        val workers: MutableList<String> = mutableListOf()
+        val workers: MutableList<String> = mutableListOf(),
     )
 
     data class Car(
@@ -78,9 +75,9 @@ sealed class DataClasses {
         var keyNum: String = "",
         var model: String = "",
         var vin: String = "",
-        var year: String = "",
-        var engine: String = "",
-        var owner: String = ""
+        var year: Int = 0,
+        var engine: Double = 0.0,
+        var owner: String = "",
     )
 
     data class Company(
@@ -90,17 +87,17 @@ sealed class DataClasses {
         var bank: String = "",
         var bik: String = "",
         var prn: String = "",
-        var contractDate: String = ""
+        var contractDate: String = "",
     )
 
     data class Owner(
         var owner: String = "",
-        var company: String = ""
+        var company: String = "",
     )
 
     data class Individual(
         var individual: String = "",
-        var address: String = ""
+        var address: String = "",
     )
 
     data class ExcelTabs(val topMargin: Int = 1, val rightMargin: Int = 0, val tabsSequence: List<String>? = null)

@@ -19,10 +19,11 @@ repositories {
 dependencies {
     implementation("mysql", "mysql-connector-java", "8.0.23")
 
-    implementation("org.jsoup:jsoup:1.13.1")
+    implementation("org.jsoup:jsoup:1.14.2")
+    implementation("com.ibm.icu:icu4j:69.1")
 
-    implementation("com.google.code.gson:gson:2.8.6")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
+    implementation("com.google.code.gson:gson:2.8.8")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
     implementation("org.apache.poi", "poi", "5.0.0")
     implementation("org.apache.poi", "poi-ooxml", "5.0.0")

@@ -2,24 +2,40 @@ package ldclibs.javafx.controls
 
 import javafx.beans.InvalidationListener
 import javafx.scene.Parent
-import javafx.scene.control.*
-import javafx.scene.layout.VBox
+import javafx.scene.control.ListCell
+import javafx.scene.control.ListView
+import javafx.scene.control.PopupControl
+import javafx.scene.control.TextField
+import javafx.util.Callback
 import ldcapps.servicehelper.toFXList
 
-open class AutoCompletedTextField(
-    var items: List<String>? = null,
+
+open class AutoCompletedTextField<T>(
+    var items: List<T>? = null,
     val textField: MyTextField? = null,
     private var filter: Regex? = null,
     private var replacement: (String, String) -> String = { c, _ -> c },
     var maxSize: Int? = null,
-    var allCaps: Boolean = false
+    var allCaps: Boolean = false,
+    var getString: ((T) -> String) = { it.toString() },
 ) : TextField() {
     private val popup = PopupControl()
+
 
     val node: Parent?
         get() =
             if (items != null)
-                ListView(items!!.distinct().filter { it.contains(text, true) }.toFXList()).apply {
+                ListView(items!!.distinct().filter { getString(it).contains(text, true) }.toFXList()).apply {
+                    cellFactory = Callback<ListView<T>?, ListCell<T>?> {
+                        object : ListCell<T>() {
+                            override fun updateItem(item: T, empty: Boolean) {
+                                super.updateItem(item, empty)
+                                if (empty) return
+
+                                text = getString(item)
+                            }
+                        }
+                    }
                     prefWidth = this@AutoCompletedTextField.width
                     prefHeight = items.size * 28.0 + 2
                     fixedCellSize = 28.0
@@ -29,7 +45,7 @@ open class AutoCompletedTextField(
                         selectionModel.selectedItems.getOrNull(0)?.let { item ->
                             popup.hide()
 
-                            text = item
+                            text = getString(item)
                             positionCaret(text.length)
 
                             onAutoCompleted(item)
@@ -38,7 +54,7 @@ open class AutoCompletedTextField(
                 }
             else null
 
-    var onAutoCompleted: (String) -> Unit = {}
+    var onAutoCompleted: (T) -> Unit = {}
 
     private fun showPopup() {
         if (node != null) {
@@ -55,7 +71,7 @@ open class AutoCompletedTextField(
         focusedProperty().addListener(InvalidationListener { if (isFocused) showPopup() else popup.hide() })
 
 
-        if (textField != null){
+        if (textField != null) {
             replacement = textField.replacement
             maxSize = textField.maxSize
             filter = textField.filter

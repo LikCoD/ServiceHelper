@@ -15,6 +15,7 @@ import java.net.URL
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.properties.Delegates
 
 class CreateAct : Initializable {
     lateinit var stage: Stage
@@ -100,13 +101,13 @@ class CreateAct : Initializable {
             detailCb.items = (ooAndBill.dfcs.map { it.name } + ooAndBill.dpcs.map { it.name }).toFXList()
             act.abbreviatedFullName = abbreviatedCompanyName
             act.executionDate = executionDate.toString()
-            act.carNumber = carNumber
-            act.carModel = carModel
+            act.carNumber = car!!.number
+            act.carModel = car!!.model
             act.carMileage = carMileage
-            act.carEngine = carEngine
-            act.carYear = carYear
-            act.carVIN = carVIN
-            act.carOwner = customerOwner
+            act.carEngine = car!!.engine
+            act.carYear = car!!.year
+            act.carVIN = car!!.vin
+            act.carOwner = car!!.owner
             initAct()
         }
     }
@@ -119,7 +120,7 @@ class CreateAct : Initializable {
                 work = workCb.editor.text ?: ""
                 detail = detailCb.editor.text ?: ""
                 date = dateP.editor.text
-                carMileage = mileageTf.text
+                carMileage = mileageTf.text.toInt()
                 headerTx.text =
                     "$date на СТО $abbreviatedFullName, расположенным по адресу " +
                             "${DataClasses.user.serviceAddress} поступил автомобиль марки $carModel $carYear года выпуска, VIN " +
@@ -145,7 +146,7 @@ class CreateAct : Initializable {
             detailCb.editor.text = detail
             detailCb.items = fxList(detail)
             dateP.editor.text = date
-            mileageTf.text = carMileage
+            mileageTf.text = carMileage.toString()
         }
         initAct()
     }
@@ -161,9 +162,9 @@ class CreateAct : Initializable {
         var ooNumber: Int = 0
         lateinit var carNumber: String
         lateinit var carModel: String
-        lateinit var carMileage: String
-        lateinit var carEngine: String
-        lateinit var carYear: String
+        var carMileage: Int? = null
+        var carEngine by Delegates.notNull<Double>()
+        var carYear by Delegates.notNull<Int>()
         lateinit var carVIN: String
         lateinit var carOwner: String
 

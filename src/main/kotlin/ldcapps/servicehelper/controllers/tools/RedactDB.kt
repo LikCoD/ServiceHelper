@@ -202,13 +202,13 @@ class RedactDB : Initializable {
 
     fun changeCarYearCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
         if (editEvent.newValue.toIntOrNull() != null)
-            carsTable.selectionModel.selectedItem.year = editEvent.newValue
+            carsTable.selectionModel.selectedItem.year = editEvent.newValue.toIntOrNull() ?: 0
         else Dialogs.warning("Данные введены неправильно")
     }
 
     fun changeCarEngineCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
         if (editEvent.newValue.toDoubleOrNull() != null)
-            carsTable.selectionModel.selectedItem.engine = editEvent.newValue
+            carsTable.selectionModel.selectedItem.engine = editEvent.newValue.toDoubleOrNull() ?: 0.0
         else Dialogs.warning("Данные введены неправильно")
     }
 

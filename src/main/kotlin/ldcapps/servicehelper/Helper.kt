@@ -1,6 +1,7 @@
 package ldcapps.servicehelper
 
 import com.google.gson.Gson
+import com.ibm.icu.text.RuleBasedNumberFormat
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.fxml.FXMLLoader
@@ -17,6 +18,8 @@ import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.Row
 import java.awt.Toolkit
 import java.io.File
+import java.text.DecimalFormat
+import java.util.*
 
 data class Settings(
     var oosLocate: String = "",
@@ -30,17 +33,23 @@ data class Settings(
 )
 
 class Data {
-    var works: MutableList<String> = mutableListOf()
-    var dpcs: MutableList<String> = mutableListOf()
-    var dfcs: MutableList<String> = mutableListOf()
-    var worksPrices: MutableMap<String, MutableMap<String, Double>> = mutableMapOf()
-    var dpcsPrices: MutableMap<String, MutableMap<String, Pair<String, Double>>> = mutableMapOf()
+    var works: MutableSet<Hint> = mutableSetOf()
+    var dpcs: MutableSet<Hint> = mutableSetOf()
+    var dfcs: MutableSet<Hint> = mutableSetOf()
     var bankAddresses: MutableList<String> = mutableListOf()
     var footings: MutableList<String> = mutableListOf()
     var inPersons: MutableList<String> = mutableListOf()
     var banks: MutableList<Bank> = mutableListOf()
 
     data class Bank(var bik: String = "", var name: String = "", var address: String = "")
+    data class Hint(
+        val carModel: String,
+        val name: String,
+        var price: Double? = null,
+        var count: Int? = null,
+        var state: String? = null,
+        var unit: String? = null,
+    )
 }
 
 var settings = fromJSON<Settings>(".settings")
@@ -126,7 +135,8 @@ fun inSize(vararg p: Pair<Node, Int>): Boolean {
 inline fun <reified T> fromJSON(file: File, textNotExist: String = "{}"): T {
     if (!file.exists()) file.writeText(textNotExist)
 
-    return Gson().fromJson(file.readText(), T::class.java)
+    val text = file.readText()
+    return Gson().fromJson(text, T::class.java)
 }
 
 inline fun <reified T> fromJSON(fileName: String, textNotExist: String = "{}"): T =
@@ -134,9 +144,8 @@ inline fun <reified T> fromJSON(fileName: String, textNotExist: String = "{}"): 
 
 inline fun <reified T : Any> arrFromJSON(file: String): MutableList<T> = fromJSON<Array<T>>(file, "[]").toMutableList()
 
-fun <T : Any> toJSON(fileName: String, jClass: T) {
-    File(fileName).writeText(Gson().toJson(jClass))
-}
+fun <T : Any> toJSON(fileName: String, jClass: T) = toJSON(File(fileName), jClass)
+fun <T : Any> toJSON(file: File, jClass: T) = file.writeText(Gson().toJson(jClass))
 
 inline fun <reified O> getCellValue(cell: Cell?, defValue: O) = when (cell?.cellType) {
     CellType.NUMERIC -> Converter().toGenerics(cell.numericCellValue) ?: defValue
@@ -161,3 +170,10 @@ fun TableView<*>.initTableSize(vararg proportions: Int) {
 
 fun <T> loadFXML(fxml: FXML): T = fxmlLoader(fxml).load()
 fun fxmlLoader(fxml: FXML) = FXMLLoader(Windows::class.java.classLoader.getResource("fxml/${fxml.path}.fxml"))
+
+fun numToStr(n: Double): String {
+    val text = RuleBasedNumberFormat(Locale.forLanguageTag("ru"), RuleBasedNumberFormat.SPELLOUT).format(n.toInt())
+    val penny = DecimalFormat(".00").format(n).substringAfter(".")
+
+    return "${text.replaceFirstChar { it.titlecase(Locale.getDefault()) }} рублей $penny копеек"
+}

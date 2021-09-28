@@ -25,10 +25,10 @@ import java.util.*
 class AddCar : Initializable {
     lateinit var confirmBtn: Button
     lateinit var customerCb: ComboBox<String>
-    lateinit var ownerTf: AutoCompletedTextField
-    lateinit var individualTf: AutoCompletedTextField
-    lateinit var addressTf: AutoCompletedTextField
-    lateinit var modelTf: AutoCompletedTextField
+    lateinit var ownerTf: AutoCompletedTextField<String>
+    lateinit var individualTf: AutoCompletedTextField<String>
+    lateinit var addressTf: AutoCompletedTextField<String>
+    lateinit var modelTf: AutoCompletedTextField<String>
     lateinit var vinTf: MyTextField
     lateinit var yearTf: AutoCompletedIntTextField
     lateinit var engineTf: AutoCompletedDoubleTextField
@@ -95,7 +95,7 @@ class AddCar : Initializable {
                         cars.add(
                             DataClasses.Car(
                                 numberPicker.value, keyTf.text, modelTf.text,
-                                vinTf.text, yearTf.text, engineTf.text, customerCb.value
+                                vinTf.text, yearTf.text.toInt(), engineTf.text.toDouble(), customerCb.value
                             )
                         )
 

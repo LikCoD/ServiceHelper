@@ -42,16 +42,16 @@ class PriceTextField(maxSize: Int? = null, allCaps: Boolean = false) :
 
 
 class AutoCompletedIntTextField(maxSize: Int? = null, allCaps: Boolean = false) :
-    AutoCompletedTextField(textField = IntTextField(maxSize, allCaps))
+    AutoCompletedTextField<Int>(textField = IntTextField(maxSize, allCaps))
 
 class AutoCompletedDoubleTextField(maxSize: Int? = null, allCaps: Boolean = false) :
-    AutoCompletedTextField(textField = DoubleTextField(maxSize, allCaps))
+    AutoCompletedTextField<Double>(textField = DoubleTextField(maxSize, allCaps))
 
 class AutoCompletedStringTextField(maxSize: Int? = null, allCaps: Boolean = false) :
-    AutoCompletedTextField(textField = StringTextField(maxSize, allCaps))
+    AutoCompletedTextField<String>(textField = StringTextField(maxSize, allCaps))
 
 class AutoCompletedPriceTextField(maxSize: Int? = null, allCaps: Boolean = false) :
-    AutoCompletedTextField(textField = PriceTextField(maxSize, allCaps))
+    AutoCompletedTextField<Double>(textField = PriceTextField(maxSize, allCaps))
 
 
 open class IntTextFieldTableCell<S>(maxSize: Int? = null, allCaps: Boolean = false) :

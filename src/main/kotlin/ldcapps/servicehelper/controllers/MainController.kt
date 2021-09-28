@@ -40,7 +40,7 @@ class MainController : Initializable {
 
     fun fillOO(ooAndBill: OOController.OOAndBill, path: String = "") {
         pane.tabs += Tab("Загрузка").apply {
-            setOnSelectionChanged { if (isSelected) changeStageSize(FXML.OO) }
+            setOnSelectionChanged { if (isSelected) changeStageSize(FXML.OOCollapsed) }
             setOnCloseRequest { if (!Dialogs.confirmation("Подтвердите выход")) it.consume() }
         }
 

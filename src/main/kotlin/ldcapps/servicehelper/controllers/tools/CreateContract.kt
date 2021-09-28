@@ -28,10 +28,10 @@ class CreateContract : Initializable {
     lateinit var openBtn: Button
     lateinit var cusFullNameTf: TextField
     lateinit var cusPATf: BankPicker
-    lateinit var footingTf: AutoCompletedTextField
+    lateinit var footingTf: AutoCompletedTextField<String>
     lateinit var cusPRNTf: PRNPicker
     lateinit var dateP: DatePicker
-    lateinit var cusInPersonTf: AutoCompletedTextField
+    lateinit var cusInPersonTf: AutoCompletedTextField<String>
     lateinit var cusPhoneTf: PhonePicker
     lateinit var cusEmailTf: TextField
     lateinit var page1: AnchorPane

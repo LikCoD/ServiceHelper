@@ -7,12 +7,10 @@ import javafx.application.Platform
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import ldcapps.servicehelper.controllers.*
-import ldcapps.servicehelper.controllers.tools.Signup
 import ldcapps.servicehelper.controllers.tools.ToolSelector
 import kotlin.system.exitProcess
 
 var isOnline = false
-
 var args: Array<String> = arrayOf()
 
 fun main(arguments: Array<String>) {
@@ -38,13 +36,18 @@ fun main(arguments: Array<String>) {
 
 class Windows : Application() {
 
-    override fun start(stage: Stage) = loadFXML<Stage>(FXML.Main).show()
+    override fun start(primaryStage: Stage) {
+        val loader = fxmlLoader(FXML.Main)
+        val stage = loader.load<Stage>()
+        ooController = loader.getController()
+        stage.show()
+    }
 
     companion object {
-        val ooController: MainController? by lazy {
+        var ooController: MainController? = null/* by lazy {
             Signup.type = Signup.Companion.Type.SETTINGS
             init<MainController>(FXML.Main)
-        }
+        }*/
 
         fun tools() = init<ToolSelector>(FXML.ToolSelector)
         fun print(stage: Stage) = init<Print>(FXML.Print, stage)

@@ -5,32 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="752c9748-b055-4206-9984-28395c6e79fb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.settings" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/FXML.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/OONumber.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarDataController.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/drawable/preview.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ldcapps/servicehelper/controllers/NumToString.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/FXML.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/FXML.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarData.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarData.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CreateAct.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CreateAct.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/CreateContract.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/CreateContract.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDB.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDB.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/AutoCompletedTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/AutoCompletedTextField.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/TextFields.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/TextFields.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/CarData.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/CarData.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Main.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/OO.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/OO.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/Convert.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/converter.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/crypt.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/date.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/json.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/mac.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/main.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/max.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/report.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,8 +64,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Class" />
-        <option value="JUnit5 Test Class" />
         <option value="Kotlin Enum" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -89,6 +87,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="PLAIN_TEXT" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -97,24 +96,49 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs.jest.jest_package" value="" />
-    <property name="settings.editor.selected.configurable" value="inlay.hints.kotlin" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="P:\Kotlin\ServiceHelper\src\main\resources\drawable" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="ldcapps.servicehelper" />
       <recent name="ldcapps.servicehelper.controllers" />
+      <recent name="ldcapps.servicehelper" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.WindowsKt">
+  <component name="RunManager" selected="Kotlin.Test">
     <configuration name="HelperKtTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" value="--tests &quot;ldcapps.servicehelper.HelperKtTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="NumToString.test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ldcapps.servicehelper.controllers.NumToString.test&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -149,6 +173,16 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="NumToString" type="JUnit" factoryName="JUnit">
+      <module name="ServiceHelper.test" />
+      <option name="PACKAGE_NAME" value="ldcapps.servicehelper.controllers" />
+      <option name="MAIN_CLASS_NAME" value="ldcapps.servicehelper.controllers.NumToString" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OONumber" type="JUnit" factoryName="JUnit">
       <module name="ServiceHelper.test" />
       <option name="PACKAGE_NAME" value="" />
@@ -159,7 +193,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WindowsKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+    <configuration name="Test" type="JetRunConfigurationType" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="ldcapps.servicehelper.WindowsKt" />
+      <module name="ServiceHelper.main" />
+      <shortenClasspath name="NONE" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../ServiceHelperTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Work" type="JetRunConfigurationType">
       <option name="MAIN_CLASS_NAME" value="ldcapps.servicehelper.WindowsKt" />
       <module name="ServiceHelper.main" />
       <shortenClasspath name="NONE" />
@@ -171,12 +214,16 @@
     <list>
       <item itemvalue="Gradle.ServiceHelperEXE" />
       <item itemvalue="Gradle.HelperKtTest" />
+      <item itemvalue="Gradle.NumToString.test" />
       <item itemvalue="JUnit.OONumber" />
-      <item itemvalue="Kotlin.WindowsKt" />
+      <item itemvalue="JUnit.NumToString" />
+      <item itemvalue="Kotlin.Work" />
+      <item itemvalue="Kotlin.Test" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.WindowsKt" />
+        <item itemvalue="Kotlin.Test" />
+        <item itemvalue="Gradle.NumToString.test" />
         <item itemvalue="Gradle.HelperKtTest" />
       </list>
     </recent_temporary>
@@ -196,8 +243,17 @@
       <workItem from="1631734810995" duration="4558000" />
       <workItem from="1632472152658" duration="604000" />
       <workItem from="1632599750097" duration="3417000" />
-      <workItem from="1632663493931" duration="11878000" />
+      <workItem from="1632663493931" duration="28552000" />
+      <workItem from="1632770891464" duration="11438000" />
     </task>
+    <task id="LOCAL-00001" summary="Improve code">
+      <created>1632681918949</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1632681918949</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,10 +272,33 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
+    <MESSAGE value="Improve code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve code" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainController.kt</url>
+          <line>83</line>
+          <properties>
+            <option name="lambda-ordinal" value="0" />
+          </properties>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt</url>
+          <line>138</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
