@@ -7,48 +7,52 @@ import javafx.scene.control.ToggleButton
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
+import javafx.stage.Stage
+import javafx.stage.Window
 import ldcapps.servicehelper.Dialogs
-import ldcapps.servicehelper.controllers.tools.ToolSelector.Companion.toolPane
-import ldcapps.servicehelper.controllers.tools.ToolSelector.Companion.toolStage
+import ldcapps.servicehelper.FXMLInfo
+import ldcapps.servicehelper.controllers.tools.ToolSelectorController.Companion.toolPane
 import ldcapps.servicehelper.db.DataClasses
 
-enum class Panes(
-    private val fileName: String,
+enum class Tools(
+    private val info: FXMLInfo,
     private val text: String,
     private val isMaximized: Boolean = false,
-    private val minWidth: Double = 650.0,
-    private val minHeight: Double = 350.0
 ) {
 
-    ADD_CAR("Add car", "Добавить авто"),
-    CREATE_CONTRACT("Create contract", "Создать договор", true, 1000.0),
-    REDACT_DB("Redact DB", "Редактировать БД", true, 800.0),
-    GET_REPORT("Get report", "Получить  отчет", true, 800.0),
-    SETTINGS("Signup", "Настройки", false, 750.0, 730.0);
+    ADD_CAR(FXMLInfo.TOOL_ADD_CAR, "Добавить авто"),
+    CREATE_CONTRACT(FXMLInfo.TOOL_CREATE_CONTRACT, "Создать договор", true),
+    REDACT_DB(FXMLInfo.TOOL_REDACT_DB, "Редактировать БД", true),
+    GET_REPORT(FXMLInfo.TOOL_GET_REPORT, "Получить  отчет", true),
+    SETTINGS(FXMLInfo.TOOL_SING_UP, "Настройки", false);
 
-    fun <T> show(btn: ToggleButton): T {
+    fun <T> show(toggleButton: ToggleButton, window: Window): T {
         val controller = update<T>()
 
-        toolStage.title = text
-        toolStage.isMaximized = isMaximized
-        toolStage.minWidth = minWidth
-        toolStage.minHeight = minHeight
+        if (info.minWidth == null || info.minHeight == null) return controller
 
-        btn.isSelected = true
+        val stage = window as Stage
 
-        if (!toolStage.isMaximized) {
-            toolStage.width = minWidth
-            toolStage.height = minHeight
+        stage.title = text
+        stage.isMaximized = isMaximized
+        stage.minWidth = info.minWidth
+        stage.minHeight = info.minHeight
+
+        toggleButton.isSelected = true
+
+        if (!stage.isMaximized) {
+            stage.width = info.minWidth
+            stage.height = info.minHeight
         }
 
         return controller
     }
 
     fun <T> update(): T {
-        val loader = FXMLLoader(javaClass.classLoader.getResource("fxml/Tools/$fileName.fxml"))
+        val loader = FXMLLoader(javaClass.classLoader.getResource("fxml/${info.path}.fxml"))
         val pane = loader.load<AnchorPane>()
 
-        if (fileName == "Signup")
+        if (info == FXMLInfo.TOOL_SING_UP)
             (pane.children[0] as VBox).children.add(0, HBox().apply {
                 alignment = Pos.CENTER_RIGHT
                 spacing = 10.0

@@ -8,7 +8,7 @@ import ldcapps.servicehelper.Dialogs
 import java.net.URL
 import java.util.*
 
-class ToolSelector : Initializable {
+class ToolSelectorController : Initializable {
     lateinit var stage: Stage
     lateinit var pane: AnchorPane
     lateinit var addCarTb: ToggleButton
@@ -18,21 +18,21 @@ class ToolSelector : Initializable {
     lateinit var settingsTb: ToggleButton
 
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
-        toolStage = stage
+        //toolStage = stage
         toolPane = pane
 
-        Panes.ADD_CAR.show<AddCar>(addCarTb)
+        Tools.ADD_CAR.show<AddCarController>(addCarTb, stage)
 
-        addCarTb.setOnAction { Panes.ADD_CAR.show<AddCar>(addCarTb) }
-        createContractTb.setOnAction { (Panes.CREATE_CONTRACT.show<CreateContract>(createContractTb)).loadData(null) }
-        redactDBTb.setOnAction { Panes.REDACT_DB.show(redactDBTb) }
-        getReportTb.setOnAction { Panes.GET_REPORT.show(getReportTb) }
-        settingsTb.setOnAction { Panes.SETTINGS.show(settingsTb) }
+        addCarTb.setOnAction { Tools.ADD_CAR.show<AddCarController>(addCarTb, stage) }
+        createContractTb.setOnAction { (Tools.CREATE_CONTRACT.show<CreateContract>(createContractTb, stage)).loadData(null) }
+        redactDBTb.setOnAction { Tools.REDACT_DB.show(redactDBTb, stage) }
+        getReportTb.setOnAction { Tools.GET_REPORT.show(getReportTb, stage) }
+        settingsTb.setOnAction { Tools.SETTINGS.show(settingsTb, stage) }
         stage.setOnCloseRequest { if (!Dialogs.confirmation("Подтвердите выход")) it.consume() }
     }
 
     companion object {
         lateinit var toolPane: AnchorPane
-        lateinit var toolStage: Stage
+        //lateinit var toolStage: Stage
     }
 }

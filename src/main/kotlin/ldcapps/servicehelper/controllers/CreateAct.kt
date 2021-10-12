@@ -99,7 +99,7 @@ class CreateAct : Initializable {
             act.ooNumber = ooAndBill.number
             workCb.items = ooAndBill.works.map { it.name }.toFXList()
             detailCb.items = (ooAndBill.dfcs.map { it.name } + ooAndBill.dpcs.map { it.name }).toFXList()
-            act.abbreviatedFullName = abbreviatedCompanyName
+            act.abbreviatedFullName = executor!!.abbreviatedExecutor
             act.executionDate = executionDate.toString()
             act.carNumber = car!!.number
             act.carModel = car!!.model

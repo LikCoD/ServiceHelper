@@ -7,7 +7,7 @@ import javafx.application.Platform
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import ldcapps.servicehelper.controllers.*
-import ldcapps.servicehelper.controllers.tools.ToolSelector
+import ldcapps.servicehelper.controllers.tools.ToolSelectorController
 import kotlin.system.exitProcess
 
 var isOnline = false
@@ -37,7 +37,7 @@ fun main(arguments: Array<String>) {
 class Windows : Application() {
 
     override fun start(primaryStage: Stage) {
-        val loader = fxmlLoader(FXML.Main)
+        val loader = fxmlLoader(FXMLInfo.Main)
         val stage = loader.load<Stage>()
         ooController = loader.getController()
         stage.show()
@@ -49,15 +49,15 @@ class Windows : Application() {
             init<MainController>(FXML.Main)
         }*/
 
-        fun tools() = init<ToolSelector>(FXML.ToolSelector)
-        fun print(stage: Stage) = init<Print>(FXML.Print, stage)
-        fun act() = init<CreateAct>(FXML.CreateAct)
-        fun blank() = init<Blank>(FXML.Blank)
-        fun login() = init<Login>(FXML.Login)
+        fun tools() = init<ToolSelectorController>(FXMLInfo.ToolSelector)
+        fun print(stage: Stage) = init<Print>(FXMLInfo.Print, stage)
+        fun act() = init<CreateAct>(FXMLInfo.CreateAct)
+        fun blank() = init<Blank>(FXMLInfo.Blank)
+        fun login() = init<Login>(FXMLInfo.Login)
 
-        private fun <T> init(FXML: FXML, primaryStage: Stage? = null): T? {
+        private fun <T> init(FXMLInfo: FXMLInfo, primaryStage: Stage? = null): T? {
             try {
-                val loader = fxmlLoader(FXML)
+                val loader = fxmlLoader(FXMLInfo)
                 loader.load<Stage>().apply {
                     if (primaryStage != null) {
                         initStyle(StageStyle.UTILITY)

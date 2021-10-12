@@ -9,9 +9,10 @@ import javafx.scene.Node
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TableView
 import javafx.scene.control.TextField
+import javafx.stage.Stage
 import ldcapps.servicehelper.controllers.tools.CreateContract
-import ldcapps.servicehelper.controllers.tools.Panes
-import ldcapps.servicehelper.controllers.tools.ToolSelector
+import ldcapps.servicehelper.controllers.tools.ToolSelectorController
+import ldcapps.servicehelper.controllers.tools.Tools
 import ldcapps.servicehelper.db.DataClasses
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
@@ -73,30 +74,32 @@ fun getToken(): String? {
     return null
 }
 
-fun open(path: String? = null) {
+fun open(path: String? = null, stage: Stage? = null) {
     if (!isOnline || DataClasses.db?.checkToken() == true) {
         val mainController = Windows.ooController
         val extension = path?.substringAfterLast(".")
         val controller =
-            if (extension == "oab" || extension == "oo" || extension == null) ToolSelector() else Windows.tools()!!
+            if (extension == "oab" || extension == "oo" || extension == null) ToolSelectorController() else Windows.tools()!!
 
-        if (path != null)
-            when (extension) {
-                "db" -> Panes.REDACT_DB.show(controller.redactDBTb)
-                "report" -> Panes.GET_REPORT.show(controller.getReportTb)
-                "settings" -> Panes.SETTINGS.show(controller.settingsTb)
-                "contract" -> (Panes.CREATE_CONTRACT.show<CreateContract>(controller.createContractTb)).loadData(path)
-                "act" -> Windows.act()?.fill(fromJSON(path), path)
-                "oab", "oo" -> mainController?.fillOO(fromJSON(path), path)
-                else -> Dialogs.warning("Ошибка инициализации файла")
-            }
+        if (path == null || stage == null) return
+
+        when (extension) {
+            "db" -> Tools.REDACT_DB.show(controller.redactDBTb, stage)
+            "report" -> Tools.GET_REPORT.show(controller.getReportTb, stage)
+            "settings" -> Tools.SETTINGS.show(controller.settingsTb, stage)
+            "contract" -> (Tools.CREATE_CONTRACT.show<CreateContract>(controller.createContractTb, stage)).loadData(path)
+            "act" -> Windows.act()?.fill(fromJSON(path), path)
+            "oab", "oo" -> mainController?.fillOO(fromJSON(path), path)
+            else -> Dialogs.warning("Ошибка инициализации файла")
+        }
+
     } else {
         DataClasses.delete()
         Windows.login()
     }
 }
 
-fun <E> List<E>.toFXList(): ObservableList<E> = FXCollections.observableArrayList(this)
+fun <E> Iterable<E>.toFXList(): ObservableList<E> = FXCollections.observableArrayList(this.toList())
 fun fxList(vararg el: String): ObservableList<String> = FXCollections.observableArrayList(*el)
 
 fun isNotNull(vararg nodes: Node, playAnim: Boolean = true): Boolean {
@@ -168,8 +171,9 @@ fun TableView<*>.initTableSize(vararg proportions: Int) {
     columns.forEachIndexed { i, tableColumn -> tableColumn.prefWidth = proportions[i] * w }
 }
 
-fun <T> loadFXML(fxml: FXML): T = fxmlLoader(fxml).load()
-fun fxmlLoader(fxml: FXML) = FXMLLoader(Windows::class.java.classLoader.getResource("fxml/${fxml.path}.fxml"))
+fun <T> loadFXML(fxmlInfo: FXMLInfo): T = fxmlLoader(fxmlInfo).load()
+fun fxmlLoader(fxmlInfo: FXMLInfo) =
+    FXMLLoader(Windows::class.java.classLoader.getResource("fxml/${fxmlInfo.path}.fxml"))
 
 fun numToStr(n: Double): String {
     val text = RuleBasedNumberFormat(Locale.forLanguageTag("ru"), RuleBasedNumberFormat.SPELLOUT).format(n.toInt())

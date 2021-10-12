@@ -8,6 +8,7 @@ import javafx.scene.control.Label
 import javafx.scene.control.TextField
 import javafx.scene.layout.AnchorPane
 import javafx.scene.text.Text
+import javafx.stage.Stage
 import ldcapps.servicehelper.*
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.companies
@@ -113,9 +114,9 @@ class CreateContract : Initializable {
                         toJSON(".data", data)
 
                         Dialogs.confirmation("Договор успешно создан и находится по пути:\n$path\nРаспечатать его?") {
-                            Dialogs.print(ToolSelector.toolStage, PageOrientation.PORTRAIT, page1, page2)
+                            Dialogs.print(confirmBtn.scene.window as Stage, PageOrientation.PORTRAIT, page1, page2)
                         }
-                        Panes.CREATE_CONTRACT.update<CreateContract>()
+                        Tools.CREATE_CONTRACT.update<CreateContract>()
                     } catch (ex: Exception) {
                         Dialogs.warning("Невозможно создать Договор")
                     }
@@ -123,7 +124,7 @@ class CreateContract : Initializable {
             }
         }
 
-        openBtn.setOnAction { loadData(Dialogs.getFile(ToolSelector.toolStage, settings.contractsLocate)) }
+        openBtn.setOnAction { loadData(Dialogs.getFile(openBtn.scene.window as Stage, settings.contractsLocate)) }
     }
 
     fun initContract() {

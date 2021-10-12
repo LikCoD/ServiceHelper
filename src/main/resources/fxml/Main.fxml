@@ -10,7 +10,7 @@
     <scene>
         <Scene>
             <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                     prefHeight="400.0" prefWidth="600.0" fx:id="tabPane" tabDragPolicy="REORDER"/>
+                     prefHeight="400.0" prefWidth="600.0" fx:id="tabPane"/>
         </Scene>
     </scene>
 </Stage>

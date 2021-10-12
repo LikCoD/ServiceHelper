@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<Stage fx:id="stage" fullScreenExitHint="" minHeight="400.0" minWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ldcapps.servicehelper.controllers.tools.ToolSelector">
+<Stage fx:id="stage" fullScreenExitHint="" minHeight="400.0" minWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ldcapps.servicehelper.controllers.tools.ToolSelectorController">
     <scene>
         <Scene>
             <HBox minHeight="380.0" prefHeight="380.0" prefWidth="650.0" spacing="20.0" style="-fx-background-color: rgb(255,200,118);" >

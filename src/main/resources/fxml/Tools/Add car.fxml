@@ -9,7 +9,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="380.0" prefWidth="540.0"
             style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1"
-            fx:controller="ldcapps.servicehelper.controllers.tools.AddCar">
+            fx:controller="ldcapps.servicehelper.controllers.tools.AddCarController">
     <VBox spacing="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
           AnchorPane.topAnchor="0.0">
         <HBox spacing="10">
@@ -20,9 +20,9 @@
         </HBox>
         <HBox spacing="10">
             <AutoCompletedTextField fx:id="individualTf" prefHeight="30.0" prefWidth="250.0" maxWidth="Infinity"
-                                    promptText="Заказчик / Физ. лицо" HBox.hgrow="ALWAYS"/>
+                                    promptText="Заказчик / Физ. лицо" HBox.hgrow="ALWAYS" disable="true"/>
             <AutoCompletedTextField fx:id="addressTf" prefHeight="30.0" prefWidth="250.0" maxWidth="Infinity"
-                                    promptText="Адрес" HBox.hgrow="ALWAYS"/>
+                                    promptText="Адрес" HBox.hgrow="ALWAYS" disable="true"/>
         </HBox>
         <HBox spacing="10">
             <AutoCompletedTextField fx:id="modelTf" prefHeight="30.0" prefWidth="510.0" promptText="Модель"

@@ -109,8 +109,8 @@
                               promptText="Кол-во"/>
                 <PriceTextField fx:id="dpcPriceTf"
                                 onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                                minWidth="50.0"
-                                maxWidth="50.0"
+                                minWidth="60.0"
+                                maxWidth="60.0"
                                 promptText="Цена"/>
                 <PriceTextField fx:id="dpcSumTf"
                                 onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
@@ -123,18 +123,19 @@
                           maxWidth="60.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="ш"/>
-                            <String fx:value="л"/>
+                            <String fx:value="шт."/>
+                            <String fx:value="л."/>
                         </FXCollections>
                     </items>
                 </ComboBox>
                 <ComboBox fx:id="dpcStateCb"
                           onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                          prefWidth="50.0">
+                          minWidth="60.0"
+                          maxWidth="60.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="н"/>
-                            <String fx:value="б"/>
+                            <String fx:value="новое"/>
+                            <String fx:value="б/у"/>
                         </FXCollections>
                     </items>
                 </ComboBox>
@@ -167,19 +168,19 @@
                           maxWidth="60.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="ш"/>
-                            <String fx:value="л"/>
+                            <String fx:value="шт."/>
+                            <String fx:value="л."/>
                         </FXCollections>
                     </items>
                 </ComboBox>
                 <ComboBox fx:id="dfcStateCb"
                           onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
-                          minWidth="50.0"
-                          maxWidth="50.0">
+                          minWidth="60.0"
+                          maxWidth="60.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="н"/>
-                            <String fx:value="б"/>
+                            <String fx:value="новое"/>
+                            <String fx:value="б/у"/>
                         </FXCollections>
                     </items>
                 </ComboBox>
@@ -453,17 +454,17 @@
                                 <Column fx:id="workNumberCol" prefWidth="25.0"
                                         style="-fx-border-width: 0 0 1 1;" text="&#10;№&#10; "/>
                                 <Column fx:id="workNameCol"
-                                        onEditCommit="#changeWorkNameCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="530.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Наименование работ"/>
                                 <Column fx:id="workHourNormCol" prefWidth="40.0"
                                         style="-fx-border-width: 0 0 1 1;" text="Н/ч"/>
                                 <Column fx:id="workPriceCol"
-                                        onEditCommit="#changeWorkPriceCellEvent"
+                                        onEditCommitted="#refresh"
                                         style="-fx-border-width: 0 0 1 1;"
                                         text="Стоимость &#10;     услуг"/>
                                 <Column fx:id="workExecutorsCol" minWidth="0.0"
-                                        onEditCommit="#changeWorkExecutorCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="100.0"
                                         style="-fx-border-width: 0 1 1 1;" text="Исполнитель"/>
                             </columns>
@@ -485,30 +486,30 @@
                                 <Column fx:id="dpcNumberCol" prefWidth="25.0"
                                         style="-fx-border-width: 0 0 1 1;" text="&#10;№&#10; "/>
                                 <Column fx:id="dpcDetailCol"
-                                        onEditCommit="#changeDPCDetailCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="360.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Наименование запчастей и материалов"/>
                                 <Column fx:id="dpcUnitCol"
-                                        onEditCommit="#changeDPCUnitCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="70.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Ед. изм."/>
                                 <Column fx:id="dpcCountCol"
-                                        onEditCommit="#changeDPCCountCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="50.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Кол-во"/>
                                 <Column fx:id="dpcStateCol"
-                                        onEditCommit="#changeDPCStateCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="70.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Состояние"/>
                                 <Column fx:id="dpcPriceCol"
-                                        onEditCommit="#changeDPCPriceCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="50.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Цена"/>
-                                <Column fx:id="dpcSumCol" onEditCommit="#changeDPCSumCellEvent"
+                                <Column fx:id="dpcSumCol" onEditCommitted="#refresh"
                                         prefWidth="50.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Сумма"/>
                                 <Column fx:id="dpcExecutorsCol"
-                                        onEditCommit="#changeDPCExecutorCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="100.0" style="-fx-border-width: 0 1 1 1;"
                                         text="Отпустил &#10;(получил)"/>
                             </columns>
@@ -530,23 +531,23 @@
                                 <Column fx:id="dfcNumberCol" prefWidth="25.0"
                                         style="-fx-border-width: 0 0 1 1;" text="&#10;№&#10; "/>
                                 <Column fx:id="dfcDetailCol"
-                                        onEditCommit="#changeDFCDetailCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="470.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Наименование запчастей и материалов"/>
                                 <Column fx:id="dfcUnitCol"
-                                        onEditCommit="#changeDFCUnitCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="60.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Ед. изм."/>
                                 <Column fx:id="dfcCountCol"
-                                        onEditCommit="#changeDFCCountCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="50.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Кол-во"/>
                                 <Column fx:id="dfcStateCol"
-                                        onEditCommit="#changeDFCStateCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="70.0" style="-fx-border-width: 0 0 1 1;"
                                         text="Состояние"/>
                                 <Column fx:id="dfcExecutorsCol"
-                                        onEditCommit="#changeDFCExecutorCellEvent"
+                                        onEditCommitted="#refresh"
                                         prefWidth="100.0" style="-fx-border-width: 0 1 1 1;"
                                         text="Принял в &#10;произв-во&#10;"/>
                             </columns>

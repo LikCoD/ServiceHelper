@@ -6,6 +6,7 @@ import javafx.scene.control.Button
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TableView
 import javafx.scene.control.ToggleButton
+import javafx.stage.Stage
 import ldcapps.servicehelper.Dialogs
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.initTableSize
@@ -85,16 +86,16 @@ class GetReport : Initializable {
 
         confirmBtn.setOnAction {
             if (Dialogs.print(
-                    ToolSelector.toolStage,
+                    confirmBtn.scene.window as Stage,
                     PageOrientation.LANDSCAPE,
                     table
                 )
-            ) Panes.GET_REPORT.update<GetReport>()
+            ) Tools.GET_REPORT.update<GetReport>()
         }
 
         fillBtn.setOnAction {
             TODO()
-            Dialogs.getFile(ToolSelector.toolStage, null, "xlsx" to "Excel")?.let { file ->
+            Dialogs.getFile(confirmBtn.scene.window as Stage, null, "xlsx" to "Excel")?.let { file ->
                 val wb = XSSFWorkbook(File(file))
             }
         }

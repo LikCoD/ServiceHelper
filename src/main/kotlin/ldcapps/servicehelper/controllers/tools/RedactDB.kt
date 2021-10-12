@@ -9,6 +9,7 @@ import javafx.scene.control.ToggleButton
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.layout.AnchorPane
+import javafx.stage.Stage
 import ldcapps.servicehelper.Dialogs
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
@@ -163,15 +164,15 @@ class RedactDB : Initializable {
                 }
                 when {
                     carsTable.isVisible -> Dialogs.print(
-                        ToolSelector.toolStage, PageOrientation.LANDSCAPE,
+                        confirmBtn.scene.window as Stage, PageOrientation.LANDSCAPE,
                         carsTable, companiesTable, ownersAndIndividualsAp
                     )
                     companiesTable.isVisible -> Dialogs.print(
-                        ToolSelector.toolStage, PageOrientation.LANDSCAPE,
+                        confirmBtn.scene.window as Stage, PageOrientation.LANDSCAPE,
                         companiesTable, carsTable, ownersAndIndividualsAp
                     )
                     else -> Dialogs.print(
-                        ToolSelector.toolStage,
+                        confirmBtn.scene.window as Stage,
                         PageOrientation.LANDSCAPE,
                         ownersAndIndividualsAp,
                         carsTable,
@@ -180,24 +181,8 @@ class RedactDB : Initializable {
                 }
             }
 
-            Panes.REDACT_DB.update()
+            Tools.REDACT_DB.update()
         }
-    }
-
-    fun changeCarNumberCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
-        carsTable.selectionModel.selectedItem.number = editEvent.newValue!!
-    }
-
-    fun changeShortCarNumberCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
-        carsTable.selectionModel.selectedItem.keyNum = editEvent.newValue!!
-    }
-
-    fun changeCarModelCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
-        carsTable.selectionModel.selectedItem.model = editEvent.newValue!!
-    }
-
-    fun changeCarVINCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
-        carsTable.selectionModel.selectedItem.vin = editEvent.newValue!!
     }
 
     fun changeCarYearCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
@@ -212,9 +197,6 @@ class RedactDB : Initializable {
         else Dialogs.warning("Данные введены неправильно")
     }
 
-    fun changeCarOwnerCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
-        carsTable.selectionModel.selectedItem.owner = editEvent.newValue!!
-    }
 
     fun changeCompanyCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
         cars.filter { it.owner == companiesTable.selectionModel.selectedItem.company }
@@ -223,17 +205,6 @@ class RedactDB : Initializable {
         companiesTable.selectionModel.selectedItem.company = editEvent.newValue
     }
 
-    fun changeCompanyAddressCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
-        companiesTable.selectionModel.selectedItem.address = editEvent.newValue
-    }
-
-    fun changeCompanyPACellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
-        companiesTable.selectionModel.selectedItem.pa = editEvent.newValue
-    }
-
-    fun changeCompanyBIKCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
-        companiesTable.selectionModel.selectedItem.bik = editEvent.newValue
-    }
 
     fun changeCompanyPRNCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
         if (editEvent.newValue.toIntOrNull() != null)
@@ -241,19 +212,12 @@ class RedactDB : Initializable {
         else Dialogs.warning("Данные введены неправильно")
     }
 
-    fun changeCompanyContractDateCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
-        companiesTable.selectionModel.selectedItem.contractDate = editEvent.newValue
-    }
 
     fun changeOwnerCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Owner, String>) {
         cars.filter { it.owner == ownersTable.selectionModel.selectedItem.owner }
             .forEach { cars[cars.indexOf(it)].owner = editEvent.newValue }
         carsTable.items = cars.toFXList()
         ownersTable.selectionModel.selectedItem.owner = editEvent.newValue
-    }
-
-    fun changeOwnerCompanyCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Owner, String>) {
-        ownersTable.selectionModel.selectedItem.company = editEvent.newValue
     }
 
     fun changeIndividualCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Individual, String>) {
@@ -263,9 +227,6 @@ class RedactDB : Initializable {
         individualsTable.selectionModel.selectedItem.individual = editEvent.newValue
     }
 
-    fun changeIndividualAddressCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Individual, String>) {
-        individualsTable.selectionModel.selectedItem.address = editEvent.newValue
-    }
 
     fun onKeyReleasedRedactCar(event: KeyEvent) = deletePos(event, cars)
 

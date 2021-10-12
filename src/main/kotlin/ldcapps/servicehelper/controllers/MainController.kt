@@ -20,18 +20,20 @@ class MainController : Initializable {
         stage = st
         pane = tabPane
 
+       // tabPane.tabDragPolicy = TabPane.TabDragPolicy.REORDER
+
         stage.setOnCloseRequest { if (!Dialogs.confirmation("Подтвердите выход")) it.consume() }
 
         if (Toolkit.getDefaultToolkit().screenSize.height.toDouble() < st.height - 50)
             stage.height = (Toolkit.getDefaultToolkit().screenSize.height - 50).toDouble()
 
-        val mainTabLayout = loadFXML<HBox>(FXML.CarData)
+        val mainTabLayout = loadFXML<HBox>(FXMLInfo.CarData)
 
         pane.tabs += Tab("Загрузка", mainTabLayout).apply {
             mainTab = this
             isClosable = false
 
-            setOnSelectionChanged { if (isSelected) changeStageSize(FXML.CarData) }
+            setOnSelectionChanged { if (isSelected) changeStageSize(FXMLInfo.CarData) }
             setTabText()
         }
 
@@ -40,13 +42,13 @@ class MainController : Initializable {
 
     fun fillOO(ooAndBill: OOController.OOAndBill, path: String = "") {
         pane.tabs += Tab("Загрузка").apply {
-            setOnSelectionChanged { if (isSelected) changeStageSize(FXML.OOCollapsed) }
+            setOnSelectionChanged { if (isSelected) changeStageSize(FXMLInfo.OOCollapsed) }
             setOnCloseRequest { if (!Dialogs.confirmation("Подтвердите выход")) it.consume() }
         }
 
         pane.selectionModel.select(pane.tabs.last())
 
-        val loader = fxmlLoader(FXML.OO)
+        val loader = fxmlLoader(FXMLInfo.OO)
         val loadedPane = loader.load<AnchorPane>()
         loader.getController<OOController>().fill(ooAndBill, path)
 
@@ -82,7 +84,6 @@ class MainController : Initializable {
             if (fileList == null || fileList.isEmpty()) return 1
 
             val numList = fileList.map { fromJSON<OOController.OOAndBill>(it).number }.sorted()
-
             for (i in 1 until numList.size)
                 if (numList[i - 1] + 1 != numList[i]) return numList[i - 1] + 1
 
@@ -93,12 +94,14 @@ class MainController : Initializable {
             mainTab.text = "Б${currentCashlessNumber} Н${currentCashNumber}"
         }
 
-        fun changeStageSize(fxml: FXML) {
-            stage.width = fxml.minWidth!!
-            stage.height = fxml.minHeight!!
+        fun changeStageSize(fxmlInfo: FXMLInfo) {
+            if (fxmlInfo.minWidth == null|| fxmlInfo.minHeight == null) return
 
-            stage.minWidth = fxml.minWidth
-            stage.minHeight = fxml.minHeight
+            stage.width = fxmlInfo.minWidth
+            stage.height = fxmlInfo.minHeight
+
+            stage.minWidth = fxmlInfo.minWidth
+            stage.minHeight = fxmlInfo.minHeight
         }
 
         fun closeSelectedTab() = pane.tabs.remove(selectedTab)

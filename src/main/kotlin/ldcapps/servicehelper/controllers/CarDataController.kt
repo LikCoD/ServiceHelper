@@ -5,13 +5,13 @@ import javafx.scene.control.Button
 import javafx.scene.control.DatePicker
 import javafx.scene.image.ImageView
 import javafx.scene.text.Text
+import javafx.stage.Stage
 import ldcapps.servicehelper.*
-import ldcapps.servicehelper.controllers.tools.AddCar
-import ldcapps.servicehelper.controllers.tools.Panes
+import ldcapps.servicehelper.controllers.tools.AddCarController
+import ldcapps.servicehelper.controllers.tools.Tools
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
 import ldcapps.servicehelper.db.DataClasses.Companion.companies
-import ldcapps.servicehelper.db.DataClasses.Companion.individuals
 import ldcapps.servicehelper.db.DataClasses.Companion.owners
 import ldcapps.servicehelper.db.DataClasses.Companion.user
 import ldclibs.javafx.controls.AutoCompletedTextField
@@ -37,7 +37,8 @@ class CarDataController : Initializable {
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
         userTx.text = user.name
         userBtn.setOnMouseClicked {
-            Panes.SETTINGS.show(Windows.tools()!!.settingsTb)
+            val toolsController = Windows.tools()!!
+            Tools.SETTINGS.show(toolsController.settingsTb, toolsController.stage)
         }
 
         keyTf.items = cars.map { it.keyNum }.toFXList()
@@ -46,7 +47,7 @@ class CarDataController : Initializable {
         executionDp.value = LocalDate.now()
 
         openBtn.setOnAction {
-            open(Dialogs.getFile(MainController.stage, settings.oosLocate))
+            open(Dialogs.getFile(MainController.stage, settings.oosLocate), confirmBtn.scene.window as Stage)
         }
 
         toolsBtn.setOnAction { Windows.tools() }
@@ -61,7 +62,7 @@ class CarDataController : Initializable {
                 val car = cars.find { it.keyNum == keyTf.text }
                 if (car == null) {
                     Dialogs.confirmation("Данного гос. номера авто нет в БД, но вы можите добавить его в меню \"Инструменты\"") {
-                        Panes.ADD_CAR.show<AddCar>(Windows.tools()!!.addCarTb).keyTf.text = keyTf.text
+                        Tools.ADD_CAR.show<AddCarController>(Windows.tools()!!.addCarTb, confirmBtn.scene.window).keyTf.text = keyTf.text
                     }
                     return@setOnAction
                 }
@@ -71,33 +72,16 @@ class CarDataController : Initializable {
                     executionDate = DataClasses.Date(executionDp.value),
                     car = car,
                     carMileage = carMileageTf.text.toIntOrNull(),
-                    customer = owners.find { o -> o.owner == car.owner }?.company ?: car.owner,
-                    vat = user.vat,
-                    hourNorm = user.hourNorm,
-                    companyName = user.executor,
-                    abbreviatedCompanyName = user.abbreviatedExecutor,
-                    companyAddress = user.address,
-                    companyPA = user.pa,
-                    companyBank = user.bank,
-                    companyBankAddress = user.bankAddress,
-                    companyBIK = user.bik,
-                    companyPRN = user.prn.toString(),
-                    companyPhone = user.phone
+                    executor = user.getExecutor()
                 )
 
-                companies.find { c -> c.company == ooAndBill.customer }?.let { c ->
-                    ooAndBill.number = MainController.currentCashlessNumber++
-
-                    ooAndBill.customerAddress = c.address
-                    ooAndBill.customerPA = c.pa
-                    ooAndBill.customerBank = c.bank
-                    ooAndBill.customerBIK = c.bik
-                    ooAndBill.customerPRN = c.prn
-                    ooAndBill.customerContractDate = c.contractDate
-                } ?: individuals.find { i -> i.individual == ooAndBill.customer }?.let { i ->
-                    ooAndBill.number = MainController.currentCashNumber++
-
-                    ooAndBill.customerAddress = i.address
+                val company = owners.find { it.owner == car.owner }?.company ?: car.owner
+                companies.find { it.company == company }?.let {
+                    ooAndBill.number = MainController.currentCashlessNumber
+                    MainController.currentCashlessNumber++
+                } ?: let {
+                    ooAndBill.number = MainController.currentCashNumber
+                    MainController.currentCashNumber++
                 }
 
                 if (ooNumberTf.text.isNotBlank())

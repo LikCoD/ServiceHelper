@@ -59,11 +59,11 @@ class Dialogs {
             return false
         }
 
-        fun filter(type: Int, vararg els: String): Triple<Int, Int, MutableList<Int>> {
+        data class Filter(val topMargin: Int, val rightMargin: Int, val result: List<Int>)
+
+        fun filter(type: Int, vararg els: String): Filter {
             val dialog = Dialog<String>()
-
             dialog.title = "Фильтр"
-
             dialog.dialogPane.buttonTypes.addAll(ButtonType.OK)
 
             val excelTab = DataClasses.excelTabs[type]
@@ -76,6 +76,7 @@ class Dialogs {
                 prefWidth = 60.0
                 valueFactory = SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, excelTab.topMargin)
             }
+
             val tabPane = TabPane().apply {
                 tabDragPolicy = TabPane.TabDragPolicy.REORDER
                 tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
@@ -123,7 +124,7 @@ class Dialogs {
                 toJSON(".excelTabs", DataClasses.excelTabs)
             }
 
-            return Triple(topMargin.value, rightMargin.value, res)
+            return Filter(topMargin.value, rightMargin.value, res)
         }
 
         fun getAlert(type: Alert.AlertType, title: String, text: String): Alert {

@@ -11,10 +11,10 @@ sealed class DataClasses {
 
     data class Date(val year: Int = 0, val month: Int = 0, val day: Int = 0) {
         val localDate: LocalDate
-        get() = LocalDate.of(year, month, day)
+            get() = LocalDate.of(year, month, day)
 
         val value: String
-        get() = DateTimeFormatter.ofPattern("dd.MM.yyyy").format(localDate).format()
+            get() = DateTimeFormatter.ofPattern("dd.MM.yyyy").format(localDate).format()
 
         override fun toString() = "$year-$month-$day"
 
@@ -68,6 +68,23 @@ sealed class DataClasses {
         val email: String = "",
         val footing: String = "",
         val workers: MutableList<String> = mutableListOf(),
+    ) {
+        fun getExecutor() =
+            Executor(vat, hourNorm, executor, abbreviatedExecutor, address, pa, bank, bankAddress, prn, bik, phone)
+    }
+
+    data class Executor(
+        var vat: Double? = null,
+        var hourNorm: Double = 0.0,
+        var executor: String = "",
+        var abbreviatedExecutor: String = "",
+        var address: String = "",
+        var pa: String = "",
+        var bank: String = "",
+        var bankAddress: String = "",
+        var prn: Int = 0,
+        var bik: String = "",
+        var phone: String = "",
     )
 
     data class Car(

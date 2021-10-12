@@ -55,7 +55,7 @@ class AutoCompletedPriceTextField(maxSize: Int? = null, allCaps: Boolean = false
 
 
 open class IntTextFieldTableCell<S>(maxSize: Int? = null, allCaps: Boolean = false) :
-    MyTableCell<S>(IntTextField(maxSize, allCaps))
+    MyTableCell<S>(PriceTextField(maxSize, allCaps))
 
 open class DoubleTextFieldTableCell<S>(maxSize: Int? = null, allCaps: Boolean = false) :
     MyTableCell<S>(DoubleTextField(maxSize, allCaps))

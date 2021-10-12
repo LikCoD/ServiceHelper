@@ -72,7 +72,7 @@ tasks.jar {
     dependsOn(configurations.runtimeClasspath)
     manifest {
         exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.MF")
-        attributes(
+        attributes("Main",
             "Implementation-Title" to "ServiceHelper",
             "Implementation-Version" to archiveVersion,
             "Main-Class" to "ldcapps.servicehelper.WindowsKt",
@@ -82,6 +82,6 @@ tasks.jar {
     from({
         configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
     })
-    
-    
+
+
 }

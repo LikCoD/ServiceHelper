@@ -1,9 +1,10 @@
 package ldcapps.servicehelper.controllers
 
+import javafx.event.EventHandler
+import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.print.PageOrientation
 import javafx.scene.control.*
-import javafx.scene.control.TableColumn.CellEditEvent
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseEvent
@@ -12,8 +13,8 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
 import ldcapps.servicehelper.*
-import ldcapps.servicehelper.controllers.tools.AddCar
-import ldcapps.servicehelper.controllers.tools.Panes
+import ldcapps.servicehelper.controllers.tools.AddCarController
+import ldcapps.servicehelper.controllers.tools.Tools
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
 import ldcapps.servicehelper.db.DataClasses.Companion.companies
@@ -25,142 +26,385 @@ import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.net.URL
+import java.text.DecimalFormat
 import java.util.*
 
 class OOController : Initializable {
-    lateinit var mainVBox: VBox
-    lateinit var firstHBox: HBox
-    lateinit var positionsVBox: VBox
-    lateinit var createActBtn: Button
-    lateinit var confirmBtn: Button
-    lateinit var cancelBtn: Button
-    lateinit var workNameTf: AutoCompletedTextField<Data.Hint>
-    lateinit var workPriceTf: PriceTextField
-    lateinit var workExecutorsCb: ComboBox<String>
-    lateinit var excelWorkBtn: Button
-    lateinit var dpcNameTf: AutoCompletedTextField<Data.Hint>
-    lateinit var dpcCountTf: IntTextField
-    lateinit var dpcPriceTf: PriceTextField
-    lateinit var dpcSumTf: PriceTextField
-    lateinit var dpcUnitCb: ComboBox<String>
-    lateinit var dpcStateCb: ComboBox<String>
-    lateinit var dpcExecutorsCb: ComboBox<String>
-    lateinit var excelDPCBtn: Button
-    lateinit var dfcNameTf: AutoCompletedTextField<Data.Hint>
-    lateinit var dfcCountTf: IntTextField
-    lateinit var dfcUnitCb: ComboBox<String>
-    lateinit var dfcStateCb: ComboBox<String>
-    lateinit var dfcExecutorsCb: ComboBox<String>
-    lateinit var excelDFCBtn: Button
-    lateinit var totalWorkPriceTf: PriceTextField
-    lateinit var totalDPCPriceTf: PriceTextField
-    lateinit var totalPriceTf: PriceTextField
-    lateinit var carNumberTf: AutoCompletedTextField<String>
-    lateinit var carMileageTf: IntTextField
-    lateinit var ooNumberTf: IntTextField
-    lateinit var registrationDp: DatePicker
-    lateinit var executionDp: DatePicker
-    lateinit var ownerTf: MyTextField
-    lateinit var previewBtn: Button
-    lateinit var ooAndBillScroll: ScrollPane
-    lateinit var ooAndBillAp: AnchorPane
-    lateinit var ooAp: AnchorPane
-    lateinit var ooNumberTx: Label
-    lateinit var ooToBillTx: Label
-    lateinit var executor1Tx: Text
-    lateinit var executorPA1Tx: Label
-    lateinit var customer1Tx: Text
-    lateinit var customerAddress: Text
-    lateinit var customerPA1Tx: Text
-    lateinit var customerPRNTx: Text
-    lateinit var ownerTx: Text
-    lateinit var executor2Tx: Text
-    lateinit var registrationDateTx: Label
-    lateinit var executionDate1Tx: Label
-    lateinit var executionDate2Tx: Label
-    lateinit var cashTx: Label
-    lateinit var carModelLb: Label
-    lateinit var carMileageLb: Label
-    lateinit var carEngineLb: Label
-    lateinit var carYearLb: Label
-    lateinit var carVINLb: Label
-    lateinit var carNumberLb: Label
-    lateinit var workTable: TableView<Work>
-    lateinit var workNumberCol: Column<Work>
-    lateinit var workNameCol: Column<Work>
-    lateinit var workHourNormCol: Column<Work>
-    lateinit var workPriceCol: Column<Work>
-    lateinit var workExecutorsCol: Column<Work>
-    lateinit var dpcTable: TableView<DPC>
-    lateinit var dpcNumberCol: Column<DPC>
-    lateinit var dpcDetailCol: Column<DPC>
-    lateinit var dpcUnitCol: Column<DPC>
-    lateinit var dpcCountCol: Column<DPC>
-    lateinit var dpcStateCol: Column<DPC>
-    lateinit var dpcPriceCol: Column<DPC>
-    lateinit var dpcSumCol: Column<DPC>
-    lateinit var dpcExecutorsCol: Column<DPC>
-    lateinit var dfcTable: TableView<DFC>
-    lateinit var dfcNumberCol: Column<DFC>
-    lateinit var dfcDetailCol: Column<DFC>
-    lateinit var dfcUnitCol: Column<DFC>
-    lateinit var dfcCountCol: Column<DFC>
-    lateinit var dfcStateCol: Column<DFC>
-    lateinit var dfcExecutorsCol: Column<DFC>
-    lateinit var ooFooterAp: AnchorPane
-    lateinit var workPrice1Tx: PriceLabel
-    lateinit var detailPrice1Tx: PriceLabel
-    lateinit var totalPrice1Tx: PriceLabel
-    lateinit var startPriceTx: Label
-    lateinit var workPrice2Tx: PriceLabel
-    lateinit var detailPrice2Tx: PriceLabel
-    lateinit var totalPrice2Tx: PriceLabel
-    lateinit var vatTx: Label
-    lateinit var vatPriceTx: Label
-    lateinit var totalPriceWithVAT1Tx: PriceLabel
-    lateinit var endPriceTx: Label
-    lateinit var executionDate3Tx: Text
-    lateinit var customer2Tx: Label
-    lateinit var executor3Tx: Text
-    lateinit var executionDate4Tx: Text
-    lateinit var executor4Tx: Text
-    lateinit var executionDate5Tx: Text
-    lateinit var customer4Tx: Label
-    lateinit var customer3Tx: Label
-    lateinit var executor5Tx: Label
-    lateinit var billAp: AnchorPane
-    lateinit var executor6Tx: Text
-    lateinit var executorPA2Tx: Label
-    lateinit var billNumberTx: Label
-    lateinit var contractDateTx: Label
-    lateinit var customer5Tx: Text
-    lateinit var customerPA2Tx: Label
-    lateinit var billTable: TableView<Int>
-    lateinit var billNumberCol: Column<Int>
-    lateinit var billNameCol: Column<Int>
-    lateinit var billUnitCol: Column<Int>
-    lateinit var billCountCol: Column<Int>
-    lateinit var billPriceCol: Column<Int>
-    lateinit var billSumCol: Column<Int>
-    lateinit var billVatCol: Column<Int>
-    lateinit var billVatPriceCol: Column<Int>
-    lateinit var billTotalPriceWithVatCol: Column<Int>
-    lateinit var billFooterAp: AnchorPane
-    lateinit var totalPrice3Tx: Text
-    lateinit var totalPriceWithVAT2Tx: Text
-    lateinit var executor7Tx: Text
-    lateinit var customer6Tx: Text
-    lateinit var executor8Tx: Text
+    @FXML
+    private lateinit var mainVBox: VBox
+
+    @FXML
+    private lateinit var firstHBox: HBox
+
+    @FXML
+    private lateinit var positionsVBox: VBox
+
+    @FXML
+    private lateinit var createActBtn: Button
+
+    @FXML
+    private lateinit var confirmBtn: Button
+
+    @FXML
+    private lateinit var cancelBtn: Button
+
+    @FXML
+    private lateinit var workNameTf: AutoCompletedTextField<Data.Hint>
+
+    @FXML
+    private lateinit var workPriceTf: PriceTextField
+
+    @FXML
+    private lateinit var workExecutorsCb: ComboBox<String>
+
+    @FXML
+    private lateinit var excelWorkBtn: Button
+
+    @FXML
+    private lateinit var dpcNameTf: AutoCompletedTextField<Data.Hint>
+
+    @FXML
+    private lateinit var dpcCountTf: IntTextField
+
+    @FXML
+    private lateinit var dpcPriceTf: PriceTextField
+
+    @FXML
+    private lateinit var dpcSumTf: PriceTextField
+
+    @FXML
+    private lateinit var dpcUnitCb: ComboBox<String>
+
+    @FXML
+    private lateinit var dpcStateCb: ComboBox<String>
+
+    @FXML
+    private lateinit var dpcExecutorsCb: ComboBox<String>
+
+    @FXML
+    private lateinit var excelDPCBtn: Button
+
+    @FXML
+    private lateinit var dfcNameTf: AutoCompletedTextField<Data.Hint>
+
+    @FXML
+    private lateinit var dfcCountTf: IntTextField
+
+    @FXML
+    private lateinit var dfcUnitCb: ComboBox<String>
+
+    @FXML
+    private lateinit var dfcStateCb: ComboBox<String>
+
+    @FXML
+    private lateinit var dfcExecutorsCb: ComboBox<String>
+
+    @FXML
+    private lateinit var excelDFCBtn: Button
+
+    @FXML
+    private lateinit var totalWorkPriceTf: PriceTextField
+
+    @FXML
+    private lateinit var totalDPCPriceTf: PriceTextField
+
+    @FXML
+    private lateinit var totalPriceTf: PriceTextField
+
+    @FXML
+    private lateinit var carNumberTf: AutoCompletedTextField<String>
+
+    @FXML
+    private lateinit var carMileageTf: IntTextField
+
+    @FXML
+    private lateinit var ooNumberTf: IntTextField
+
+    @FXML
+    private lateinit var registrationDp: DatePicker
+
+    @FXML
+    private lateinit var executionDp: DatePicker
+
+    @FXML
+    private lateinit var ownerTf: MyTextField
+
+    @FXML
+    private lateinit var previewBtn: Button
+
+    @FXML
+    private lateinit var ooAndBillScroll: ScrollPane
+
+    @FXML
+    private lateinit var ooAndBillAp: AnchorPane
+
+    @FXML
+    private lateinit var ooAp: AnchorPane
+
+    @FXML
+    private lateinit var ooNumberTx: Label
+
+    @FXML
+    private lateinit var ooToBillTx: Label
+
+    @FXML
+    private lateinit var executor1Tx: Text
+
+    @FXML
+    private lateinit var executorPA1Tx: Label
+
+    @FXML
+    private lateinit var customer1Tx: Text
+
+    @FXML
+    private lateinit var customerAddress: Text
+
+    @FXML
+    private lateinit var customerPA1Tx: Text
+
+    @FXML
+    private lateinit var customerPRNTx: Text
+
+    @FXML
+    private lateinit var ownerTx: Text
+
+    @FXML
+    private lateinit var executor2Tx: Text
+
+    @FXML
+    private lateinit var registrationDateTx: Label
+
+    @FXML
+    private lateinit var executionDate1Tx: Label
+
+    @FXML
+    private lateinit var executionDate2Tx: Label
+
+    @FXML
+    private lateinit var cashTx: Label
+
+    @FXML
+    private lateinit var carModelLb: Label
+
+    @FXML
+    private lateinit var carMileageLb: Label
+
+    @FXML
+    private lateinit var carEngineLb: Label
+
+    @FXML
+    private lateinit var carYearLb: Label
+
+    @FXML
+    private lateinit var carVINLb: Label
+
+    @FXML
+    private lateinit var carNumberLb: Label
+
+    @FXML
+    private lateinit var workTable: TableView<Work>
+
+    @FXML
+    private lateinit var workNumberCol: Column<Work>
+
+    @FXML
+    private lateinit var workNameCol: Column<Work>
+
+    @FXML
+    private lateinit var workHourNormCol: Column<Work>
+
+    @FXML
+    private lateinit var workPriceCol: Column<Work>
+
+    @FXML
+    private lateinit var workExecutorsCol: Column<Work>
+
+    @FXML
+    private lateinit var dpcTable: TableView<DPC>
+
+    @FXML
+    private lateinit var dpcNumberCol: Column<DPC>
+
+    @FXML
+    private lateinit var dpcDetailCol: Column<DPC>
+
+    @FXML
+    private lateinit var dpcUnitCol: Column<DPC>
+
+    @FXML
+    private lateinit var dpcCountCol: Column<DPC>
+
+    @FXML
+    private lateinit var dpcStateCol: Column<DPC>
+
+    @FXML
+    private lateinit var dpcPriceCol: Column<DPC>
+
+    @FXML
+    private lateinit var dpcSumCol: Column<DPC>
+
+    @FXML
+    private lateinit var dpcExecutorsCol: Column<DPC>
+
+    @FXML
+    private lateinit var dfcTable: TableView<DFC>
+
+    @FXML
+    private lateinit var dfcNumberCol: Column<DFC>
+
+    @FXML
+    private lateinit var dfcDetailCol: Column<DFC>
+
+    @FXML
+    private lateinit var dfcUnitCol: Column<DFC>
+
+    @FXML
+    private lateinit var dfcCountCol: Column<DFC>
+
+    @FXML
+    private lateinit var dfcStateCol: Column<DFC>
+
+    @FXML
+    private lateinit var dfcExecutorsCol: Column<DFC>
+
+    @FXML
+    private lateinit var ooFooterAp: AnchorPane
+
+    @FXML
+    private lateinit var workPrice1Tx: PriceLabel
+
+    @FXML
+    private lateinit var detailPrice1Tx: PriceLabel
+
+    @FXML
+    private lateinit var totalPrice1Tx: PriceLabel
+
+    @FXML
+    private lateinit var startPriceTx: Label
+
+    @FXML
+    private lateinit var workPrice2Tx: PriceLabel
+
+    @FXML
+    private lateinit var detailPrice2Tx: PriceLabel
+
+    @FXML
+    private lateinit var totalPrice2Tx: PriceLabel
+
+    @FXML
+    private lateinit var vatTx: Label
+
+    @FXML
+    private lateinit var vatPriceTx: Label
+
+    @FXML
+    private lateinit var totalPriceWithVAT1Tx: PriceLabel
+
+    @FXML
+    private lateinit var endPriceTx: Label
+
+    @FXML
+    private lateinit var executionDate3Tx: Text
+
+    @FXML
+    private lateinit var customer2Tx: Label
+
+    @FXML
+    private lateinit var executor3Tx: Text
+
+    @FXML
+    private lateinit var executionDate4Tx: Text
+
+    @FXML
+    private lateinit var executor4Tx: Text
+
+    @FXML
+    private lateinit var executionDate5Tx: Text
+
+    @FXML
+    private lateinit var customer4Tx: Label
+
+    @FXML
+    private lateinit var customer3Tx: Label
+
+    @FXML
+    private lateinit var executor5Tx: Label
+
+    @FXML
+    private lateinit var billAp: AnchorPane
+
+    @FXML
+    private lateinit var executor6Tx: Text
+
+    @FXML
+    private lateinit var executorPA2Tx: Label
+
+    @FXML
+    private lateinit var billNumberTx: Label
+
+    @FXML
+    private lateinit var contractDateTx: Label
+
+    @FXML
+    private lateinit var customer5Tx: Text
+
+    @FXML
+    private lateinit var customerPA2Tx: Label
+
+    @FXML
+    private lateinit var billTable: TableView<Int>
+
+    @FXML
+    private lateinit var billNumberCol: Column<Int>
+
+    @FXML
+    private lateinit var billNameCol: Column<Int>
+
+    @FXML
+    private lateinit var billUnitCol: Column<Int>
+
+    @FXML
+    private lateinit var billCountCol: Column<Int>
+
+    @FXML
+    private lateinit var billPriceCol: Column<Int>
+
+    @FXML
+    private lateinit var billSumCol: Column<Int>
+
+    @FXML
+    private lateinit var billVatCol: Column<Int>
+
+    @FXML
+    private lateinit var billVatPriceCol: Column<Int>
+
+    @FXML
+    private lateinit var billTotalPriceWithVatCol: Column<Int>
+
+    @FXML
+    private lateinit var billFooterAp: AnchorPane
+
+    @FXML
+    private lateinit var totalPrice3Tx: Text
+
+    @FXML
+    private lateinit var totalPriceWithVAT2Tx: Text
+
+    @FXML
+    private lateinit var executor7Tx: Text
+
+    @FXML
+    private lateinit var customer6Tx: Text
+
+    @FXML
+    private lateinit var executor8Tx: Text
 
     private var ooAndBill = OOAndBill()
 
-    private var action = 0
+    private var action = ButtonActions.CONFIRM
     private var path = ""
 
     private var cash = false
-
-    private var billPos = mutableListOf<Int>()
-
 
     private lateinit var worksHint: List<Data.Hint>
     private lateinit var dpcsHint: List<Data.Hint>
@@ -172,26 +416,26 @@ class OOController : Initializable {
         dfcNameTf.getString = { "${it.name} * ${it.count} (${it.state})" }
 
         excelWorkBtn.setOnAction { _ ->
-            Dialogs.getFile(MainController.stage, null, "xlsx" to "Excel")?.let { path ->
-                XSSFWorkbook(File(path)).use {
-                    val sheet = it.getSheetAt(0)
-                    val sequence = Dialogs.filter(0, "Позиция", "Цена", "Исполнитель")
-                    var row: Row? = sheet.getRow(sequence.first)
+                Dialogs.getFile(MainController.stage, null, "xlsx" to "Excel")?.let { path ->
+                    XSSFWorkbook(File(path)).use {
+                        val sheet = it.getSheetAt(0)
+                        val sequence = Dialogs.filter(0, "Позиция", "Цена", "Исполнитель")
+                        var row: Row? = sheet.getRow(sequence.topMargin)
 
-                    while (row != null) {
-                        ooAndBill.works.add(
-                            Work(
-                                getCellValue(row, sequence.second + sequence.third[0], ""),
-                                getCellValue(row, sequence.second + sequence.third[1], 0.0),
-                                getCellValue(row, sequence.second + sequence.third[0], user.standardWorker)
+                        while (row != null) {
+                            ooAndBill.works.add(
+                                Work(
+                                    getCellValue(row, sequence.rightMargin + sequence.result[0], ""),
+                                    getCellValue(row, sequence.rightMargin + sequence.result[1], 0.0),
+                                    getCellValue(row, sequence.rightMargin + sequence.result[0], user.standardWorker)
+                                )
                             )
-                        )
 
-                        refresh()
-                        row = sheet.getRow(row.rowNum + 1)
+                            refresh()
+                            row = sheet.getRow(row.rowNum + 1)
+                        }
                     }
                 }
-            }
         }
 
         excelDPCBtn.setOnAction { _ ->
@@ -199,17 +443,17 @@ class OOController : Initializable {
                 XSSFWorkbook(File(path)).use {
                     val sheet = it.getSheetAt(0)
                     val sequence = Dialogs.filter(1, "Позиция", "Ед. изм.", "Кол-во", "Состояние", "Цена", "Принял")
-                    var row: Row? = sheet.getRow(sequence.first)
+                    var row: Row? = sheet.getRow(sequence.topMargin)
 
                     while (row != null) {
                         ooAndBill.dpcs.add(
                             DPC(
-                                getCellValue(row!!, sequence.second + sequence.third[0], ""),
-                                getCellValue(row!!, sequence.second + sequence.third[1], user.standardUnit),
-                                getCellValue(row!!, sequence.second + sequence.third[2], 1),
-                                getCellValue(row!!, sequence.second + sequence.third[3], user.standardState),
-                                getCellValue(row!!, sequence.second + sequence.third[4], 0.0),
-                                getCellValue(row!!, sequence.second + sequence.third[5], user.standardWorker),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[0], ""),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[1], user.standardUnit),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[2], 1),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[3], user.standardState),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[4], 0.0),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[5], user.standardWorker),
                             )
                         )
 
@@ -225,16 +469,16 @@ class OOController : Initializable {
                 XSSFWorkbook(File(path)).use {
                     val sheet = it.getSheetAt(0)
                     val sequence = Dialogs.filter(2, "Позиция", "Ед. изм.", "Кол-во", "Состояние", "Принял")
-                    var row: Row? = sheet.getRow(sequence.first)
+                    var row: Row? = sheet.getRow(sequence.topMargin)
 
                     while (row != null) {
                         ooAndBill.dfcs.add(
                             DFC(
-                                getCellValue(row!!, sequence.second + sequence.third[0], ""),
-                                getCellValue(row!!, sequence.second + sequence.third[1], user.standardUnit),
-                                getCellValue(row!!, sequence.second + sequence.third[2], 1),
-                                getCellValue(row!!, sequence.second + sequence.third[3], user.standardState),
-                                getCellValue(row!!, sequence.second + sequence.third[4], user.standardWorker),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[0], ""),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[1], user.standardUnit),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[2], 1),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[3], user.standardState),
+                                getCellValue(row!!, sequence.rightMargin + sequence.result[4], user.standardWorker),
                             )
                         )
 
@@ -266,7 +510,7 @@ class OOController : Initializable {
 
         createActBtn.setOnAction {
             Dialogs.confirmation("При создании акта ЗН сохранится автоматически") {
-                action = 0
+                action = ButtonActions.CONFIRM
                 confirmBtn.fire()
                 Windows.act()?.initOO(ooAndBill, path)
             }
@@ -274,20 +518,21 @@ class OOController : Initializable {
 
         cancelBtn.setOnAction {
             when (action) {
-                0 -> Dialogs.confirmation("Подтвердите выход") { MainController.closeSelectedTab() }
-                4 -> {
+                ButtonActions.CONFIRM -> Dialogs.confirmation("Подтвердите выход") { MainController.closeSelectedTab() }
+                ButtonActions.APPLY_CHANGES -> {
                     registrationDp.value = ooAndBill.registrationDate.localDate
                     executionDp.value = ooAndBill.executionDate.localDate
                     carMileageTf.text = carMileageLb.text
                 }
+                else -> {}
             }
             confirmBtn.text = "Подтвердить"
-            action = 0
+            action = ButtonActions.CONFIRM
         }
 
         confirmBtn.setOnAction {
             when (action) {
-                0 -> {
+                ButtonActions.CONFIRM -> {
                     if (ooAndBill.car == null) return@setOnAction
                     workTable.selectionModel.clearSelection()
                     dpcTable.selectionModel.clearSelection()
@@ -295,28 +540,28 @@ class OOController : Initializable {
                     billTable.selectionModel.clearSelection()
 
                     if (path == "")
-                        path = "${if (cash) "Безнал" else "Нал"}\\Заказ-Наряд №${ooAndBill.number} от " +
-                                "${ooAndBill.registrationDate} от ${ooAndBill.customer}.${if (cash) "oo" else "oab"}"
+                        path = "${settings.oosLocate}\\${if (cash) "Нал" else "Безнал"}\\Заказ-Наряд №${ooAndBill.number} от " +
+                                "${ooAndBill.registrationDate} от ${ooAndBill.customer?.company}.${if (cash) "oo" else "oab"}"
 
                     path = Regex("[/*?\"<>|]").replace(path, "")
 
-                    toJSON(File(settings.oosLocate, path), ooAndBill)
+                    toJSON(path, ooAndBill)
 
                     val report = DataClasses.Report(
                         user.name,
                         ooAndBill.number,
-                        if (ooAndBill.customerPA == null) 0 else 1,
-                        ooAndBill.abbreviatedCompanyName,
-                        ooAndBill.customer,
+                        if (cash) 0 else 1,
+                        ooAndBill.executor!!.abbreviatedExecutor,
+                        ooAndBill.customer!!.company,
                         ooAndBill.car!!.owner,
                         ooAndBill.car!!.number,
                         ooAndBill.carMileage,
                         ooAndBill.registrationDate,
                         ooAndBill.executionDate,
-                        ooAndBill.hourNorm,
-                        roundPrice(ooAndBill.works.sumOf { it.price }),
-                        roundPrice(ooAndBill.dpcs.sumOf { it.price * it.count }),
-                        ooAndBill.vat,
+                        ooAndBill.executor!!.hourNorm,
+                        roundPrice(ooAndBill.works.sumOf { it.price }).toDouble(),
+                        roundPrice(ooAndBill.dpcs.sumOf { it.price * it.count }).toDouble(),
+                        ooAndBill.executor!!.vat,
                         ooAndBill.works.size,
                         ooAndBill.dpcs.size,
                         ooAndBill.dfcs.size
@@ -342,22 +587,22 @@ class OOController : Initializable {
                     }
                     ooAndBill.dpcs.forEach {
                         val hint = Data.Hint(ooAndBill.car!!.model, it.name, it.price, it.count, it.state, it.unit)
-                        data.works.checkHint(hint)
+                        data.dpcs.checkHint(hint)
                     }
                     ooAndBill.dfcs.forEach {
                         val hint = Data.Hint(ooAndBill.car!!.model, it.name, null, it.count, it.state, it.unit)
-                        data.works.checkHint(hint)
+                        data.dfcs.checkHint(hint)
                     }
 
                     toJSON(".data", data)
 
                     Dialogs.confirmation("Заказ-Наряд №${ooAndBill.number} успешно создан и находится по пути:\n$path\nРаспечатать его?") {
-                        ooAndBill.customerPA?.let {
+                        ooAndBill.customer?.let {
                             Dialogs.print(MainController.stage, PageOrientation.PORTRAIT, ooAp, billAp)
                         } ?: Dialogs.print(MainController.stage, PageOrientation.PORTRAIT, ooAp)
                     }
                 }
-                1 -> {
+                ButtonActions.ADD_WORK -> {
                     if (!isNotNull(workNameTf, workPriceTf, workPriceTf)) return@setOnAction
 
                     val work = Work(
@@ -372,7 +617,7 @@ class OOController : Initializable {
                     workPriceTf.text = ""
                     workExecutorsCb.value = user.standardWorker
                 }
-                2 -> {
+                ButtonActions.ADD_DPC -> {
                     if (!isNotNull(dpcNameTf, dpcCountTf, dpcUnitCb, dpcStateCb, dpcPriceTf)) return@setOnAction
 
                     val dpc = DPC(
@@ -394,7 +639,7 @@ class OOController : Initializable {
                     dpcStateCb.value = user.standardState
                     dpcExecutorsCb.value = user.standardWorker
                 }
-                3 -> {
+                ButtonActions.ADD_DFC -> {
                     if (!isNotNull(dfcNameTf, dfcCountTf, dfcUnitCb, dfcStateCb)) return@setOnAction
 
                     val dfc = DFC(
@@ -413,7 +658,7 @@ class OOController : Initializable {
                     dfcStateCb.value = user.standardState
                     dfcExecutorsCb.value = user.standardWorker
                 }
-                4 -> {
+                ButtonActions.APPLY_CHANGES -> {
                     ooAndBill.executionDate = DataClasses.Date(executionDp.value)
                     ooAndBill.registrationDate = DataClasses.Date(registrationDp.value)
                     ooAndBill.carMileage = carMileageTf.text.toInt()
@@ -421,15 +666,15 @@ class OOController : Initializable {
 
                     updateInfo()
                 }
-                5 -> {
-                    cars.find { it.keyNum == carNumberTf.text }?.let { initCar(it) }
+                ButtonActions.APPLY_CAR -> {
+                    cars.find { it.keyNum == carNumberTf.text }?.let { updateCar(it) }
                         ?: Dialogs.confirmation("Данного гос. номера авто нет в БД, но вы можите добавить его в меню \"Инструменты\"") {
-                            Panes.ADD_CAR.show<AddCar>(Windows.tools()!!.addCarTb).keyTf.text = carNumberTf.text
+                            Tools.ADD_CAR.show<AddCarController>(Windows.tools()!!.addCarTb, confirmBtn.scene.window).keyTf.text = carNumberTf.text
                         }
                 }
             }
             confirmBtn.text = "Подтвердить"
-            action = 0
+            action = ButtonActions.CONFIRM
         }
 
         previewBtn.setOnAction {
@@ -437,16 +682,17 @@ class OOController : Initializable {
 
             if (ooAndBillScroll.isVisible) {
                 firstHBox.children.add(1, positionsVBox)
-                MainController.changeStageSize(FXML.OO)
+                MainController.changeStageSize(FXMLInfo.OO)
             } else {
                 mainVBox.children.add(positionsVBox)
-                MainController.changeStageSize(FXML.OOCollapsed)
+                MainController.changeStageSize(FXMLInfo.OOCollapsed)
             }
         }
 
         workExecutorsCb.items = user.workers.toFXList()
         dfcExecutorsCb.items = user.workers.toFXList()
         dpcExecutorsCb.items = user.workers.toFXList()
+
         workExecutorsCb.value = user.standardWorker
         dfcUnitCb.value = user.standardUnit
         dfcStateCb.value = user.standardState
@@ -455,65 +701,83 @@ class OOController : Initializable {
         dpcStateCb.value = user.standardState
         dpcExecutorsCb.value = user.standardWorker
 
-        workNumberCol.setValueFactory { ooAndBill.works.indexOf(it) + 1 }
+        dpcPriceTf.setOnKeyReleased {
+            val count = dpcCountTf.text.toIntOrNull()
+            val price = dpcPriceTf.text.toDoubleOrNull()
+
+            if (count != null && price != null)
+                dpcSumTf.text = roundPrice(price * count)
+        }
+
+        dpcCountTf.setOnKeyReleased {
+            val count = dpcCountTf.text.toIntOrNull()
+            val price = dpcPriceTf.text.toDoubleOrNull()
+
+            if (count != null && price != null)
+                dpcSumTf.text = roundPrice(price * count)
+        }
+
+        dpcSumTf.setOnKeyReleased {
+            val count = dpcCountTf.text.toIntOrNull()
+            val sum = dpcSumTf.text.toDoubleOrNull()
+
+            if (count != null && sum != null)
+                dpcPriceTf.text = roundPrice(sum / count)
+        }
+
+        workNumberCol.numCol()
         workNameCol.setValueFactory(Work::name.name)
-        workHourNormCol.setPriceValueFactory { it.price / ooAndBill.hourNorm }
-        workPriceCol.setPriceValueFactory { it.price }
+        workHourNormCol.setPriceValueFactory { it.price / ooAndBill.executor!!.hourNorm }
+        workPriceCol.setPriceValueFactory(Work::price.name)
         workExecutorsCol.setValueFactory(Work::executor.name)
-        dpcNumberCol.setValueFactory { ooAndBill.dpcs.indexOf(it) + 1 }
+        dpcNumberCol.numCol()
         dpcDetailCol.setValueFactory(DPC::name.name)
-        dpcUnitCol.setValueFactory { if (it.unit == "ш") "шт." else "л." }
-        dpcCountCol.setValueFactory { it.count }
-        dpcStateCol.setValueFactory { if (it.state == "н") "новая" else "б/у" }
-        dpcPriceCol.setPriceValueFactory { it.price }
+        dpcUnitCol.setValueFactory(DPC::unit.name)
+        dpcCountCol.setValueFactory(DPC::count.name)
+        dpcStateCol.setValueFactory(DPC::state.name)
+        dpcPriceCol.setPriceValueFactory(DPC::price.name)
         dpcSumCol.setPriceValueFactory { it.count * it.price }
         dpcExecutorsCol.setValueFactory(DPC::executor.name)
-        dfcNumberCol.setValueFactory { ooAndBill.dfcs.indexOf(it) + 1 }
+        dfcNumberCol.numCol()
         dfcDetailCol.setValueFactory(DFC::name.name)
-        dfcUnitCol.setValueFactory { if (it.unit == "ш") "шт." else "л." }
-        dfcCountCol.setValueFactory { it.count }
-        dfcStateCol.setValueFactory { if (it.state == "н") "новая" else "б/у" }
+        dfcUnitCol.setValueFactory(DFC::unit.name)
+        dfcCountCol.setValueFactory(DFC::count.name)
+        dfcStateCol.setValueFactory(DFC::state.name)
         dfcExecutorsCol.setValueFactory(DFC::executor.name)
-        billNumberCol.setValueFactory { it + 1 }
+
+        billNumberCol.numCol()
         billNameCol.setValueFactory {
-            if (it < ooAndBill.works.size) ooAndBill.works[it].name else ooAndBill.dpcs[it - ooAndBill.works.size].name
+            ooAndBill.works.getOrNull(it)?.name ?: ooAndBill.dpcs[it - ooAndBill.works.size].name
         }
         billUnitCol.setValueFactory {
-            if (it < ooAndBill.works.size) "н.ч" else if (ooAndBill.dpcs[it - ooAndBill.works.size].unit == "ш") "шт." else "л."
+            ooAndBill.dpcs.getOrNull(it - ooAndBill.works.size)?.unit ?: "н.ч"
         }
         billCountCol.setPriceValueFactory {
-            if (it < ooAndBill.works.size) ooAndBill.works[it].price / ooAndBill.hourNorm
-            else ooAndBill.dpcs[it - ooAndBill.works.size].count.toDouble()
+            ooAndBill.dpcs.getOrNull(it - ooAndBill.works.size)?.count
+                ?: (ooAndBill.works[it].price / ooAndBill.executor!!.hourNorm)
         }
         billPriceCol.setPriceValueFactory {
-            if (it < ooAndBill.works.size) ooAndBill.hourNorm
-            else ooAndBill.dpcs[it - ooAndBill.works.size].price
+            ooAndBill.dpcs.getOrNull(it - ooAndBill.works.size)?.price ?: ooAndBill.executor!!.hourNorm
         }
         billSumCol.setPriceValueFactory {
-            if (it < ooAndBill.works.size) ooAndBill.works[it].price
-            else (ooAndBill.dpcs[it - ooAndBill.works.size].price * ooAndBill.dpcs[it - ooAndBill.works.size].count)
+            ooAndBill.works.getOrNull(it)?.price
+                ?: (ooAndBill.dpcs[it - ooAndBill.works.size].price * ooAndBill.dpcs[it - ooAndBill.works.size].count)
         }
-        billVatCol.setValueFactory { ooAndBill.vat?.toString() ?: "Без налога" }
+        billVatCol.setValueFactory { ooAndBill.executor!!.vat?.toString() ?: "Без налога" }
         billVatPriceCol.setPriceValueFactory {
-            when {
-                ooAndBill.vat == null -> null
-                it < ooAndBill.works.size -> roundPrice(ooAndBill.vat!!.div(100) * ooAndBill.works[it].price)
-                else -> ooAndBill.dpcs[it - ooAndBill.works.size].price * (ooAndBill.vat!!.div(100))
-            }
+            val vat = ooAndBill.executor?.vat?.div(100) ?: return@setPriceValueFactory null
+
+            ooAndBill.works.getOrNull(it)?.price?.times(vat) ?: (ooAndBill.dpcs[it - ooAndBill.works.size].price * vat)
         }
         billTotalPriceWithVatCol.setPriceValueFactory {
-            if (it < ooAndBill.works.size) ooAndBill.works[it].price * (ooAndBill.vat?.div(100)?.plus(1) ?: 1.0)
-            else ooAndBill.dpcs[it - ooAndBill.works.size].price * (ooAndBill.vat?.div(100)?.plus(1) ?: 1.0)
+            val vat = (ooAndBill.executor!!.vat?.div(100)?.plus(1) ?: 1.0)
+
+            ooAndBill.works.getOrNull(it)?.price?.times(vat) ?: (ooAndBill.dpcs[it - ooAndBill.works.size].price * vat)
         }
 
         workNameCol.setTextFieldCellFactory()
         workPriceCol.setPriceTextFieldCellFactory()
         workExecutorsCol.setComboBoxCellFactory(*user.workers.toTypedArray())
-        dfcDetailCol.setTextFieldCellFactory()
-        dfcCountCol.setIntTextFieldCellFactory()
-        dfcStateCol.setComboBoxCellFactory("н", "б")
-        dfcUnitCol.setComboBoxCellFactory("ш", "л")
-        dfcExecutorsCol.setComboBoxCellFactory(*user.workers.toTypedArray())
         dpcDetailCol.setTextFieldCellFactory()
         dpcCountCol.setIntTextFieldCellFactory()
         dpcPriceCol.setPriceTextFieldCellFactory()
@@ -521,6 +785,17 @@ class OOController : Initializable {
         dpcStateCol.setComboBoxCellFactory("н", "б")
         dpcUnitCol.setComboBoxCellFactory("ш", "л")
         dpcExecutorsCol.setComboBoxCellFactory(*user.workers.toTypedArray())
+        dfcDetailCol.setTextFieldCellFactory()
+        dfcCountCol.setIntTextFieldCellFactory()
+        dfcStateCol.setComboBoxCellFactory("н", "б")
+        dfcUnitCol.setComboBoxCellFactory("ш", "л")
+        dfcExecutorsCol.setComboBoxCellFactory(*user.workers.toTypedArray())
+
+        dpcSumCol.onEditCommitted = EventHandler {
+            it.rowValue.price = roundPrice(it.newValue!!.toDouble() / it.rowValue.count).toDouble()
+
+            refresh()
+        }
     }
 
     private fun updateInfo() {
@@ -542,28 +817,22 @@ class OOController : Initializable {
     fun fill(filledOOAndBill: OOAndBill, path: String = "") {
         this.path = path
         ooAndBill = filledOOAndBill
-        refresh()
 
         registrationDp.value = ooAndBill.registrationDate.localDate
         executionDp.value = ooAndBill.executionDate.localDate
-        updateInfo()
 
-        initCar()
+        refresh()
+        updateInfo()
+        updateCar()
+        updateExecutor()
     }
 
-    private fun initCar(car: DataClasses.Car = ooAndBill.car!!) {
+    private fun updateCar(car: DataClasses.Car = ooAndBill.car!!) {
         ooAndBill.car = car
 
-        companies.find { c -> c.company == ooAndBill.customer }?.let { c ->
-            ooAndBill.customerAddress = c.address
-            ooAndBill.customerPA = c.pa
-            ooAndBill.customerBank = c.bank
-            ooAndBill.customerBIK = c.bik
-            ooAndBill.customerPRN = c.prn
-            ooAndBill.customerContractDate = c.contractDate
-        } ?: individuals.find { i -> i.individual == ooAndBill.customer }?.let { i ->
-            ooAndBill.customerAddress = i.address
-        }
+        val company = DataClasses.owners.find { it.owner == car.owner }?.company ?: car.owner
+        companies.find { it.company == company }?.let { ooAndBill.customer = it }
+            ?: individuals.find { it.individual == car.owner }?.let { ooAndBill.customerAddress = it.address }
 
         worksHint = data.works.filter { it.carModel == car.model }
         dpcsHint = data.dpcs.filter { it.carModel == car.model }
@@ -582,71 +851,108 @@ class OOController : Initializable {
         carNumberLb.text = car.number
         ownerTf.text = car.owner
         ownerTx.text = "Владелец: ${car.owner}"
-        customerAddress.text = "Адрес: ${ooAndBill.customerAddress}"
-        ooAndBill.customerPA?.let {
-            cashTx.text = "Безналичный"
-            cash = false
-            customerPA1Tx.text = "Р/с: $it в ${ooAndBill.customerBank} БИК ${ooAndBill.customerBIK}"
-            customerPA2Tx.text =
-                "Плательщик: ${ooAndBill.customer}, Адрес: ${ooAndBill.customerAddress}, Р/с: ${ooAndBill.customerPA} в ${ooAndBill.customerBank}"
-            customerPRNTx.text = "УНП - ${ooAndBill.customerPRN}"
-            ooToBillTx.text =
-                "Является актом выполненных работ к счету №${ooAndBill.number} от ${ooAndBill.executionDate.value}"
-            executor7Tx.text = ooAndBill.companyName
-            executor8Tx.text = ooAndBill.abbreviatedCompanyName
-            executorPA2Tx.text =
-                "Р/с - ${ooAndBill.companyPA} в ${ooAndBill.companyBank}, ${ooAndBill.companyAddress}, Адрес банка - ${ooAndBill.companyBankAddress}, " +
-                        "БИК - ${ooAndBill.companyBIK}, УНП - ${ooAndBill.companyPRN}, " +
-                        "Почт. адрес - ${ooAndBill.companyAddress}, Тел. - +${ooAndBill.companyPhone}"
-            contractDateTx.text = "договор б/н от ${ooAndBill.customerContractDate}"
-            customer5Tx.text = "Заказчик: ${ooAndBill.customer}"
-            customer6Tx.text = ooAndBill.customer
-            billAp.isVisible = true
-        } ?: run {
+        customerAddress.text = "Адрес: ${ooAndBill.customer?.address ?: ooAndBill.customerAddress}"
+
+        if (ooAndBill.customer == null) {
             cashTx.text = "Наличный"
+
             customerPA1Tx.text = ""
             customerPRNTx.text = ""
-            cash = true
+            contractDateTx.text = ""
+
             customerPA2Tx.text = "Плательщик: ${ooAndBill.customer}"
+
+            cash = true
             billAp.isVisible = false
+        } else {
+            val customer = ooAndBill.customer!!
+
+            cashTx.text = "Безналичный"
+
+            customerPA1Tx.text = "Р/с: ${customer.pa} в ${customer.bank} БИК ${customer.bik}"
+            customerPA2Tx.text =
+                "Плательщик: ${customer.company}, Адрес: ${customer.address}, Р/с: ${customer.pa} в ${customer.bank}"
+            customerPRNTx.text = "УНП - ${customer.prn}"
+            contractDateTx.text = "договор б/н от ${customer.contractDate}"
+            customer5Tx.text = "Заказчик: ${customer.company}"
+            customer6Tx.text = customer.company
+
+            cash = false
+            billAp.isVisible = true
         }
-        executor1Tx.text = ooAndBill.companyName
-        executor2Tx.text = "Исполнитель: ${ooAndBill.companyName}"
-        executor3Tx.text = ooAndBill.abbreviatedCompanyName
-        executor4Tx.text = ooAndBill.abbreviatedCompanyName
-        executor5Tx.text = ooAndBill.abbreviatedCompanyName
-        executor6Tx.text = ooAndBill.companyName
-        executorPA1Tx.text =
-            "УНП - ${ooAndBill.companyPRN}, ${ooAndBill.companyAddress}, Р/с - ${ooAndBill.companyPA} в ${ooAndBill.companyBank}, " +
-                    "БИК - ${ooAndBill.companyBIK}, Адрес банка - ${ooAndBill.companyBankAddress}"
-        customer1Tx.text = ooAndBill.customer
-        customer2Tx.text = ooAndBill.customer
-        customer3Tx.text = ooAndBill.customer
-        customer4Tx.text = ooAndBill.customer
+
+        customer1Tx.text = company
+        customer2Tx.text = company
+        customer3Tx.text = company
+        customer4Tx.text = company
     }
 
-    private fun refresh() {
+    private fun updateExecutor() {
+        val executor = ooAndBill.executor ?: return
+
+        executor1Tx.text = executor.executor
+        executor2Tx.text = "Исполнитель: ${executor.executor}"
+        executor3Tx.text = executor.abbreviatedExecutor
+        executor4Tx.text = executor.abbreviatedExecutor
+        executor5Tx.text = executor.abbreviatedExecutor
+        executor6Tx.text = executor.executor
+        executorPA1Tx.text = "УНП - ${executor.prn}, " +
+                "${executor.address}, " +
+                "Р/с - ${executor.pa} в ${executor.bank}, " +
+                "БИК - ${executor.bik}, " +
+                "Адрес банка - ${executor.bankAddress}"
+
+        if (cash) return
+
+        ooToBillTx.text =
+            "Является актом выполненных работ к счету №${ooAndBill.number} от ${ooAndBill.executionDate.value}"
+        executorPA2Tx.text =
+            "Р/с - ${executor.pa} в ${executor.bank}, " +
+                    "Адрес банка - ${executor.bankAddress}, " +
+                    "БИК - ${executor.bik}, " +
+                    "УНП - ${executor.prn}, " +
+                    "Адрес - ${executor.address}, " +
+                    "Тел. - +${executor.phone}"
+        executor7Tx.text = executor.executor
+        executor8Tx.text = executor.abbreviatedExecutor
+
+    }
+
+    private fun refreshOOTables() {
         workTable.items = ooAndBill.works.toFXList()
-        workTable.refresh()
         dpcTable.items = ooAndBill.dpcs.toFXList()
-        dpcTable.refresh()
         dfcTable.items = ooAndBill.dfcs.toFXList()
+        workTable.refresh()
+        dpcTable.refresh()
         dfcTable.refresh()
-        billPos = mutableListOf()
 
-        for (i in 0 until ooAndBill.works.size + ooAndBill.dpcs.size) billPos.add(i)
-
-        billTable.items = billPos.toFXList()
-        billTable.refresh()
         dpcTable.layoutY = 315.0 + ooAndBill.works.size * 20
         dfcTable.layoutY = 380.0 + (ooAndBill.works.size + ooAndBill.dpcs.size) * 20
         ooFooterAp.layoutY = 445.0 + (ooAndBill.works.size + ooAndBill.dpcs.size + ooAndBill.dfcs.size) * 20
-        billFooterAp.layoutY = 250.0 + (billPos.size * 20)
         workTable.prefHeight = 57.0 + ooAndBill.works.size * 20
         dpcTable.prefHeight = 57.0 + ooAndBill.dpcs.size * 20
         dfcTable.prefHeight = 57.0 + ooAndBill.dfcs.size * 20
-        billTable.prefHeight = 37.0 + billPos.size * 20
 
+        val positions = ooAndBill.works.size + ooAndBill.dpcs.size + ooAndBill.dfcs.size
+        if (positions > 20) {
+            ooAp.prefHeight = 1130.0 + (positions - 20) * 20
+            ooAndBillAp.prefHeight = 1130.0 + (positions - 20) * 20
+        }
+    }
+
+    private fun refreshBillTable() {
+        billTable.items = (0 until ooAndBill.works.size + ooAndBill.dpcs.size).toFXList()
+        billTable.refresh()
+
+        billTable.prefHeight = 37.0 + billTable.items.size * 20
+        billFooterAp.layoutY = 250.0 + (billTable.items.size * 20)
+
+        val positions = ooAndBill.works.size + ooAndBill.dpcs.size
+        if (positions > 35)
+            billAp.prefHeight = 1130.0 + (positions - 35) * 20
+    }
+
+    private fun refreshValues() {
         val workPrice = ooAndBill.works.sumOf { it.price }
         val dpcPrice = ooAndBill.dpcs.sumOf { it.price * it.count }
 
@@ -660,58 +966,43 @@ class OOController : Initializable {
         detailPrice2Tx.value = dpcPrice
         totalPrice2Tx.value = workPrice + dpcPrice
         startPriceTx.text = numToStr(workPrice + dpcPrice)
-        vatTx.text = ooAndBill.vat?.toString() ?: "Без налога"
-        ooAndBill.vat?.let {
-            vatPriceTx.text = roundPrice((workPrice + dpcPrice) * ooAndBill.vat!! / 100).toString()
-            totalPriceWithVAT1Tx.value = (workPrice + dpcPrice) * (ooAndBill.vat!! / 100 + 1)
-            endPriceTx.text = numToStr(((workPrice + dpcPrice) * (ooAndBill.vat!! / 100 + 1)))
-            totalPrice3Tx.text =
-                "Всего к оплате с НДС: ${numToStr((workPrice + dpcPrice) * (ooAndBill.vat!! / 100 + 1))}"
-            totalPriceWithVAT2Tx.text =
-                "В том числе НДС: ${numToStr((workPrice + dpcPrice) * (ooAndBill.vat!! / 100 + 1))}"
-        } ?: run {
+
+        val vat = ooAndBill.executor?.vat
+
+        vatTx.text = vat?.toString() ?: "Без налога"
+
+        if (vat == null) {
             vatPriceTx.text = "-"
             totalPriceWithVAT1Tx.value = workPrice + dpcPrice
             endPriceTx.text = numToStr(workPrice + dpcPrice)
             totalPrice3Tx.text = "Всего к оплате с НДС: ${numToStr(workPrice + dpcPrice)}"
             totalPriceWithVAT2Tx.text = "В том числе НДС: Без НДС"
+        } else {
+            vatPriceTx.text = roundPrice((workPrice + dpcPrice) * vat / 100).toString()
+            totalPriceWithVAT1Tx.value = (workPrice + dpcPrice) * (vat / 100 + 1)
+            endPriceTx.text = numToStr(((workPrice + dpcPrice) * (vat / 100 + 1)))
+            totalPrice3Tx.text = "Всего к оплате с НДС: ${numToStr((workPrice + dpcPrice) * (vat / 100 + 1))}"
+            totalPriceWithVAT2Tx.text = "В том числе НДС: ${numToStr((workPrice + dpcPrice) * (vat / 100 + 1))}"
         }
-        var totalPos = ooAndBill.works.size + ooAndBill.dpcs.size + ooAndBill.dfcs.size - 19
+    }
 
-        if (totalPos > 1) {
-            ooAp.prefHeight = 1130.0 + totalPos * 20
-            ooAndBillAp.prefHeight = 1130.0 + totalPos * 20
-        }
-
-        totalPos = ooAndBill.works.size + ooAndBill.dpcs.size - 34
-
-        if (ooAndBill.works.size + ooAndBill.dpcs.size > 35)
-            billAp.prefHeight = 1130.0 + totalPos * 20
+    @FXML
+    private fun refresh() {
+        refreshOOTables()
+        refreshBillTable()
+        refreshValues()
     }
 
     fun onPositionsMouseClicked(mouseEvent: MouseEvent) {
         action = when {
-            mouseEvent.source.toString().contains("work") -> {
-                confirmBtn.text = "Добавить работу"
-                1
-            }
-            mouseEvent.source.toString().contains("dpc") -> {
-                confirmBtn.text = "Добавить дет. опл. зак."
-                2
-            }
-            mouseEvent.source.toString().contains("dfc") -> {
-                confirmBtn.text = "Добавить дет. прин. от зак."
-                3
-            }
-            mouseEvent.source.toString().contains("carNumberTf") -> {
-                confirmBtn.text = "Применить авто"
-                5
-            }
-            else -> {
-                confirmBtn.text = "Применить изменения"
-                4
-            }
+            mouseEvent.source.toString().contains("work") -> ButtonActions.ADD_WORK
+            mouseEvent.source.toString().contains("dpc") -> ButtonActions.ADD_DPC
+            mouseEvent.source.toString().contains("dfc") -> ButtonActions.ADD_DFC
+            mouseEvent.source.toString().contains("carNumberTf") -> ButtonActions.APPLY_CAR
+            else -> ButtonActions.APPLY_CHANGES
         }
+
+        confirmBtn.text = action.value
     }
 
     fun onWorkTableKeyPressed(event: KeyEvent) {
@@ -741,138 +1032,51 @@ class OOController : Initializable {
         }
     }
 
-    fun changeWorkNameCellEvent(editEvent: CellEditEvent<Work, String>) {
-        workTable.selectionModel.selectedItem.name = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeWorkPriceCellEvent(editEvent: CellEditEvent<Work, String>) {
-        totalWorkPriceTf.text = ooAndBill.works.sumOf { it.price }.toString()
-        totalPriceTf.text =
-            (ooAndBill.works.sumOf { it.price } + ooAndBill.dpcs.sumOf { it.price * it.count }).toString()
-        workTable.selectionModel.selectedItem.price = roundPrice(editEvent.newValue.toDouble())
-        workTable.refresh()
-        refresh()
-    }
-
-    fun changeWorkExecutorCellEvent(editEvent: CellEditEvent<Work, String>) {
-        workTable.selectionModel.selectedItem.executor = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeDFCDetailCellEvent(editEvent: CellEditEvent<DFC, String>) {
-        dfcTable.selectionModel.selectedItem.name = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeDFCCountCellEvent(editEvent: CellEditEvent<DFC, String?>) {
-        dfcTable.selectionModel.selectedItem.count = editEvent.newValue!!.toInt()
-        refresh()
-    }
-
-    fun changeDFCUnitCellEvent(editEvent: CellEditEvent<DFC, String?>) {
-        dfcTable.selectionModel.selectedItem.unit = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeDFCStateCellEvent(editEvent: CellEditEvent<DFC, String?>) {
-        dfcTable.selectionModel.selectedItem.state = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeDFCExecutorCellEvent(editEvent: CellEditEvent<DFC, String?>) {
-        dfcTable.selectionModel.selectedItem.executor = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeDPCDetailCellEvent(editEvent: CellEditEvent<DPC, String?>) {
-        dpcTable.selectionModel.selectedItem.name = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeDPCCountCellEvent(editEvent: CellEditEvent<DPC, String?>) {
-        dpcTable.selectionModel.selectedItem.count = editEvent.newValue!!.toInt()
-        totalDPCPriceTf.text = ooAndBill.dpcs.sumOf { it.price }.toString()
-        totalPriceTf.text =
-            (ooAndBill.works.sumOf { it.price } + ooAndBill.dpcs.sumOf { it.price * it.count }).toString()
-        dpcTable.refresh()
-        refresh()
-    }
-
-    fun changeDPCPriceCellEvent(editEvent: CellEditEvent<DPC, String?>) {
-        dpcTable.selectionModel.selectedItem.price = roundPrice(editEvent.newValue!!.toDouble())
-        totalDPCPriceTf.text = ooAndBill.dpcs.sumOf { it.price * it.count }.toString()
-        totalPriceTf.text =
-            (ooAndBill.works.sumOf { it.price } + ooAndBill.dpcs.sumOf { it.price * it.count }).toString()
-        dpcTable.refresh()
-        refresh()
-    }
-
-    fun changeDPCSumCellEvent(editEvent: CellEditEvent<DPC, String?>) {
-        totalDPCPriceTf.text = ooAndBill.dpcs.sumOf { it.price * it.count }.toString()
-        totalPriceTf.text =
-            (ooAndBill.works.sumOf { it.price } + ooAndBill.dpcs.sumOf { it.price * it.count }).toString()
-        dpcTable.selectionModel.selectedItem.price =
-            roundPrice(editEvent.newValue!!.toDouble() / dpcTable.selectionModel.selectedItem.count)
-        dpcTable.refresh()
-        refresh()
-    }
-
-    fun changeDPCUnitCellEvent(editEvent: CellEditEvent<DPC, String?>) {
-        dpcTable.selectionModel.selectedItem.unit = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeDPCStateCellEvent(editEvent: CellEditEvent<DPC, String?>) {
-        dpcTable.selectionModel.selectedItem.state = editEvent.newValue!!
-        refresh()
-    }
-
-    fun changeDPCExecutorCellEvent(editEvent: CellEditEvent<DPC, String?>) {
-        dpcTable.selectionModel.selectedItem.executor = editEvent.newValue!!
-        refresh()
-    }
-
     class OOAndBill(
         var number: Int = 0,
         var registrationDate: DataClasses.Date = DataClasses.Date(),
         var executionDate: DataClasses.Date = DataClasses.Date(),
         var car: DataClasses.Car? = null,
         var carMileage: Int? = null,
-        var customer: String = "",
-        var customerAddress: String = "",
-        var customerPA: String? = null,
-        var customerBank: String? = null,
-        var customerBIK: String? = null,
-        var customerPRN: String? = null,
-        var customerContractDate: String? = null,
-        var vat: Double? = null,
-        var hourNorm: Double = 0.0,
-        var companyName: String = "",
-        var abbreviatedCompanyName: String = "",
-        var companyAddress: String = "",
-        var companyPA: String = "",
-        var companyBank: String = "",
-        var companyBankAddress: String = "",
-        var companyBIK: String = "",
-        var companyPRN: String = "",
-        var companyPhone: String? = null,
+        var customer: DataClasses.Company? = null,
+        var customerAddress: String? = null,
+        var executor: DataClasses.Executor? = null,
         var works: MutableList<Work> = mutableListOf(),
         var dpcs: MutableList<DPC> = mutableListOf(),
         var dfcs: MutableList<DFC> = mutableListOf(),
     )
 
-    class Work(var name: String = "", var price: Double = 0.0, var executor: String = "")
+    class Work(
+        var name: String = "",
+        var price: Double = 0.0,
+        var executor: String = "",
+    )
 
     class DPC(
-        var name: String = "", var unit: String = "", var count: Int = 0,
-        var state: String = "", var price: Double = 0.0, var executor: String = "",
+        var name: String = "",
+        var unit: String = "",
+        var count: Int = 0,
+        var state: String = "",
+        var price: Double = 0.0,
+        var executor: String = "",
     )
 
     class DFC(
-        var name: String = "", var unit: String = "", var count: Int = 0,
-        var state: String = "", var executor: String = "",
+        var name: String = "",
+        var unit: String = "",
+        var count: Int = 0,
+        var state: String = "",
+        var executor: String = "",
     )
 
-    private fun roundPrice(price: Double) = String.format("%.2f", price).replace(",", ".").toDouble()
+    enum class ButtonActions(val value: String){
+        CONFIRM("Подтвердить"),
+        ADD_WORK("Добавить работу"),
+        ADD_DPC("Добавить дет. опл. зак."),
+        ADD_DFC("Добавить дет. прин. от зак."),
+        APPLY_CAR("Применить авто"),
+        APPLY_CHANGES("Применить изменения"),
+    }
+
+    private fun roundPrice(price: Double) = DecimalFormat("#0.00").format(price).replace(",", ".")
 }
