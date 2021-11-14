@@ -1,19 +1,20 @@
 package ldcapps.servicehelper.controllers.tools
 
+import javafx.application.Platform.runLater
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.Node
 import javafx.scene.control.Button
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
-import ldcapps.servicehelper.Dialogs
+import ldcapps.servicehelper.Animations
+import ldcapps.servicehelper.NotNullField
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
 import ldcapps.servicehelper.db.DataClasses.Companion.companies
 import ldcapps.servicehelper.db.DataClasses.Companion.individuals
 import ldcapps.servicehelper.db.DataClasses.Companion.owners
-import ldcapps.servicehelper.inSize
-import ldcapps.servicehelper.isNotNull
 import ldcapps.servicehelper.toFXList
 import ldclibs.javafx.controls.AutoCompletedDoubleTextField
 import ldclibs.javafx.controls.AutoCompletedIntTextField
@@ -22,39 +23,50 @@ import ldclibs.javafx.controls.MyTextField
 import ldclibs.javafx.controls.pickers.CarNumberPicker
 import java.net.URL
 import java.util.*
+import kotlin.concurrent.thread
 
 class AddCarController : Initializable {
     @FXML
     private lateinit var confirmBtn: Button
 
     @FXML
+    @NotNullField("Company")
     private lateinit var customerCb: ComboBox<String>
 
     @FXML
+    @NotNullField("Company")
     private lateinit var ownerTf: AutoCompletedTextField<String>
 
     @FXML
+    @NotNullField("Individual")
     private lateinit var individualTf: AutoCompletedTextField<String>
 
     @FXML
+    @NotNullField("Individual")
     private lateinit var addressTf: AutoCompletedTextField<String>
 
     @FXML
+    @NotNullField
     private lateinit var modelTf: AutoCompletedTextField<String>
 
     @FXML
+    @NotNullField(size = 17)
     private lateinit var vinTf: MyTextField
 
     @FXML
+    @NotNullField(size = 4)
     private lateinit var yearTf: AutoCompletedIntTextField
 
     @FXML
+    @NotNullField(size = 3)
     private lateinit var engineTf: AutoCompletedDoubleTextField
 
     @FXML
+    @NotNullField(size = 9)
     private lateinit var numberPicker: CarNumberPicker
 
     @FXML
+    @NotNullField
     lateinit var keyTf: TextField
 
     private fun enable(vararg nodes: Node) =
@@ -99,23 +111,29 @@ class AddCarController : Initializable {
 
         confirmBtn.setOnAction {
             when {
-                !isNotNull(modelTf, vinTf, yearTf, engineTf, numberPicker, keyTf) ||
-                        inSize(yearTf to 4, vinTf to 17, engineTf to 3, numberPicker to 9) -> return@setOnAction
+                !check() -> return@setOnAction
                 cars.map { it.number }.find { it == numberPicker.value } != null -> {
-                    Dialogs.warning("Данное авто уже есть в базе данных")
+                    Animations.warningNode(numberPicker)
                     return@setOnAction
                 }
                 cars.map { it.keyNum }.find { it == keyTf.text } != null -> {
-                    Dialogs.warning("Данный ключ уже есть в базе данных")
+                    Animations.warningNode(keyTf)
                     return@setOnAction
                 }
-                isNotNull(customerCb, ownerTf, playAnim = false) &&
-                        owners.find { it.owner == ownerTf.text } == null -> {
-                    owners.add(DataClasses.Owner(ownerTf.text, customerCb.value))
+            }
+
+            when {
+                check(false, "Company") ->
+                    if (owners.find { it.owner == ownerTf.text } == null)
+                        owners.add(DataClasses.Owner(ownerTf.text, customerCb.value))
+                check(false, "Individual") ->
+                    if (individuals.find { it.individual == individualTf.text } == null)
+                        individuals.add(DataClasses.Individual(individualTf.text, addressTf.text))
+                else -> {
+                    check(type = "Company")
+                    check(type = "Individual")
+                    return@setOnAction
                 }
-                isNotNull(individualTf, addressTf, playAnim = false) &&
-                        individuals.find { it.individual == individualTf.text } == null ->
-                    individuals.add(DataClasses.Individual(individualTf.text, addressTf.text))
             }
 
             val car = DataClasses.Car(
@@ -128,9 +146,13 @@ class AddCarController : Initializable {
             )
             cars.add(car)
 
-            Dialogs.information("Авто успешно добавлено")
-            Tools.ADD_CAR.update<AddCarController>()
-
+            confirmBtn.text = "Успешно"
+            thread {
+                Thread.sleep(1000)
+                runLater{
+                    ToolsController.ADD_CAR.update<AddCarController>()
+                }
+            }
         }
     }
 }

@@ -4,38 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Improve AddCarController.kt, fix bugs, optimization">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Dialogs.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Dialogs.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/FXML.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/FXMLInfo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarDataController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarDataController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CreateAct.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CreateAct.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/CreateContract.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/CreateContract.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReport.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReport.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/Panes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/Tools.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDB.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDB.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/ToolSelector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/ToolSelectorController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/Column.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/Column.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/TextFields.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/TextFields.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/OO.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/OO.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Add car.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Add car.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Main.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Redact DB.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Redact DB.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Add @@NotNullField annotation, improve animations, fix bug" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +14,34 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ServiceHelper" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Annotation" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,22 +60,52 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/gradle-6.9.1-bin/gradle-6.9.1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Kotlin.WindowsKt">
+    <configuration name="ServiceHelper [launch4j]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="launch4j" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="WindowsKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ldcapps.servicehelper.WindowsKt" />
       <module name="ServiceHelper.main" />
+      <shortenClasspath name="NONE" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../ServiceHelper" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Gradle.ServiceHelper [launch4j]" />
+      <item itemvalue="Kotlin.WindowsKt" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Kotlin.WindowsKt" />
@@ -95,15 +122,59 @@
       <updated>1634026638008</updated>
       <workItem from="1634026642653" duration="113000" />
       <workItem from="1634026776060" duration="791000" />
-      <workItem from="1634030716186" duration="2471000" />
+      <workItem from="1634030716186" duration="4640000" />
+      <workItem from="1634109570032" duration="11774000" />
+      <workItem from="1634205639961" duration="1779000" />
+      <workItem from="1634285118353" duration="73000" />
+      <workItem from="1634893479717" duration="1186000" />
+      <workItem from="1634932031550" duration="15000" />
+      <workItem from="1635014410742" duration="72000" />
+      <workItem from="1635103306401" duration="1370000" />
+      <workItem from="1635497064819" duration="532000" />
+      <workItem from="1635534978119" duration="185000" />
+      <workItem from="1636906388976" duration="1687000" />
     </task>
+    <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
+      <created>1634070167859</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1634070167859</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add @@NotNullField annotation, improve animations, fix bug">
+      <created>1636908643312</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1636908643312</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Improve AddCarController.kt, fix bugs, optimization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve AddCarController.kt, fix bugs, optimization" />
+    <MESSAGE value="Add @@NotNullField annotation, improve animations, fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add @@NotNullField annotation, improve animations, fix bug" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ServiceHelper$WindowsKt.ic" NAME="WindowsKt Coverage Results" MODIFIED="1634893950327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

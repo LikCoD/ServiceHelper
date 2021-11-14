@@ -11,7 +11,8 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import ldcapps.servicehelper.*
-import ldcapps.servicehelper.controllers.tools.Signup
+import ldcapps.servicehelper.NotNullField.Companion.check
+import ldcapps.servicehelper.controllers.tools.SignupController
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.user
 import java.io.File
@@ -19,13 +20,16 @@ import java.net.URL
 import java.util.*
 
 
-class Login : Initializable {
+class LoginController : Initializable {
     lateinit var stage: Stage
     lateinit var signupBtn: Button
+    @NotNullField
     lateinit var oosLocateTf: TextField
     lateinit var oosLocateBtn: Button
+    @NotNullField
     lateinit var actsLocateTf: TextField
     lateinit var actsLocateBtn: Button
+    @NotNullField
     lateinit var contractsLocateTf: TextField
     lateinit var contractsLocateBtn: Button
     lateinit var confirmBtn: Button
@@ -33,18 +37,20 @@ class Login : Initializable {
     lateinit var loginVb: VBox
     lateinit var signupPane: AnchorPane
     lateinit var pane: AnchorPane
+    @NotNullField
     lateinit var loginTf: TextField
+    @NotNullField
     lateinit var passwordTf: TextField
 
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
-        oosLocateBtn.setOnAction { oosLocateTf.text = Dialogs.getDirectory(Signup.stage, oosLocateTf.text) }
-        actsLocateBtn.setOnAction { actsLocateTf.text = Dialogs.getDirectory(Signup.stage, actsLocateTf.text) }
+        oosLocateBtn.setOnAction { oosLocateTf.text = Dialogs.getDirectory(SignupController.stage, oosLocateTf.text) }
+        actsLocateBtn.setOnAction { actsLocateTf.text = Dialogs.getDirectory(SignupController.stage, actsLocateTf.text) }
         contractsLocateBtn.setOnAction {
-            contractsLocateTf.text = Dialogs.getDirectory(Signup.stage, contractsLocateTf.text)
+            contractsLocateTf.text = Dialogs.getDirectory(SignupController.stage, contractsLocateTf.text)
         }
 
-        Signup.type = Signup.Companion.Type.SING_UP
-        Signup.stage = stage
+        SignupController.type = SignupController.Companion.Type.SING_UP
+        SignupController.stage = stage
 
         signupPane = FXMLLoader(javaClass.classLoader.getResource("fxml/Tools/Signup.fxml")).load()
         (signupPane.children[0] as VBox).children.add(0, HBox().apply {
@@ -68,7 +74,7 @@ class Login : Initializable {
         }
 
         confirmBtn.setOnAction {
-            if (isNotNull(loginTf, passwordTf, oosLocateTf, actsLocateTf, contractsLocateTf)) {
+            if (check()) {
                 File("${oosLocateTf.text}/Нал").mkdirs()
                 File("${oosLocateTf.text}/Безнал").mkdirs()
                 File(actsLocateTf.text).mkdirs()

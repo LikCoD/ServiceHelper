@@ -1,9 +1,11 @@
 package ldcapps.servicehelper.controllers.tools
 
+import javafx.application.Platform
 import javafx.fxml.Initializable
 import javafx.scene.control.*
 import javafx.stage.Stage
 import ldcapps.servicehelper.*
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.db
 import ldcapps.servicehelper.db.DataClasses.Companion.user
@@ -15,21 +17,31 @@ import ldclibs.javafx.controls.pickers.PhonePicker
 import java.io.File
 import java.net.URL
 import java.util.*
+import kotlin.concurrent.thread
 
-class Signup : Initializable {
+class SignupController : Initializable {
+    @NotNullField
     lateinit var oosLocateTf: TextField
     lateinit var oosLocateBtn: Button
+    @NotNullField
     lateinit var actsLocateTf: TextField
     lateinit var actsLocateBtn: Button
+    @NotNullField
     lateinit var contractsLocateTf: TextField
     lateinit var contractsLocateBtn: Button
+    @NotNullField("SingUp")
     lateinit var loginTf: TextField
+    @NotNullField("SingUp")
     lateinit var passwordTf: PasswordField
+    @NotNullField("SingUp")
     lateinit var passwordRepeatTf: PasswordField
     lateinit var stayOfflineBtn: RadioButton
+    @NotNullField
     lateinit var nameTf: TextField
     lateinit var confirmBtn: Button
+    @NotNullField
     lateinit var hourNormTf: DoubleTextField
+    @NotNullField("Worker")
     lateinit var workerTf: TextField
     lateinit var addWorkerBtn: Button
     lateinit var vatTf: DoubleTextField
@@ -38,12 +50,18 @@ class Signup : Initializable {
     lateinit var standardUnitCb: ComboBox<String>
     lateinit var standardStateCb: ComboBox<String>
     lateinit var standardWorkerCb: ComboBox<String>
+    @NotNullField
     lateinit var companyNameTf: TextField
     lateinit var serviceAddressTf: TextField
+    @NotNullField
     lateinit var bankPicker: BankPicker
+    @NotNullField
     lateinit var prnPicker: PRNPicker
+    @NotNullField
     lateinit var phoneTf: PhonePicker
+    @NotNullField
     lateinit var emailTf: TextField
+    @NotNullField
     lateinit var certificateOfStateRegistrationTf: TextField
 
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
@@ -84,7 +102,7 @@ class Signup : Initializable {
         workersCb.value = ""
 
         addWorkerBtn.setOnAction {
-            if (isNotNull(workerTf)) {
+            if (check(type = "Worker")) {
                 workers.add(workerTf.text)
                 workersCb.items = workers.toFXList()
                 standardWorkerCb.items = workers.toFXList()
@@ -93,7 +111,7 @@ class Signup : Initializable {
         }
 
         deleteWorkerBtn.setOnAction {
-            if (isNotNull(workerTf)) {
+            if (check(type = "Worker")) {
                 workers.remove(workersCb.value)
                 workersCb.items = workers.toFXList()
                 standardWorkerCb.items = workers.toFXList()
@@ -101,12 +119,7 @@ class Signup : Initializable {
         }
 
         confirmBtn.setOnAction {
-            if (isNotNull(
-                    hourNormTf, companyNameTf, bankPicker, prnPicker,
-                    phoneTf, emailTf, certificateOfStateRegistrationTf, hourNormTf,
-                    oosLocateTf, contractsLocateTf, actsLocateTf, nameTf
-                ) && (type == Type.SETTINGS || isNotNull(loginTf, passwordTf, passwordRepeatTf, playAnim = false))
-            ) {
+            if (check() && (type == Type.SETTINGS || check(type = "SingUp"))){
                 if (passwordTf.text == passwordRepeatTf.text)
                     try {
                         File("${oosLocateTf.text}/Нал").mkdirs()
@@ -142,10 +155,7 @@ class Signup : Initializable {
                                 )
 
                                 if (type == Type.SETTINGS) {
-                                    if (isNotNull(
-                                            loginTf, passwordTf, passwordRepeatTf, playAnim = false
-                                        ) && passwordTf.text == passwordRepeatTf.text
-                                    )
+                                    if (check(type = "SingUp") && passwordTf.text == passwordRepeatTf.text)
                                         db?.saveUser(user, loginTf.text, passwordTf.text)
                                     else db?.saveUser(user)
 
@@ -166,8 +176,8 @@ class Signup : Initializable {
                             } else Dialogs.warning("Необходимо подключение к сети интернет")
                         else Dialogs.warning("Пароль введен неправильно")
                     } catch (ex: Exception) {
+                        Animations.errorButton(confirmBtn, "Ошибка")
                         ex.printStackTrace()
-                        Dialogs.warning("Невозможно сохранить настройки")
                     }
                 else {
                     Animations.emptyNode(passwordTf)

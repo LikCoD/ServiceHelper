@@ -21,13 +21,13 @@ class ToolSelectorController : Initializable {
         //toolStage = stage
         toolPane = pane
 
-        Tools.ADD_CAR.show<AddCarController>(addCarTb, stage)
+        ToolsController.ADD_CAR.show<AddCarController>(addCarTb, stage)
 
-        addCarTb.setOnAction { Tools.ADD_CAR.show<AddCarController>(addCarTb, stage) }
-        createContractTb.setOnAction { (Tools.CREATE_CONTRACT.show<CreateContract>(createContractTb, stage)).loadData(null) }
-        redactDBTb.setOnAction { Tools.REDACT_DB.show(redactDBTb, stage) }
-        getReportTb.setOnAction { Tools.GET_REPORT.show(getReportTb, stage) }
-        settingsTb.setOnAction { Tools.SETTINGS.show(settingsTb, stage) }
+        addCarTb.setOnAction { ToolsController.ADD_CAR.show<AddCarController>(addCarTb, stage) }
+        createContractTb.setOnAction { (ToolsController.CREATE_CONTRACT.show<CreateContractController>(createContractTb, stage)).loadData(null) }
+        redactDBTb.setOnAction { ToolsController.REDACT_DB.show(redactDBTb, stage) }
+        getReportTb.setOnAction { ToolsController.GET_REPORT.show(getReportTb, stage) }
+        settingsTb.setOnAction { ToolsController.SETTINGS.show(settingsTb, stage) }
         stage.setOnCloseRequest { if (!Dialogs.confirmation("Подтвердите выход")) it.consume() }
     }
 

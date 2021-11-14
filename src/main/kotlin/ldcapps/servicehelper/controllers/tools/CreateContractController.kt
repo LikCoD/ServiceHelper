@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.text.Text
 import javafx.stage.Stage
 import ldcapps.servicehelper.*
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.companies
 import ldcapps.servicehelper.db.DataClasses.Companion.user
@@ -23,17 +24,25 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class CreateContract : Initializable {
+class CreateContractController : Initializable {
     lateinit var pane: AnchorPane
     lateinit var confirmBtn: Button
     lateinit var openBtn: Button
+    @NotNullField
     lateinit var cusFullNameTf: TextField
+    @NotNullField
     lateinit var cusPATf: BankPicker
+    @NotNullField
     lateinit var footingTf: AutoCompletedTextField<String>
+    @NotNullField
     lateinit var cusPRNTf: PRNPicker
+    @NotNullField
     lateinit var dateP: DatePicker
+    @NotNullField
     lateinit var cusInPersonTf: AutoCompletedTextField<String>
+    @NotNullField
     lateinit var cusPhoneTf: PhonePicker
+    @NotNullField
     lateinit var cusEmailTf: TextField
     lateinit var page1: AnchorPane
     lateinit var page2: AnchorPane
@@ -74,11 +83,7 @@ class CreateContract : Initializable {
         pane.prefHeight = Toolkit.getDefaultToolkit().screenSize.height - 25.0
         dateP.value = LocalDate.now()
         confirmBtn.setOnAction {
-            if (isNotNull(
-                    cusFullNameTf, cusPATf,
-                    footingTf, cusPRNTf, cusInPersonTf, cusPhoneTf, cusEmailTf
-                )
-            ) {
+            if (check()) {
                 if (path != null || companies.map { it.company }.find { it == cusPRNTf.company } == null) {
                     try {
                         val date = DateTimeFormatter.ofPattern("dd.MM.yyyy").format(dateP.value)
@@ -116,7 +121,7 @@ class CreateContract : Initializable {
                         Dialogs.confirmation("Договор успешно создан и находится по пути:\n$path\nРаспечатать его?") {
                             Dialogs.print(confirmBtn.scene.window as Stage, PageOrientation.PORTRAIT, page1, page2)
                         }
-                        Tools.CREATE_CONTRACT.update<CreateContract>()
+                        ToolsController.CREATE_CONTRACT.update<CreateContractController>()
                     } catch (ex: Exception) {
                         Dialogs.warning("Невозможно создать Договор")
                     }
@@ -163,7 +168,7 @@ class CreateContract : Initializable {
     fun loadData(path: String?) {
         if (path != null)
             with(fromJSON<Contract>(path)) {
-                this@CreateContract.path = path
+                this@CreateContractController.path = path
                 executorTx.text = exAbbreviatedCompanyName
                 exAddressTx.text = exAddress
                 exPATx.text = "Р/c: $exPA в $exBank"

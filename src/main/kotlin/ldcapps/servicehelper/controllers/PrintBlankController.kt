@@ -10,7 +10,7 @@ import java.awt.Toolkit
 import java.net.URL
 import java.util.*
 
-class Blank : Initializable {
+class PrintBlankController : Initializable {
     lateinit var stage: Stage
     lateinit var mainAp: AnchorPane
     lateinit var frontAp: AnchorPane

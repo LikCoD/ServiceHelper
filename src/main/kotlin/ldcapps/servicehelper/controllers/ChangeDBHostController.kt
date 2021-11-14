@@ -3,21 +3,24 @@ package ldcapps.servicehelper.controllers
 import javafx.fxml.Initializable
 import javafx.scene.control.Button
 import javafx.stage.Stage
-import ldcapps.servicehelper.inSize
-import ldcapps.servicehelper.isNotNull
-import ldcapps.servicehelper.settings
-import ldcapps.servicehelper.toJSON
+import ldcapps.servicehelper.*
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldclibs.javafx.controls.IntTextField
 import ldclibs.javafx.controls.MyTextField
 import java.net.URL
 import java.util.*
 
-class ChangeDBHost : Initializable {
+class ChangeDBHostController : Initializable {
     lateinit var stage: Stage
+    @NotNullField
     lateinit var hostTf: MyTextField
+    @NotNullField(size = 4)
     lateinit var portTf: IntTextField
+    @NotNullField
     lateinit var loginTf: MyTextField
+    @NotNullField
     lateinit var passwordTf: MyTextField
+    @NotNullField
     lateinit var dbNameTf: MyTextField
     lateinit var confirmBtn: Button
 
@@ -29,7 +32,7 @@ class ChangeDBHost : Initializable {
         dbNameTf.text = settings.dbName
 
         confirmBtn.setOnAction {
-            if (isNotNull(hostTf, portTf, loginTf, passwordTf, dbNameTf) && inSize(portTf to 4)){
+            if (check()){
                 settings.host = hostTf.text.trim()
                 settings.port = portTf.text.trim().toInt()
                 settings.login = loginTf.text.trim()

@@ -14,7 +14,7 @@ import ldcapps.servicehelper.FXMLInfo
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController.Companion.toolPane
 import ldcapps.servicehelper.db.DataClasses
 
-enum class Tools(
+enum class ToolsController(
     private val info: FXMLInfo,
     private val text: String,
     private val isMaximized: Boolean = false,

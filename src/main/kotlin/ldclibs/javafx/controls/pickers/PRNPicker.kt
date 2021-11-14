@@ -5,12 +5,11 @@ import javafx.scene.Parent
 import javafx.scene.control.Button
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
-import ldcapps.servicehelper.inSize
-import ldcapps.servicehelper.isNotNull
+import ldcapps.servicehelper.NotNullField
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.isOnline
 import ldclibs.javafx.controls.IntTextField
 import ldclibs.javafx.controls.MyTextField
-import ldclibs.javafx.controls.StringTextField
 import org.jsoup.Jsoup
 
 class PRNPicker : CustomPicker() {
@@ -29,6 +28,8 @@ class PRNPicker : CustomPicker() {
             this.value = "$company, Адрес $value, УНП $prn"
             field = value
         }
+
+    @NotNullField(size = 9)
     private var prnTf = IntTextField(9).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -47,11 +48,15 @@ class PRNPicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 100.0
     }
+
+    @NotNullField
     private var companyTf = MyTextField().apply {
         promptText = "Компания"
         prefHeight = 30.0
         prefWidth = 140.0
     }
+
+    @NotNullField
     private var addressTf = MyTextField().apply {
         promptText = "Адрес"
         prefHeight = 30.0
@@ -62,7 +67,7 @@ class PRNPicker : CustomPicker() {
         isDefaultButton = true
 
         setOnAction {
-            if (isNotNull(companyTf, addressTf) && inSize(prnTf to 9)) {
+            if (this@PRNPicker.check()) {
                 prn = prnTf.text.toInt()
                 company = companyTf.text
                 address = addressTf.text
@@ -93,7 +98,7 @@ class PRNPicker : CustomPicker() {
         companyTf.text = company
         addressTf.text = address
         if (prn != 0)
-        value = "$company, Адрес $address, УНП $prn"
+            value = "$company, Адрес $address, УНП $prn"
         onShow()
     }
 

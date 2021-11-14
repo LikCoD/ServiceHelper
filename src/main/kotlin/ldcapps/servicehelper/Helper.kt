@@ -10,9 +10,9 @@ import javafx.scene.control.ComboBox
 import javafx.scene.control.TableView
 import javafx.scene.control.TextField
 import javafx.stage.Stage
-import ldcapps.servicehelper.controllers.tools.CreateContract
+import ldcapps.servicehelper.controllers.tools.CreateContractController
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController
-import ldcapps.servicehelper.controllers.tools.Tools
+import ldcapps.servicehelper.controllers.tools.ToolsController
 import ldcapps.servicehelper.db.DataClasses
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
@@ -56,7 +56,7 @@ class Data {
 var settings = fromJSON<Settings>(".settings")
 var data = fromJSON<Data>(".data")
 
-val crypt = Crypt()
+//val crypt = Crypt()
 
 fun generateToken(tokenLength: Int = 100): String {
     var res = ""
@@ -69,8 +69,8 @@ fun generateToken(tokenLength: Int = 100): String {
 
 fun getToken(): String? {
     val token = File("token.key")
-    if (token.exists())
-        return crypt.decrypt()
+/*    if (token.exists())
+        return crypt.decrypt()*/
     return null
 }
 
@@ -84,10 +84,10 @@ fun open(path: String? = null, stage: Stage? = null) {
         if (path == null || stage == null) return
 
         when (extension) {
-            "db" -> Tools.REDACT_DB.show(controller.redactDBTb, stage)
-            "report" -> Tools.GET_REPORT.show(controller.getReportTb, stage)
-            "settings" -> Tools.SETTINGS.show(controller.settingsTb, stage)
-            "contract" -> (Tools.CREATE_CONTRACT.show<CreateContract>(controller.createContractTb, stage)).loadData(path)
+            "db" -> ToolsController.REDACT_DB.show(controller.redactDBTb, stage)
+            "report" -> ToolsController.GET_REPORT.show(controller.getReportTb, stage)
+            "settings" -> ToolsController.SETTINGS.show(controller.settingsTb, stage)
+            "contract" -> (ToolsController.CREATE_CONTRACT.show<CreateContractController>(controller.createContractTb, stage)).loadData(path)
             "act" -> Windows.act()?.fill(fromJSON(path), path)
             "oab", "oo" -> mainController?.fillOO(fromJSON(path), path)
             else -> Dialogs.warning("Ошибка инициализации файла")
@@ -101,39 +101,6 @@ fun open(path: String? = null, stage: Stage? = null) {
 
 fun <E> Iterable<E>.toFXList(): ObservableList<E> = FXCollections.observableArrayList(this.toList())
 fun fxList(vararg el: String): ObservableList<String> = FXCollections.observableArrayList(*el)
-
-fun isNotNull(vararg nodes: Node, playAnim: Boolean = true): Boolean {
-    var isNotNull = true
-
-    nodes.forEach {
-        if (when (it) {
-                is ComboBox<*> -> (it.value as String?)?.trim() ?: ""
-                is TextField -> it.text.trim()
-                else -> ""
-            } == ""
-        ) {
-            if (playAnim) Animations.emptyNode(it)
-            isNotNull = false
-        }
-    }
-
-    return isNotNull
-}
-
-fun inSize(vararg p: Pair<Node, Int>): Boolean {
-    var isSize = true
-    p.forEach {
-        if (when (it.first) {
-                is ComboBox<*> -> ((it.first as ComboBox<*>).value as String).trim()
-                else -> (it.first as TextField).text.trim()
-            }.length != it.second
-        ) {
-            Animations.emptyNode(it.first)
-            isSize = false
-        }
-    }
-    return isSize
-}
 
 inline fun <reified T> fromJSON(file: File, textNotExist: String = "{}"): T {
     if (!file.exists()) file.writeText(textNotExist)

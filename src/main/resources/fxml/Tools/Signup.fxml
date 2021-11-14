@@ -9,7 +9,7 @@
 <?import ldclibs.javafx.controls.pickers.PRNPicker?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
             xmlns="http://javafx.com/javafx/15.0.1" style="-fx-background-color: transparent;"
-            fx:controller="ldcapps.servicehelper.controllers.tools.Signup" AnchorPane.rightAnchor="0.0"
+            fx:controller="ldcapps.servicehelper.controllers.tools.SignupController" AnchorPane.rightAnchor="0.0"
             AnchorPane.topAnchor="0.0">
     <VBox spacing="10" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0">

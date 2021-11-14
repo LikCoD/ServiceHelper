@@ -3,23 +3,20 @@ package ldcapps.servicehelper.controllers
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.fxml.Initializable
-import javafx.print.PageOrientation
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.ProgressBar
-import javafx.scene.layout.AnchorPane
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import ldcapps.servicehelper.*
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.SQList
-import java.awt.Toolkit
 import java.io.File
 import java.net.URL
 import java.util.*
 import kotlin.concurrent.thread
 
-class Loading : Initializable {
+class LoadingController : Initializable {
     lateinit var stage: Stage
     lateinit var statusLb: Label
     lateinit var tryAgainBtn: Button
@@ -49,7 +46,7 @@ class Loading : Initializable {
         }
 
         changeBtn.setOnAction {
-            FXMLLoader(Loading::class.java.classLoader.getResource("fxml/ChangeDBHost.fxml")).load<Stage>()
+            FXMLLoader(LoadingController::class.java.classLoader.getResource("fxml/ChangeDBHost.fxml")).load<Stage>()
                 .apply { initStyle(StageStyle.UTILITY) }.show()
         }
     }

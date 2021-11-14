@@ -11,7 +11,7 @@ import ldcapps.servicehelper.toFXList
 import java.net.URL
 import java.util.*
 
-class Print : Initializable {
+class PrintController : Initializable {
     lateinit var stage: Stage
     lateinit var printerCb: ComboBox<Printer>
     lateinit var paperCb: ComboBox<String>

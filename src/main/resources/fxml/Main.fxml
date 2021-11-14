@@ -4,7 +4,7 @@
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
 
-<Stage fx:id="st" fullScreenExitHint="" title="Создать"
+<Stage fx:id="stage" fullScreenExitHint="" title="Создать"
        xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
        fx:controller="ldcapps.servicehelper.controllers.MainController">
     <scene>

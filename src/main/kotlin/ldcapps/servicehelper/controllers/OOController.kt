@@ -12,9 +12,11 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
+import javafx.stage.Stage
 import ldcapps.servicehelper.*
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.controllers.tools.AddCarController
-import ldcapps.servicehelper.controllers.tools.Tools
+import ldcapps.servicehelper.controllers.tools.ToolsController
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
 import ldcapps.servicehelper.db.DataClasses.Companion.companies
@@ -49,9 +51,11 @@ class OOController : Initializable {
     private lateinit var cancelBtn: Button
 
     @FXML
+    @NotNullField("Work")
     private lateinit var workNameTf: AutoCompletedTextField<Data.Hint>
 
     @FXML
+    @NotNullField("Work")
     private lateinit var workPriceTf: PriceTextField
 
     @FXML
@@ -61,21 +65,27 @@ class OOController : Initializable {
     private lateinit var excelWorkBtn: Button
 
     @FXML
+    @NotNullField("Dpc")
     private lateinit var dpcNameTf: AutoCompletedTextField<Data.Hint>
 
     @FXML
+    @NotNullField("Dpc")
     private lateinit var dpcCountTf: IntTextField
 
     @FXML
+    @NotNullField("Dpc")
     private lateinit var dpcPriceTf: PriceTextField
 
     @FXML
+    @NotNullField("Dpc")
     private lateinit var dpcSumTf: PriceTextField
 
     @FXML
+    @NotNullField("Dpc")
     private lateinit var dpcUnitCb: ComboBox<String>
 
     @FXML
+    @NotNullField("Dpc")
     private lateinit var dpcStateCb: ComboBox<String>
 
     @FXML
@@ -85,15 +95,19 @@ class OOController : Initializable {
     private lateinit var excelDPCBtn: Button
 
     @FXML
+    @NotNullField("Dfc")
     private lateinit var dfcNameTf: AutoCompletedTextField<Data.Hint>
 
     @FXML
+    @NotNullField("Dfc")
     private lateinit var dfcCountTf: IntTextField
 
     @FXML
+    @NotNullField("Dfc")
     private lateinit var dfcUnitCb: ComboBox<String>
 
     @FXML
+    @NotNullField("Dfc")
     private lateinit var dfcStateCb: ComboBox<String>
 
     @FXML
@@ -112,18 +126,22 @@ class OOController : Initializable {
     private lateinit var totalPriceTf: PriceTextField
 
     @FXML
+    @NotNullField("Car")
     private lateinit var carNumberTf: AutoCompletedTextField<String>
 
     @FXML
     private lateinit var carMileageTf: IntTextField
 
     @FXML
+    @NotNullField("Changes")
     private lateinit var ooNumberTf: IntTextField
 
     @FXML
+    @NotNullField("Changes")
     private lateinit var registrationDp: DatePicker
 
     @FXML
+    @NotNullField("Changes")
     private lateinit var executionDp: DatePicker
 
     @FXML
@@ -416,30 +434,30 @@ class OOController : Initializable {
         dfcNameTf.getString = { "${it.name} * ${it.count} (${it.state})" }
 
         excelWorkBtn.setOnAction { _ ->
-                Dialogs.getFile(MainController.stage, null, "xlsx" to "Excel")?.let { path ->
-                    XSSFWorkbook(File(path)).use {
-                        val sheet = it.getSheetAt(0)
-                        val sequence = Dialogs.filter(0, "Позиция", "Цена", "Исполнитель")
-                        var row: Row? = sheet.getRow(sequence.topMargin)
+            Dialogs.getFile(confirmBtn.scene.window as Stage, null, "xlsx" to "Excel")?.let { path ->
+                XSSFWorkbook(File(path)).use {
+                    val sheet = it.getSheetAt(0)
+                    val sequence = Dialogs.filter(0, "Позиция", "Цена", "Исполнитель")
+                    var row: Row? = sheet.getRow(sequence.topMargin)
 
-                        while (row != null) {
-                            ooAndBill.works.add(
-                                Work(
-                                    getCellValue(row, sequence.rightMargin + sequence.result[0], ""),
-                                    getCellValue(row, sequence.rightMargin + sequence.result[1], 0.0),
-                                    getCellValue(row, sequence.rightMargin + sequence.result[0], user.standardWorker)
-                                )
+                    while (row != null) {
+                        ooAndBill.works.add(
+                            Work(
+                                getCellValue(row, sequence.rightMargin + sequence.result[0], ""),
+                                getCellValue(row, sequence.rightMargin + sequence.result[1], 0.0),
+                                getCellValue(row, sequence.rightMargin + sequence.result[0], user.standardWorker)
                             )
+                        )
 
-                            refresh()
-                            row = sheet.getRow(row.rowNum + 1)
-                        }
+                        refresh()
+                        row = sheet.getRow(row.rowNum + 1)
                     }
                 }
+            }
         }
 
         excelDPCBtn.setOnAction { _ ->
-            Dialogs.getFile(MainController.stage, null, "xlsx" to "Excel")?.let { path ->
+            Dialogs.getFile(confirmBtn.scene.window as Stage, null, "xlsx" to "Excel")?.let { path ->
                 XSSFWorkbook(File(path)).use {
                     val sheet = it.getSheetAt(0)
                     val sequence = Dialogs.filter(1, "Позиция", "Ед. изм.", "Кол-во", "Состояние", "Цена", "Принял")
@@ -465,7 +483,7 @@ class OOController : Initializable {
         }
 
         excelDFCBtn.setOnAction { _ ->
-            Dialogs.getFile(MainController.stage, null, "xlsx" to "Excel")?.let { path ->
+            Dialogs.getFile(confirmBtn.scene.window as Stage, null, "xlsx" to "Excel")?.let { path ->
                 XSSFWorkbook(File(path)).use {
                     val sheet = it.getSheetAt(0)
                     val sequence = Dialogs.filter(2, "Позиция", "Ед. изм.", "Кол-во", "Состояние", "Принял")
@@ -540,8 +558,9 @@ class OOController : Initializable {
                     billTable.selectionModel.clearSelection()
 
                     if (path == "")
-                        path = "${settings.oosLocate}\\${if (cash) "Нал" else "Безнал"}\\Заказ-Наряд №${ooAndBill.number} от " +
-                                "${ooAndBill.registrationDate} от ${ooAndBill.customer?.company}.${if (cash) "oo" else "oab"}"
+                        path =
+                            "${settings.oosLocate}\\${if (cash) "Нал" else "Безнал"}\\Заказ-Наряд №${ooAndBill.number} от " +
+                                    "${ooAndBill.registrationDate} от ${ooAndBill.customer?.company}.${if (cash) "oo" else "oab"}"
 
                     path = Regex("[/*?\"<>|]").replace(path, "")
 
@@ -598,12 +617,12 @@ class OOController : Initializable {
 
                     Dialogs.confirmation("Заказ-Наряд №${ooAndBill.number} успешно создан и находится по пути:\n$path\nРаспечатать его?") {
                         ooAndBill.customer?.let {
-                            Dialogs.print(MainController.stage, PageOrientation.PORTRAIT, ooAp, billAp)
-                        } ?: Dialogs.print(MainController.stage, PageOrientation.PORTRAIT, ooAp)
+                            Dialogs.print(confirmBtn.scene.window as Stage, PageOrientation.PORTRAIT, ooAp, billAp)
+                        } ?: Dialogs.print(confirmBtn.scene.window as Stage, PageOrientation.PORTRAIT, ooAp)
                     }
                 }
                 ButtonActions.ADD_WORK -> {
-                    if (!isNotNull(workNameTf, workPriceTf, workPriceTf)) return@setOnAction
+                    if (!check(type = "Work")) return@setOnAction
 
                     val work = Work(
                         workNameTf.text,
@@ -618,7 +637,7 @@ class OOController : Initializable {
                     workExecutorsCb.value = user.standardWorker
                 }
                 ButtonActions.ADD_DPC -> {
-                    if (!isNotNull(dpcNameTf, dpcCountTf, dpcUnitCb, dpcStateCb, dpcPriceTf)) return@setOnAction
+                    if (!check(type = "Dpc")) return@setOnAction
 
                     val dpc = DPC(
                         dpcNameTf.text,
@@ -640,7 +659,7 @@ class OOController : Initializable {
                     dpcExecutorsCb.value = user.standardWorker
                 }
                 ButtonActions.ADD_DFC -> {
-                    if (!isNotNull(dfcNameTf, dfcCountTf, dfcUnitCb, dfcStateCb)) return@setOnAction
+                    if (!check(type = "Dfc")) return@setOnAction
 
                     val dfc = DFC(
                         dfcNameTf.text,
@@ -659,17 +678,22 @@ class OOController : Initializable {
                     dfcExecutorsCb.value = user.standardWorker
                 }
                 ButtonActions.APPLY_CHANGES -> {
+                    if (!check(type = "Changes")) return@setOnAction
                     ooAndBill.executionDate = DataClasses.Date(executionDp.value)
                     ooAndBill.registrationDate = DataClasses.Date(registrationDp.value)
-                    ooAndBill.carMileage = carMileageTf.text.toInt()
+                    ooAndBill.carMileage = carMileageTf.text.toIntOrNull()
                     ooAndBill.number = ooNumberTf.text.toInt()
 
                     updateInfo()
                 }
                 ButtonActions.APPLY_CAR -> {
+                    if (!check(type = "Car")) return@setOnAction
                     cars.find { it.keyNum == carNumberTf.text }?.let { updateCar(it) }
                         ?: Dialogs.confirmation("Данного гос. номера авто нет в БД, но вы можите добавить его в меню \"Инструменты\"") {
-                            Tools.ADD_CAR.show<AddCarController>(Windows.tools()!!.addCarTb, confirmBtn.scene.window).keyTf.text = carNumberTf.text
+                            ToolsController.ADD_CAR.show<AddCarController>(
+                                Windows.tools()!!.addCarTb,
+                                confirmBtn.scene.window
+                            ).keyTf.text = carNumberTf.text
                         }
                 }
             }
@@ -682,10 +706,10 @@ class OOController : Initializable {
 
             if (ooAndBillScroll.isVisible) {
                 firstHBox.children.add(1, positionsVBox)
-                MainController.changeStageSize(FXMLInfo.OO)
+                MainController.changeStageSize(FXMLInfo.OO, previewBtn)
             } else {
                 mainVBox.children.add(positionsVBox)
-                MainController.changeStageSize(FXMLInfo.OOCollapsed)
+                MainController.changeStageSize(FXMLInfo.OOCollapsed, previewBtn)
             }
         }
 
@@ -811,7 +835,12 @@ class OOController : Initializable {
         MainController.selectedTab.text = "${if (cash) "Н" else "Б"} ЗН №${ooAndBill.number}, ${ooAndBill.car?.model}"
 
         ooNumberTx.text = "ЗАКАЗ-НАРЯД №${ooAndBill.number}"
-        if (!cash) billNumberTx.text = "СЧЕТ №${ooAndBill.number} от ${ooAndBill.executionDate.value}"
+
+        if (!cash) {
+            ooToBillTx.text =
+                "Является актом выполненных работ к счету №${ooAndBill.number} от ${ooAndBill.executionDate.value}"
+            billNumberTx.text = "СЧЕТ №${ooAndBill.number} от ${ooAndBill.executionDate.value}"
+        }
     }
 
     fun fill(filledOOAndBill: OOAndBill, path: String = "") {
@@ -978,7 +1007,7 @@ class OOController : Initializable {
             totalPrice3Tx.text = "Всего к оплате с НДС: ${numToStr(workPrice + dpcPrice)}"
             totalPriceWithVAT2Tx.text = "В том числе НДС: Без НДС"
         } else {
-            vatPriceTx.text = roundPrice((workPrice + dpcPrice) * vat / 100).toString()
+            vatPriceTx.text = roundPrice((workPrice + dpcPrice) * vat / 100)
             totalPriceWithVAT1Tx.value = (workPrice + dpcPrice) * (vat / 100 + 1)
             endPriceTx.text = numToStr(((workPrice + dpcPrice) * (vat / 100 + 1)))
             totalPrice3Tx.text = "Всего к оплате с НДС: ${numToStr((workPrice + dpcPrice) * (vat / 100 + 1))}"
@@ -1010,7 +1039,7 @@ class OOController : Initializable {
             workTable.selectionModel.selectedItem?.let {
                 ooAndBill.works.remove(workTable.selectionModel.selectedItem)
                 refresh()
-            } ?: Dialogs.warning("Выберите позицию для удаления")
+            }
         }
     }
 
@@ -1019,7 +1048,7 @@ class OOController : Initializable {
             dpcTable.selectionModel.selectedItem?.let {
                 ooAndBill.dpcs.remove(dpcTable.selectionModel.selectedItem)
                 refresh()
-            } ?: Dialogs.warning("Выберите позицию для удаления")
+            }
         }
     }
 
@@ -1028,7 +1057,7 @@ class OOController : Initializable {
             dfcTable.selectionModel.selectedItem?.let {
                 ooAndBill.dfcs.remove(dfcTable.selectionModel.selectedItem)
                 refresh()
-            } ?: Dialogs.warning("Выберите позицию для удаления")
+            }
         }
     }
 
@@ -1069,7 +1098,7 @@ class OOController : Initializable {
         var executor: String = "",
     )
 
-    enum class ButtonActions(val value: String){
+    enum class ButtonActions(val value: String) {
         CONFIRM("Подтвердить"),
         ADD_WORK("Добавить работу"),
         ADD_DPC("Добавить дет. опл. зак."),

@@ -2,7 +2,6 @@ package ldcapps.servicehelper.db
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import ldcapps.servicehelper.crypt
 import ldcapps.servicehelper.generateToken
 import ldcapps.servicehelper.getToken
 import ldcapps.servicehelper.isOnline
@@ -62,7 +61,7 @@ class MySqlDb(val dbName: String) {
             dbConnection.prepareStatement("SELECT * FROM `users` WHERE `login`='$login' AND `password`='$password'")
                 .executeQuery()
         return if (query != null && query.next()) {
-            token = crypt.encrypt(query.getString("token"))
+            //token = crypt.encrypt(query.getString("token"))
 
             File("token.key").writeText(token!!)
 

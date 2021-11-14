@@ -8,7 +8,7 @@
 <?import javafx.stage.Stage?>
 <Stage fx:id="stage" fullScreenExitHint="" minHeight="100.0" minWidth="100.0" title="Создать"
        xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
-       fx:controller="ldcapps.servicehelper.controllers.Blank">
+       fx:controller="ldcapps.servicehelper.controllers.PrintBlankController">
     <scene>
         <Scene>
             <AnchorPane fx:id="mainAp" prefHeight="670.0" prefWidth="935.0"
