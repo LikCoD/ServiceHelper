@@ -7,7 +7,7 @@
 <?import javafx.stage.Stage?>
 <Stage xmlns:fx="http://javafx.com/fxml/1" fx:id="stage" fullScreenExitHint="" minHeight="700.0" minWidth="650.0"
        title="Вход" xmlns="http://javafx.com/javafx/11.0.1"
-       fx:controller="ldcapps.servicehelper.controllers.Login">
+       fx:controller="ldcapps.servicehelper.controllers.LoginController">
     <scene>
         <Scene>
             <AnchorPane fx:id="pane" style="-fx-background-color: rgb(255,200,118);">

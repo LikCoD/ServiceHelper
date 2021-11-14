@@ -6,9 +6,9 @@ import javafx.scene.control.Button
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import ldcapps.servicehelper.Data
+import ldcapps.servicehelper.NotNullField
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.data
-import ldcapps.servicehelper.inSize
-import ldcapps.servicehelper.isNotNull
 import ldclibs.javafx.controls.AutoCompletedTextField
 import ldclibs.javafx.controls.IntTextField
 import ldclibs.javafx.controls.MyTextField
@@ -48,6 +48,8 @@ class BankPicker : CustomPicker() {
             this.value += " по адресу $bankAddress, БИК $value"
             field = value
         }
+
+    @NotNullField(size = 2)
     private var t1 = StringTextField(2, true).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -58,6 +60,8 @@ class BankPicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 30.0
     }
+
+    @NotNullField(size = 2)
     private var t2 = IntTextField(2).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -67,6 +71,8 @@ class BankPicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 30.0
     }
+
+    @NotNullField(size = 4)
     private var t3 = StringTextField(4, true).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -76,6 +82,8 @@ class BankPicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 50.0
     }
+
+    @NotNullField(size = 4)
     private var t4 = IntTextField(4).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -85,6 +93,8 @@ class BankPicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 45.0
     }
+
+    @NotNullField(size = 4)
     private var t5 = IntTextField(4).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -94,6 +104,8 @@ class BankPicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 45.0
     }
+
+    @NotNullField(size = 4)
     private var t6 = IntTextField(4).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -103,6 +115,8 @@ class BankPicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 45.0
     }
+
+    @NotNullField(size = 4)
     private var t7 = IntTextField(4).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -112,6 +126,8 @@ class BankPicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 45.0
     }
+
+    @NotNullField(size = 4)
     private var t8 = IntTextField(4).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -122,6 +138,7 @@ class BankPicker : CustomPicker() {
         prefWidth = 45.0
     }
 
+    @NotNullField
     private var bankTf = AutoCompletedTextField(data.banks.map { it.name }).apply {
         promptText = "Банк"
         items = data.banks.map { it.name }
@@ -136,12 +153,14 @@ class BankPicker : CustomPicker() {
         prefWidth = 405.0
     }
 
+    @NotNullField
     private var bankAddressTf = MyTextField().apply {
         promptText = "Адрес банка"
         prefHeight = 30.0
         prefWidth = 295.0
     }
 
+    @NotNullField
     private var bikTf = StringTextField(allCaps = true).apply {
         promptText = "БИК"
         prefHeight = 30.0
@@ -151,22 +170,20 @@ class BankPicker : CustomPicker() {
     private var confirmBtn = Button("Подтвердить").apply {
         isDefaultButton = true
         setOnAction {
-            if (isNotNull(bankAddressTf, bikTf, bankTf) &&
-                inSize(t1 to 2, t2 to 2, t3 to 4, t4 to 4, t5 to 4, t6 to 4, t7 to 4, t8 to 4)
-            ) {
-                pa =
-                    "${t1.text}${t2.text} ${t3.text} ${t4.text} ${t5.text} ${t6.text} ${t7.text} ${t8.text}"
-                startBik = t3.text
-                bankAddress = bankAddressTf.text
-                bik = bikTf.text
-                bank = bankTf.text
-                value = pa
-                value += " в ${bankTf.text}"
-                value += " по адресу $bankAddress, БИК $bik"
+            if (!this@BankPicker.check()) return@setOnAction
 
-                onClose()
-                hide()
-            }
+            pa = "${t1.text}${t2.text} ${t3.text} ${t4.text} ${t5.text} ${t6.text} ${t7.text} ${t8.text}"
+            startBik = t3.text
+            bankAddress = bankAddressTf.text
+            bik = bikTf.text
+            bank = bankTf.text
+            value = pa
+            value += " в ${bankTf.text}"
+            value += " по адресу $bankAddress, БИК $bik"
+
+            onClose()
+            hide()
+
         }
     }
 

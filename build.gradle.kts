@@ -33,6 +33,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("reflect"))
     testImplementation(kotlin("test"))
+    implementation(kotlin("reflect"))
 }
 
 javafx {
@@ -72,16 +73,14 @@ tasks.jar {
     dependsOn(configurations.runtimeClasspath)
     manifest {
         exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.MF")
-        attributes("Main",
+        attributes(
             "Implementation-Title" to "ServiceHelper",
             "Implementation-Version" to archiveVersion,
             "Main-Class" to "ldcapps.servicehelper.WindowsKt",
-            "Class-Path" to configurations.runtime.files.joinToString(" ") { "lib/$it.name" }
+            "Class-Path" to configurations.runtimeClasspath.files.joinToString(" ") { "lib/$it.name" }
         )
     }
     from({
         configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
     })
-
-
 }

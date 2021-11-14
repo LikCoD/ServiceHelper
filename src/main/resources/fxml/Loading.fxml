@@ -11,7 +11,7 @@
 
 <Stage fx:id="stage" fullScreenExitHint="" minHeight="100.0" minWidth="100.0" title="Загрузка"
        xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
-       fx:controller="ldcapps.servicehelper.controllers.Loading" resizable="false">
+       fx:controller="ldcapps.servicehelper.controllers.LoadingController" resizable="false">
     <scene>
         <Scene>
             <AnchorPane prefHeight="150.0" prefWidth="450.0"

@@ -7,12 +7,13 @@ import javafx.scene.control.CheckBox
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
-import ldcapps.servicehelper.inSize
+import ldcapps.servicehelper.NotNullField
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldclibs.javafx.controls.IntTextField
 import ldclibs.javafx.controls.StringTextField
 
 class CarNumberPicker(var number: Int = 0, var letters: String = "", var region: Int = 0) : CustomPicker() {
-
+    @NotNullField(size = 4)
     private var numberTf = IntTextField(4).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -22,6 +23,7 @@ class CarNumberPicker(var number: Int = 0, var letters: String = "", var region:
         prefHeight = 30.0
         prefWidth = 45.0
     }
+    @NotNullField(size = 2)
     private var lettersTf = StringTextField(2, true).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -31,6 +33,7 @@ class CarNumberPicker(var number: Int = 0, var letters: String = "", var region:
         prefHeight = 30.0
         prefWidth = 35.0
     }
+    @NotNullField(size = 1)
     private var regionTf = IntTextField(1).apply {
         prefHeight = 30.0
         prefWidth = 25.0
@@ -42,7 +45,7 @@ class CarNumberPicker(var number: Int = 0, var letters: String = "", var region:
         isDefaultButton = true
 
         setOnAction {
-            if (inSize(numberTf to 4, lettersTf to 2, regionTf to 1)) {
+            if (this@CarNumberPicker.check()) {
                 letters = lettersTf.text.toUpperCase()
                 number = numberTf.text.toInt()
                 region = regionTf.text.toInt()

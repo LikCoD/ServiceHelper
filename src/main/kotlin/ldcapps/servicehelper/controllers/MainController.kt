@@ -1,6 +1,8 @@
 package ldcapps.servicehelper.controllers
 
+import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.scene.Node
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import javafx.scene.layout.AnchorPane
@@ -13,18 +15,20 @@ import java.net.URL
 import java.util.*
 
 class MainController : Initializable {
-    lateinit var st: Stage
-    lateinit var tabPane: TabPane
+    @FXML
+    internal lateinit var stage: Stage
+
+    @FXML
+    private lateinit var tabPane: TabPane
 
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
-        stage = st
         pane = tabPane
 
-       // tabPane.tabDragPolicy = TabPane.TabDragPolicy.REORDER
+        // tabPane.tabDragPolicy = TabPane.TabDragPolicy.REORDER
 
         stage.setOnCloseRequest { if (!Dialogs.confirmation("Подтвердите выход")) it.consume() }
 
-        if (Toolkit.getDefaultToolkit().screenSize.height.toDouble() < st.height - 50)
+        if (Toolkit.getDefaultToolkit().screenSize.height.toDouble() < stage.height - 50)
             stage.height = (Toolkit.getDefaultToolkit().screenSize.height - 50).toDouble()
 
         val mainTabLayout = loadFXML<HBox>(FXMLInfo.CarData)
@@ -33,8 +37,8 @@ class MainController : Initializable {
             mainTab = this
             isClosable = false
 
-            setOnSelectionChanged { if (isSelected) changeStageSize(FXMLInfo.CarData) }
-            setTabText()
+            setOnSelectionChanged { if (isSelected) changeStageSize(FXMLInfo.CarData, pane) }
+            updateMainTabText()
         }
 
         pane.selectionModel.select(pane.tabs.last())
@@ -42,7 +46,7 @@ class MainController : Initializable {
 
     fun fillOO(ooAndBill: OOController.OOAndBill, path: String = "") {
         pane.tabs += Tab("Загрузка").apply {
-            setOnSelectionChanged { if (isSelected) changeStageSize(FXMLInfo.OOCollapsed) }
+            setOnSelectionChanged { if (isSelected) changeStageSize(FXMLInfo.OOCollapsed, tabPane) }
             setOnCloseRequest { if (!Dialogs.confirmation("Подтвердите выход")) it.consume() }
         }
 
@@ -59,19 +63,16 @@ class MainController : Initializable {
         var currentCashNumber = currentOONumber("Нал", "oo")
             set(value) {
                 field = value
-                setTabText()
+                updateMainTabText()
             }
         var currentCashlessNumber = currentOONumber("Безнал", "oab")
             set(value) {
                 field = value
-                setTabText()
+                updateMainTabText()
             }
 
-        private var pane = TabPane()
+        var pane = TabPane()
         private var mainTab = Tab()
-
-        lateinit var stage: Stage
-            private set
 
         val selectedTab: Tab
             get() = pane.selectionModel.selectedItem
@@ -90,12 +91,14 @@ class MainController : Initializable {
             return numList.last() + 1
         }
 
-        private fun setTabText() {
+        private fun updateMainTabText() {
             mainTab.text = "Б${currentCashlessNumber} Н${currentCashNumber}"
         }
 
-        fun changeStageSize(fxmlInfo: FXMLInfo) {
-            if (fxmlInfo.minWidth == null|| fxmlInfo.minHeight == null) return
+        fun changeStageSize(fxmlInfo: FXMLInfo, node: Node) {
+            if (fxmlInfo.minWidth == null || fxmlInfo.minHeight == null) return
+
+            val stage = node.scene.window as Stage
 
             stage.width = fxmlInfo.minWidth
             stage.height = fxmlInfo.minHeight

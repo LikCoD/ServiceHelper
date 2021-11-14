@@ -17,8 +17,8 @@ fun main(arguments: Array<String>) {
     try {
         JUnique.acquireLock("servicehelperid") {
             Platform.runLater {
-                Windows.ooController?.st?.isAlwaysOnTop = true
-                Windows.ooController?.st?.isAlwaysOnTop = false
+                Windows.ooController?.stage?.isAlwaysOnTop = true
+                Windows.ooController?.stage?.isAlwaysOnTop = false
             }
 
             if (it != null) open(it)
@@ -50,10 +50,10 @@ class Windows : Application() {
         }*/
 
         fun tools() = init<ToolSelectorController>(FXMLInfo.ToolSelector)
-        fun print(stage: Stage) = init<Print>(FXMLInfo.Print, stage)
+        fun print(stage: Stage) = init<PrintController>(FXMLInfo.Print, stage)
         fun act() = init<CreateAct>(FXMLInfo.CreateAct)
-        fun blank() = init<Blank>(FXMLInfo.Blank)
-        fun login() = init<Login>(FXMLInfo.Login)
+        fun blank() = init<PrintBlankController>(FXMLInfo.Blank)
+        fun login() = init<LoginController>(FXMLInfo.Login)
 
         private fun <T> init(FXMLInfo: FXMLInfo, primaryStage: Stage? = null): T? {
             try {

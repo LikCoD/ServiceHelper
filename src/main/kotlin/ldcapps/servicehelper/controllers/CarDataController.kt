@@ -1,5 +1,7 @@
 package ldcapps.servicehelper.controllers
 
+import javafx.application.Platform
+import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.Button
 import javafx.scene.control.DatePicker
@@ -7,8 +9,9 @@ import javafx.scene.image.ImageView
 import javafx.scene.text.Text
 import javafx.stage.Stage
 import ldcapps.servicehelper.*
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.controllers.tools.AddCarController
-import ldcapps.servicehelper.controllers.tools.Tools
+import ldcapps.servicehelper.controllers.tools.ToolsController
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
 import ldcapps.servicehelper.db.DataClasses.Companion.companies
@@ -19,26 +22,42 @@ import ldclibs.javafx.controls.IntTextField
 import java.net.URL
 import java.time.LocalDate
 import java.util.*
+import kotlin.concurrent.thread
 
 class CarDataController : Initializable {
-    lateinit var openBtn: Button
-    lateinit var toolsBtn: Button
-    lateinit var blankBtn: Button
-    lateinit var createActBtn: Button
-    lateinit var userTx: Text
-    lateinit var userBtn: ImageView
-    lateinit var registrationDp: DatePicker
-    lateinit var executionDp: DatePicker
-    lateinit var keyTf: AutoCompletedTextField<String>
-    lateinit var carMileageTf: IntTextField
-    lateinit var ooNumberTf: IntTextField
-    lateinit var confirmBtn: Button
+    @FXML
+    private lateinit var openBtn: Button
+    @FXML
+    private lateinit var toolsBtn: Button
+    @FXML
+    private lateinit var blankBtn: Button
+    @FXML
+    private lateinit var createActBtn: Button
+    @FXML
+    private lateinit var userTx: Text
+    @FXML
+    private lateinit var userBtn: ImageView
+    @FXML
+    @NotNullField
+    private lateinit var registrationDp: DatePicker
+    @FXML
+    @NotNullField
+    private lateinit var executionDp: DatePicker
+    @FXML
+    @NotNullField
+    private lateinit var keyTf: AutoCompletedTextField<String>
+    @FXML
+    private lateinit var carMileageTf: IntTextField
+    @FXML
+    private lateinit var ooNumberTf: IntTextField
+    @FXML
+    private lateinit var confirmBtn: Button
 
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
         userTx.text = user.name
         userBtn.setOnMouseClicked {
             val toolsController = Windows.tools()!!
-            Tools.SETTINGS.show(toolsController.settingsTb, toolsController.stage)
+            ToolsController.SETTINGS.show(toolsController.settingsTb, toolsController.stage)
         }
 
         keyTf.items = cars.map { it.keyNum }.toFXList()
@@ -47,7 +66,7 @@ class CarDataController : Initializable {
         executionDp.value = LocalDate.now()
 
         openBtn.setOnAction {
-            open(Dialogs.getFile(MainController.stage, settings.oosLocate), confirmBtn.scene.window as Stage)
+            open(Dialogs.getFile(openBtn.scene.window as Stage, settings.oosLocate), confirmBtn.scene.window as Stage)
         }
 
         toolsBtn.setOnAction { Windows.tools() }
@@ -57,12 +76,14 @@ class CarDataController : Initializable {
         registrationDp.setOnAction { executionDp.value = registrationDp.value }
 
         confirmBtn.setOnAction { _ ->
-            if (keyTf.text.isBlank()) return@setOnAction
+            if (!check()) return@setOnAction
+
             try {
-                val car = cars.find { it.keyNum == keyTf.text }
-                if (car == null) {
+                val car = cars.find { it.keyNum == keyTf.text } ?: let {
                     Dialogs.confirmation("Данного гос. номера авто нет в БД, но вы можите добавить его в меню \"Инструменты\"") {
-                        Tools.ADD_CAR.show<AddCarController>(Windows.tools()!!.addCarTb, confirmBtn.scene.window).keyTf.text = keyTf.text
+                        ToolsController.ADD_CAR.show<AddCarController>(
+                            Windows.tools()!!.addCarTb, confirmBtn.scene.window
+                        ).keyTf.text = keyTf.text
                     }
                     return@setOnAction
                 }
@@ -95,8 +116,8 @@ class CarDataController : Initializable {
                 carMileageTf.text = ""
                 ooNumberTf.text = ""
             } catch (ex: Exception) {
+                Animations.errorButton(confirmBtn, "Ошибка")
                 ex.printStackTrace()
-                Dialogs.warning("Невозможно создать Заказ-Наряд")
             }
         }
     }

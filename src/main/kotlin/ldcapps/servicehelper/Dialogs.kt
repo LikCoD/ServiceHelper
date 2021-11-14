@@ -13,8 +13,8 @@ import javafx.scene.transform.Scale
 import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser
 import javafx.stage.Stage
-import ldcapps.servicehelper.controllers.Print
-import ldcapps.servicehelper.controllers.Print.Companion.pageOrientation
+import ldcapps.servicehelper.controllers.PrintController
+import ldcapps.servicehelper.controllers.PrintController.Companion.pageOrientation
 import ldcapps.servicehelper.db.DataClasses
 import java.io.File
 
@@ -136,7 +136,7 @@ class Dialogs {
 
         fun print(stage: Stage, orientation: PageOrientation, vararg nodes: Node): Boolean {
             pageOrientation = orientation
-            with(Windows.print(stage) ?: Print()) {
+            with(Windows.print(stage) ?: PrintController()) {
                 if (confirmPrint) {
                     data class NodeData(val isVisible: Boolean, val lX: Double, val lY: Double, val scale: Scale)
 

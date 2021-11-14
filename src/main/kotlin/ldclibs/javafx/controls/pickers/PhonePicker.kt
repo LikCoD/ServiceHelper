@@ -6,16 +6,18 @@ import javafx.scene.control.Button
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
-import ldcapps.servicehelper.inSize
+import ldcapps.servicehelper.NotNullField
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldclibs.javafx.controls.IntTextField
 
 class PhonePicker : CustomPicker() {
     var phone: String = ""
-    set(value) {
-        this.value = "+$value"
-        field = value
-    }
+        set(value) {
+            this.value = "+$value"
+            field = value
+        }
 
+    @NotNullField(size = 3)
     private var t1 = IntTextField(3).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -26,6 +28,8 @@ class PhonePicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 35.0
     }
+
+    @NotNullField(size = 2)
     private var t2 = IntTextField(2).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -35,6 +39,8 @@ class PhonePicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 30.0
     }
+
+    @NotNullField(size = 3)
     private var t3 = IntTextField(3).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -44,6 +50,8 @@ class PhonePicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 35.0
     }
+
+    @NotNullField(size = 2)
     private var t4 = IntTextField(2).apply {
         setOnKeyReleased {
             if (text.length == maxSize)
@@ -53,6 +61,8 @@ class PhonePicker : CustomPicker() {
         prefHeight = 30.0
         prefWidth = 30.0
     }
+
+    @NotNullField(size = 2)
     private var t5 = IntTextField(2).apply {
         prefHeight = 30.0
         prefWidth = 30.0
@@ -62,7 +72,7 @@ class PhonePicker : CustomPicker() {
         isDefaultButton = true
 
         setOnAction {
-            if (inSize(t1 to 3, t2 to 2, t3 to 3, t4 to 2, t5 to 2)) {
+            if (this@PhonePicker.check()) {
                 phone = "${t1.text} ${t2.text} ${t3.text} ${t4.text} ${t5.text}"
                 value = "+$phone"
                 onClose()
@@ -92,7 +102,7 @@ class PhonePicker : CustomPicker() {
 
     override fun onOpen() {
         t2.requestFocus()
-        if (phone.length >= 16){
+        if (phone.length >= 16) {
             t1.text = phone.substring(0..2)
             t2.text = phone.substring(4..5)
             t3.text = phone.substring(7..9)

@@ -24,7 +24,7 @@ import java.awt.Toolkit
 import java.net.URL
 import java.util.*
 
-class RedactDB : Initializable {
+class RedactDBController : Initializable {
     lateinit var confirmBtn: Button
     lateinit var carsTb: ToggleButton
     lateinit var companiesTb: ToggleButton
@@ -181,7 +181,7 @@ class RedactDB : Initializable {
                 }
             }
 
-            Tools.REDACT_DB.update()
+            ToolsController.REDACT_DB.update()
         }
     }
 
@@ -256,6 +256,5 @@ class RedactDB : Initializable {
                     list.remove((event.source as TableView<*>).selectionModel.selectedItem)
                     (event.source as TableView<*>).items = list.toFXList()
                 }
-            else Dialogs.warning("Выберите позицию для удаления")
     }
 }

@@ -17,7 +17,7 @@ import java.io.File
 import java.net.URL
 import java.util.*
 
-class GetReport : Initializable {
+class GetReportController : Initializable {
     lateinit var confirmBtn: Button
     lateinit var fillBtn: Button
     lateinit var monthsCb: ComboBox<String>
@@ -90,7 +90,7 @@ class GetReport : Initializable {
                     PageOrientation.LANDSCAPE,
                     table
                 )
-            ) Tools.GET_REPORT.update<GetReport>()
+            ) ToolsController.GET_REPORT.update<GetReportController>()
         }
 
         fillBtn.setOnAction {

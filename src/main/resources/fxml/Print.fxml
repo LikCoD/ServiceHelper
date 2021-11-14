@@ -9,7 +9,7 @@
 <?import javafx.geometry.Insets?>
 <Stage fx:id="stage" fullScreenExitHint="" minHeight="300.0" minWidth="390.0" title="Печать"
        xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-       fx:controller="ldcapps.servicehelper.controllers.Print">
+       fx:controller="ldcapps.servicehelper.controllers.PrintController">
     <scene>
         <Scene>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"

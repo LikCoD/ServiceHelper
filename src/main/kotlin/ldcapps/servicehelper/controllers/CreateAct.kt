@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.text.Text
 import javafx.stage.Stage
 import ldcapps.servicehelper.*
+import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.db.DataClasses
 import java.io.File
 import java.io.FileOutputStream
@@ -21,14 +22,20 @@ class CreateAct : Initializable {
     lateinit var stage: Stage
     lateinit var confirmBtn: Button
     lateinit var dateP: DatePicker
+    @NotNullField
     lateinit var mileageTf: TextField
+    @NotNullField
     lateinit var reasonTf: TextField
+    @NotNullField
     lateinit var defectTf: TextField
     lateinit var ooLocateBtn: Button
     lateinit var cashTb: ToggleButton
     lateinit var cashlessTb: ToggleButton
+    @NotNullField
     lateinit var ooCb: ComboBox<String>
+    @NotNullField
     lateinit var workCb: ComboBox<String>
+    @NotNullField
     lateinit var detailCb: ComboBox<String>
     lateinit var actAp: AnchorPane
     lateinit var headerTx: Text
@@ -63,7 +70,7 @@ class CreateAct : Initializable {
                 val path =
                     "${settings.oosLocate}/${if (cashTb.isSelected) "Нал" else "Безнал"}\\${ooCb.value}"
                 initOO(fromJSON(path), path)
-            } catch (ex: Exception) {
+            } catch (_: Exception) {
             }
         }
 
@@ -73,7 +80,7 @@ class CreateAct : Initializable {
         }
 
         confirmBtn.setOnAction {
-            if (isNotNull(mileageTf, reasonTf, defectTf, ooCb, workCb, detailCb)) {
+            if (check()) {
                 try {
                     if (path == "") path = Regex("[/*?\"<>|]").replace(
                         "${settings.actsLocate}\\Акт от ${
