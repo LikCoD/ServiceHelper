@@ -9,6 +9,7 @@ import javafx.scene.control.ToggleButton
 import javafx.stage.Stage
 import ldcapps.servicehelper.Dialogs
 import ldcapps.servicehelper.db.DataClasses
+import ldcapps.servicehelper.db.DataClasses.Companion.user
 import ldcapps.servicehelper.initTableSize
 import ldcapps.servicehelper.toFXList
 import ldclibs.javafx.controls.Column
@@ -103,8 +104,7 @@ class GetReportController : Initializable {
 
     private fun init(month: Int) {
         table.items =
-            DataClasses.reports.filter { it.type == (if (cashTb.isSelected) 0 else 1) && it.exDate.month == month + 1 }
-                .toFXList()
+            DataClasses.reports.filter { it.user == user.name &&  it.type == (if (cashTb.isSelected) 0 else 1) && it.exDate.month == month + 1 }.toFXList()
         monthsCb.value = months[month]
     }
 

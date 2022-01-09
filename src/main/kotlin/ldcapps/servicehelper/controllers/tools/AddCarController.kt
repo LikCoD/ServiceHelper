@@ -30,6 +30,9 @@ class AddCarController : Initializable {
     private lateinit var confirmBtn: Button
 
     @FXML
+    private lateinit var changeTypeBtn: Button
+
+    @FXML
     @NotNullField("Company")
     private lateinit var customerCb: ComboBox<String>
 
@@ -69,13 +72,16 @@ class AddCarController : Initializable {
     @NotNullField
     lateinit var keyTf: TextField
 
+    var addCompany = true
+
     private fun enable(vararg nodes: Node) =
         nodes.forEach { it.isDisable = false }
 
     private fun disable(vararg nodes: Node) =
         nodes.forEach { it.isDisable = true }
 
-    private fun changeAction(addCompany: Boolean) {
+    private fun changeType() {
+        addCompany = !addCompany
         if (addCompany) {
             disable(individualTf, addressTf)
             enable(customerCb, ownerTf)
@@ -94,15 +100,6 @@ class AddCarController : Initializable {
         individualTf.items = individuals.map { it.individual }
 
         customerCb.setOnAction { ownerTf.text = customerCb.value }
-        customerCb.setOnMouseClicked { changeAction(true) }
-        ownerTf.setOnMouseClicked {
-            changeAction(true)
-
-            ownerTf.selectAll()
-        }
-
-        addressTf.setOnMouseClicked { changeAction(false) }
-        individualTf.setOnMouseClicked { changeAction(false) }
         individualTf.onAutoCompleted = { r -> addressTf.text = individuals.find { it.individual == r }!!.address }
 
         numberPicker.onClose = {
@@ -153,6 +150,11 @@ class AddCarController : Initializable {
                     ToolsController.ADD_CAR.update<AddCarController>()
                 }
             }
+        }
+
+        changeTypeBtn.setOnAction {
+            changeType()
+            changeTypeBtn.text = if (addCompany) "Компания" else "Физ. лицо"
         }
     }
 }

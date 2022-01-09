@@ -45,6 +45,8 @@
         <HBox spacing="10" alignment="CENTER">
             <Button id="confirm" fx:id="confirmBtn" defaultButton="true" mnemonicParsing="false" prefHeight="40.0"
                     prefWidth="150.0" stylesheets="@../../css/buttonsStyle.css" text="Подтвердить"/>
+            <Button id="cancel" fx:id="changeTypeBtn" defaultButton="true" mnemonicParsing="false" prefHeight="40.0"
+                    prefWidth="150.0" stylesheets="@../../css/buttonsStyle.css" text="Компания"/>
         </HBox>
     </VBox>
 </AnchorPane>

@@ -681,7 +681,7 @@ class OOController : Initializable {
                     if (!check(type = "Changes")) return@setOnAction
                     ooAndBill.executionDate = DataClasses.Date(executionDp.value)
                     ooAndBill.registrationDate = DataClasses.Date(registrationDp.value)
-                    ooAndBill.carMileage = carMileageTf.text.toIntOrNull()
+                    ooAndBill.carMileage = carMileageTf.text?.toIntOrNull()
                     ooAndBill.number = ooNumberTf.text.toInt()
 
                     updateInfo()
