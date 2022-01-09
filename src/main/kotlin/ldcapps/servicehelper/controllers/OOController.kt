@@ -796,7 +796,7 @@ class OOController : Initializable {
         billTotalPriceWithVatCol.setPriceValueFactory {
             val vat = (ooAndBill.executor!!.vat?.div(100)?.plus(1) ?: 1.0)
 
-            ooAndBill.works.getOrNull(it)?.price?.times(vat) ?: (ooAndBill.dpcs[it - ooAndBill.works.size].price * vat)
+            ooAndBill.works.getOrNull(it)?.price?.times(vat) ?: (ooAndBill.dpcs[it - ooAndBill.works.size].price * ooAndBill.dpcs[it - ooAndBill.works.size].count * vat)
         }
 
         workNameCol.setTextFieldCellFactory()
