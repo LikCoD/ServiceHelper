@@ -68,11 +68,13 @@ java {
 }
 
 tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     from(sourceSets.main.get().output)
     archiveName = "$fileName.jar"
     dependsOn(configurations.runtimeClasspath)
     manifest {
-        exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.MF")
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA", "META-INF/*.MF, META-INF/LICENSE")
         attributes(
             "Implementation-Title" to "ServiceHelper",
             "Implementation-Version" to archiveVersion,

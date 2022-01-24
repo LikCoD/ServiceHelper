@@ -560,7 +560,7 @@ class OOController : Initializable {
                     if (path == "")
                         path =
                             "${settings.oosLocate}\\${if (cash) "Нал" else "Безнал"}\\Заказ-Наряд №${ooAndBill.number} от " +
-                                    "${ooAndBill.registrationDate} от ${ooAndBill.customer?.company}.${if (cash) "oo" else "oab"}"
+                                    "${ooAndBill.registrationDate} от ${ooAndBill.customer?.company ?: ooAndBill.car!!.owner}.${if (cash) "oo" else "oab"}"
 
                     path = Regex("[/*?\"<>|]").replace(path, "")
 
@@ -571,7 +571,7 @@ class OOController : Initializable {
                         ooAndBill.number,
                         if (cash) 0 else 1,
                         ooAndBill.executor!!.abbreviatedExecutor,
-                        ooAndBill.customer!!.company,
+                        ooAndBill.customer?.company ?: ooAndBill.car!!.owner,
                         ooAndBill.car!!.owner,
                         ooAndBill.car!!.number,
                         ooAndBill.carMileage,
