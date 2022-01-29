@@ -13,17 +13,19 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
 import javafx.stage.Stage
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.*
 import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.controllers.tools.AddCarController
 import ldcapps.servicehelper.controllers.tools.ToolsController
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
-import ldcapps.servicehelper.db.DataClasses.Companion.companies
-import ldcapps.servicehelper.db.DataClasses.Companion.individuals
 import ldcapps.servicehelper.db.DataClasses.Companion.reports
 import ldcapps.servicehelper.db.DataClasses.Companion.user
 import ldclibs.javafx.controls.*
+import liklibs.db.Date
+import liklibs.db.toLocalDate
+import liklibs.db.toSQL
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
@@ -31,6 +33,7 @@ import java.net.URL
 import java.text.DecimalFormat
 import java.util.*
 
+@ExperimentalSerializationApi
 class OOController : Initializable {
     @FXML
     private lateinit var mainVBox: VBox
@@ -127,7 +130,7 @@ class OOController : Initializable {
 
     @FXML
     @NotNullField("Car")
-    private lateinit var carNumberTf: AutoCompletedTextField<String>
+    private lateinit var carNumberTf: AutoCompletedTextField<DataClasses.Car>
 
     @FXML
     private lateinit var carMileageTf: IntTextField
@@ -524,7 +527,8 @@ class OOController : Initializable {
             dfcStateCb.value = dfc.state
         }
 
-        carNumberTf.items = cars.map { it.keyNum }
+        carNumberTf.items = cars
+        carNumberTf.getString = { it.key }
 
         createActBtn.setOnAction {
             Dialogs.confirmation("При создании акта ЗН сохранится автоматически") {
@@ -538,8 +542,8 @@ class OOController : Initializable {
             when (action) {
                 ButtonActions.CONFIRM -> Dialogs.confirmation("Подтвердите выход") { MainController.closeSelectedTab() }
                 ButtonActions.APPLY_CHANGES -> {
-                    registrationDp.value = ooAndBill.registrationDate.localDate
-                    executionDp.value = ooAndBill.executionDate.localDate
+                    registrationDp.value = ooAndBill.registrationDate.toLocalDate()
+                    executionDp.value = ooAndBill.executionDate.toLocalDate()
                     carMileageTf.text = carMileageLb.text
                 }
                 else -> {}
@@ -560,7 +564,7 @@ class OOController : Initializable {
                     if (path == "")
                         path =
                             "${settings.oosLocate}\\${if (cash) "Нал" else "Безнал"}\\Заказ-Наряд №${ooAndBill.number} от " +
-                                    "${ooAndBill.registrationDate} от ${ooAndBill.customer?.company ?: ooAndBill.car!!.owner}.${if (cash) "oo" else "oab"}"
+                                    "${ooAndBill.registrationDate} от ${ooAndBill.customer?.company ?: ooAndBill.owner}.${if (cash) "oo" else "oab"}"
 
                     path = Regex("[/*?\"<>|]").replace(path, "")
 
@@ -571,8 +575,8 @@ class OOController : Initializable {
                         ooAndBill.number,
                         if (cash) 0 else 1,
                         ooAndBill.executor!!.abbreviatedExecutor,
-                        ooAndBill.customer?.company ?: ooAndBill.car!!.owner,
-                        ooAndBill.car!!.owner,
+                        ooAndBill.customer?.company ?: ooAndBill.owner ?: "",
+                        ooAndBill.owner ?: "",
                         ooAndBill.car!!.number,
                         ooAndBill.carMileage,
                         ooAndBill.registrationDate,
@@ -679,8 +683,8 @@ class OOController : Initializable {
                 }
                 ButtonActions.APPLY_CHANGES -> {
                     if (!check(type = "Changes")) return@setOnAction
-                    ooAndBill.executionDate = DataClasses.Date(executionDp.value)
-                    ooAndBill.registrationDate = DataClasses.Date(registrationDp.value)
+                    ooAndBill.executionDate = executionDp.value.toSQL()
+                    ooAndBill.registrationDate = registrationDp.value.toSQL()
                     ooAndBill.carMileage = carMileageTf.text?.toIntOrNull()
                     ooAndBill.number = ooNumberTf.text.toInt()
 
@@ -688,7 +692,7 @@ class OOController : Initializable {
                 }
                 ButtonActions.APPLY_CAR -> {
                     if (!check(type = "Car")) return@setOnAction
-                    cars.find { it.keyNum == carNumberTf.text }?.let { updateCar(it) }
+                    cars.find { it.key == carNumberTf.text }?.let { updateCar(it) }
                         ?: Dialogs.confirmation("Данного гос. номера авто нет в БД, но вы можите добавить его в меню \"Инструменты\"") {
                             ToolsController.ADD_CAR.show<AddCarController>(
                                 Windows.tools()!!.addCarTb,
@@ -796,7 +800,8 @@ class OOController : Initializable {
         billTotalPriceWithVatCol.setPriceValueFactory {
             val vat = (ooAndBill.executor!!.vat?.div(100)?.plus(1) ?: 1.0)
 
-            ooAndBill.works.getOrNull(it)?.price?.times(vat) ?: (ooAndBill.dpcs[it - ooAndBill.works.size].price * ooAndBill.dpcs[it - ooAndBill.works.size].count * vat)
+            ooAndBill.works.getOrNull(it)?.price?.times(vat)
+                ?: (ooAndBill.dpcs[it - ooAndBill.works.size].price * ooAndBill.dpcs[it - ooAndBill.works.size].count * vat)
         }
 
         workNameCol.setTextFieldCellFactory()
@@ -824,12 +829,12 @@ class OOController : Initializable {
 
     private fun updateInfo() {
         ooNumberTf.text = ooAndBill.number.toString()
-        registrationDateTx.text = ooAndBill.registrationDate.value
-        executionDate1Tx.text = ooAndBill.executionDate.value
-        executionDate2Tx.text = ooAndBill.executionDate.value
-        executionDate3Tx.text = ooAndBill.executionDate.value
-        executionDate4Tx.text = ooAndBill.executionDate.value
-        executionDate5Tx.text = ooAndBill.executionDate.value
+        registrationDateTx.text = ooAndBill.registrationDate.toLocalString()
+        executionDate1Tx.text = ooAndBill.executionDate.toLocalString()
+        executionDate2Tx.text = ooAndBill.executionDate.toLocalString()
+        executionDate3Tx.text = ooAndBill.executionDate.toLocalString()
+        executionDate4Tx.text = ooAndBill.executionDate.toLocalString()
+        executionDate5Tx.text = ooAndBill.executionDate.toLocalString()
         carMileageLb.text = ooAndBill.carMileage?.toString()
 
         MainController.selectedTab.text = "${if (cash) "Н" else "Б"} ЗН №${ooAndBill.number}, ${ooAndBill.car?.model}"
@@ -838,8 +843,8 @@ class OOController : Initializable {
 
         if (!cash) {
             ooToBillTx.text =
-                "Является актом выполненных работ к счету №${ooAndBill.number} от ${ooAndBill.executionDate.value}"
-            billNumberTx.text = "СЧЕТ №${ooAndBill.number} от ${ooAndBill.executionDate.value}"
+                "Является актом выполненных работ к счету №${ooAndBill.number} от ${ooAndBill.executionDate.toLocalString()}"
+            billNumberTx.text = "СЧЕТ №${ooAndBill.number} от ${ooAndBill.executionDate.toLocalString()}"
         }
     }
 
@@ -847,8 +852,8 @@ class OOController : Initializable {
         this.path = path
         ooAndBill = filledOOAndBill
 
-        registrationDp.value = ooAndBill.registrationDate.localDate
-        executionDp.value = ooAndBill.executionDate.localDate
+        registrationDp.value = ooAndBill.registrationDate.toLocalDate()
+        executionDp.value = ooAndBill.executionDate.toLocalDate()
 
         refresh()
         updateInfo()
@@ -859,9 +864,14 @@ class OOController : Initializable {
     private fun updateCar(car: DataClasses.Car = ooAndBill.car!!) {
         ooAndBill.car = car
 
-        val company = DataClasses.owners.find { it.owner == car.owner }?.company ?: car.owner
-        companies.find { it.company == company }?.let { ooAndBill.customer = it }
-            ?: individuals.find { it.individual == car.owner }?.let { ooAndBill.customerAddress = it.address }
+        ooAndBill.customer = DataClasses.companies
+            .find { it.id == (DataClasses.owners.find { o -> o.id == car.ownerId }?.companyId ?: car.companyId) }
+
+        val owner =
+            DataClasses.owners.find { o -> o.id == car.ownerId }?.owner ?:
+            DataClasses.companies.find { o -> o.id == car.companyId }?.company
+
+        ooAndBill.owner = owner
 
         worksHint = data.works.filter { it.carModel == car.model }
         dpcsHint = data.dpcs.filter { it.carModel == car.model }
@@ -878,8 +888,8 @@ class OOController : Initializable {
         carYearLb.text = car.year.toString()
         carVINLb.text = car.vin
         carNumberLb.text = car.number
-        ownerTf.text = car.owner
-        ownerTx.text = "Владелец: ${car.owner}"
+        ownerTf.text = owner
+        ownerTx.text = "Владелец: $owner"
         customerAddress.text = "Адрес: ${ooAndBill.customer?.address ?: ooAndBill.customerAddress}"
 
         if (ooAndBill.customer == null) {
@@ -898,10 +908,10 @@ class OOController : Initializable {
 
             cashTx.text = "Безналичный"
 
-            customerPA1Tx.text = "Р/с: ${customer.pa} в ${customer.bank} БИК ${customer.bik}"
+            customerPA1Tx.text = "Р/с: ${customer.pa} в ${customer.bank} БИК ${customer.swift}"
             customerPA2Tx.text =
                 "Плательщик: ${customer.company}, Адрес: ${customer.address}, Р/с: ${customer.pa} в ${customer.bank}"
-            customerPRNTx.text = "УНП - ${customer.prn}"
+            customerPRNTx.text = "УНП - ${customer.accountNumber}"
             contractDateTx.text = "договор б/н от ${customer.contractDate}"
             customer5Tx.text = "Заказчик: ${customer.company}"
             customer6Tx.text = customer.company
@@ -910,10 +920,10 @@ class OOController : Initializable {
             billAp.isVisible = true
         }
 
-        customer1Tx.text = company
-        customer2Tx.text = company
-        customer3Tx.text = company
-        customer4Tx.text = company
+        customer1Tx.text = ooAndBill.customer?.company ?: ""
+        customer2Tx.text = ooAndBill.customer?.company ?: ""
+        customer3Tx.text = ooAndBill.customer?.company ?: ""
+        customer4Tx.text = ooAndBill.customer?.company ?: ""
     }
 
     private fun updateExecutor() {
@@ -934,7 +944,7 @@ class OOController : Initializable {
         if (cash) return
 
         ooToBillTx.text =
-            "Является актом выполненных работ к счету №${ooAndBill.number} от ${ooAndBill.executionDate.value}"
+            "Является актом выполненных работ к счету №${ooAndBill.number} от ${ooAndBill.executionDate.toLocalString()}"
         executorPA2Tx.text =
             "Р/с - ${executor.pa} в ${executor.bank}, " +
                     "Адрес банка - ${executor.bankAddress}, " +
@@ -1063,13 +1073,14 @@ class OOController : Initializable {
 
     class OOAndBill(
         var number: Int = 0,
-        var registrationDate: DataClasses.Date = DataClasses.Date(),
-        var executionDate: DataClasses.Date = DataClasses.Date(),
+        var registrationDate: Date = Date(0, 0, 0),
+        var executionDate: Date = Date(0, 0, 0),
         var car: DataClasses.Car? = null,
         var carMileage: Int? = null,
         var customer: DataClasses.Company? = null,
         var customerAddress: String? = null,
         var executor: DataClasses.Executor? = null,
+        var owner: String? = null,
         var works: MutableList<Work> = mutableListOf(),
         var dpcs: MutableList<DPC> = mutableListOf(),
         var dfcs: MutableList<DFC> = mutableListOf(),

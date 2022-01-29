@@ -1,18 +1,12 @@
 package ldcapps.servicehelper.controllers.tools
 
 import javafx.fxml.FXMLLoader
-import javafx.geometry.Pos
-import javafx.scene.control.Button
 import javafx.scene.control.ToggleButton
 import javafx.scene.layout.AnchorPane
-import javafx.scene.layout.HBox
-import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import javafx.stage.Window
-import ldcapps.servicehelper.Dialogs
 import ldcapps.servicehelper.FXMLInfo
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController.Companion.toolPane
-import ldcapps.servicehelper.db.DataClasses
 
 enum class ToolsController(
     private val info: FXMLInfo,
@@ -51,38 +45,6 @@ enum class ToolsController(
     fun <T> update(): T {
         val loader = FXMLLoader(javaClass.classLoader.getResource("fxml/${info.path}.fxml"))
         val pane = loader.load<AnchorPane>()
-
-        if (info == FXMLInfo.TOOL_SING_UP)
-            (pane.children[0] as VBox).children.add(0, HBox().apply {
-                alignment = Pos.CENTER_RIGHT
-                spacing = 10.0
-
-                children.addAll(
-                    Button("Удалить").apply {
-                        prefWidth = 70.0
-                        id = "delete"
-                        stylesheets += javaClass.classLoader.getResource("css/toolsBtns.css")?.toURI().toString()
-                        setOnAction {
-                            if (Dialogs.password { DataClasses.db?.checkPassword(it) == true }) {
-                                DataClasses.db?.deleteUser()
-                                DataClasses.delete()
-                            } else
-                                Dialogs.information("Повторите попытку")
-                        }
-                    },
-
-                    Button("Выйти").apply {
-                        prefWidth = 70.0
-                        id = "login"
-                        stylesheets += javaClass.classLoader.getResource("css/toolsBtns.css")?.toURI().toString()
-                        setOnAction {
-                            if (Dialogs.password { DataClasses.db?.checkPassword(it) == true })
-                                DataClasses.delete()
-                            else
-                                Dialogs.information("Повторите попытку")
-                        }
-                    })
-            })
 
         toolPane.children.clear()
         toolPane.children.add(pane)

@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.layout.AnchorPane
 import javafx.stage.Stage
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.Dialogs
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
@@ -18,12 +19,14 @@ import ldcapps.servicehelper.db.DataClasses.Companion.individuals
 import ldcapps.servicehelper.db.DataClasses.Companion.owners
 import ldcapps.servicehelper.initTableSize
 import ldcapps.servicehelper.toFXList
+import ldcapps.servicehelper.toLocalString
 import ldclibs.javafx.controls.Column
 import ldclibs.javafx.controls.MyTableCell
 import java.awt.Toolkit
 import java.net.URL
 import java.util.*
 
+@ExperimentalSerializationApi
 class RedactDBController : Initializable {
     lateinit var confirmBtn: Button
     lateinit var carsTb: ToggleButton
@@ -52,19 +55,36 @@ class RedactDBController : Initializable {
     lateinit var individualCol: Column<DataClasses.Individual>
     lateinit var individualAddressCol: Column<DataClasses.Individual>
 
-    private var cInit = false
-    private var oInit = false
-
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
         carsTable.initTableSize(1, 1, 2, 2, 1, 1, 2)
 
         carNumberCol.setValueFactory(DataClasses.Car::number.name)
-        carShortNumberCol.setValueFactory(DataClasses.Car::keyNum.name)
+        carShortNumberCol.setValueFactory(DataClasses.Car::key.name)
         carModelCol.setValueFactory(DataClasses.Car::model.name)
         carVINCol.setValueFactory(DataClasses.Car::vin.name)
         carYearCol.setValueFactory(DataClasses.Car::year.name)
         carEngineCol.setValueFactory(DataClasses.Car::engine.name)
-        carOwnerCol.setValueFactory(DataClasses.Car::owner.name)
+        carOwnerCol.setValueFactory { car ->
+            when {
+                car.companyId != null -> companies.find { it.id == car.companyId }?.company ?: ""
+                car.ownerId != null -> owners.find { it.id == car.ownerId }?.owner ?: ""
+                car.individualId != null -> individuals.find { it.id == car.individualId }?.individual ?: ""
+                else -> ""
+            }
+        }
+        companyCol.setValueFactory(DataClasses.Company::company.name)
+        companyAddressCol.setValueFactory(DataClasses.Company::address.name)
+        companyPACol.setValueFactory(DataClasses.Company::pa.name)
+        companyBIKCol.setValueFactory(DataClasses.Company::swift.name)
+        companyPRNCol.setValueFactory(DataClasses.Company::accountNumber.name)
+        companyContractDateCol.setValueFactory { it.contractDate.toLocalString() }
+
+        ownerCol.setValueFactory(DataClasses.Owner::owner.name)
+        ownerCompanyCol.setValueFactory {owner ->
+            companies.find { it.id == owner.companyId }?.company ?: ""
+        }
+        individualCol.setValueFactory(DataClasses.Individual::individual.name)
+        individualAddressCol.setValueFactory(DataClasses.Individual::address.name)
 
         carNumberCol.setTextFieldCellFactory()
         carShortNumberCol.setTextFieldCellFactory()
@@ -74,11 +94,25 @@ class RedactDBController : Initializable {
         carEngineCol.setDoubleTextFieldCellFactory()
         carOwnerCol.setComboBoxCellFactory(*(companies.map { it.company } + owners.map { it.owner } + individuals.map { it.individual }).toTypedArray())
 
+        companyCol.setTextFieldCellFactory()
+        companyAddressCol.setTextFieldCellFactory()
+        companyPACol.setTextFieldCellFactory()
+        companyBIKCol.setTextFieldCellFactory()
+        companyPRNCol.setIntTextFieldCellFactory()
+        companyContractDateCol.setTextFieldCellFactory()
+        ownerCol.setTextFieldCellFactory()
+        ownerCompanyCol.setTextFieldCellFactory()
+        individualCol.setTextFieldCellFactory()
+        individualAddressCol.setTextFieldCellFactory()
+
         carModelCol.setCellFactory {
             MyTableCell<DataClasses.Car>()
         }
 
         carsTable.items = cars.toFXList()
+        companiesTable.items = companies.toFXList()
+        ownersTable.items = owners.toFXList()
+        individualsTable.items = individuals.toFXList()
 
         carsTb.setOnAction {
             carsTable.initTableSize(1, 1, 2, 2, 1, 1, 2)
@@ -89,23 +123,6 @@ class RedactDBController : Initializable {
         }
         companiesTb.setOnAction {
             companiesTable.initTableSize(2, 2, 2, 1, 1, 1)
-
-            if (!cInit) {
-                companyCol.setValueFactory(DataClasses.Company::company.name)
-                companyAddressCol.setValueFactory(DataClasses.Company::address.name)
-                companyPACol.setValueFactory(DataClasses.Company::pa.name)
-                companyBIKCol.setValueFactory(DataClasses.Company::bik.name)
-                companyPRNCol.setValueFactory(DataClasses.Company::prn.name)
-                companyContractDateCol.setValueFactory(DataClasses.Company::contractDate.name)
-                companyCol.setTextFieldCellFactory()
-                companyAddressCol.setTextFieldCellFactory()
-                companyPACol.setTextFieldCellFactory()
-                companyBIKCol.setTextFieldCellFactory()
-                companyPRNCol.setIntTextFieldCellFactory()
-                companyContractDateCol.setTextFieldCellFactory()
-                companiesTable.items = companies.toFXList()
-                cInit = true
-            }
 
             carsTable.isVisible = false
             companiesTable.isVisible = true
@@ -123,45 +140,12 @@ class RedactDBController : Initializable {
             individualsTable.columns[0].columns.forEach { it.prefWidth = individualsTable.prefWidth / 2 }
             individualsTable.layoutX = ownersTable.prefWidth
 
-            if (!oInit) {
-                ownerCol.setValueFactory(DataClasses.Owner::owner.name)
-                ownerCompanyCol.setValueFactory(DataClasses.Owner::company.name)
-                individualCol.setValueFactory(DataClasses.Individual::individual.name)
-                individualAddressCol.setValueFactory(DataClasses.Individual::address.name)
-                ownerCol.setTextFieldCellFactory()
-                ownerCompanyCol.setTextFieldCellFactory()
-                individualCol.setTextFieldCellFactory()
-                individualAddressCol.setTextFieldCellFactory()
-                ownersTable.items = owners.toFXList()
-                individualsTable.items = individuals.toFXList()
-                oInit = true
-            }
-
             carsTable.isVisible = false
             companiesTable.isVisible = false
             ownersAndIndividualsAp.isVisible = true
         }
         confirmBtn.setOnAction {
             Dialogs.confirmation("БД успешно отредактированно") {
-                if (!cInit) {
-                    companyCol.setValueFactory(DataClasses.Company::company.name)
-                    companyAddressCol.setValueFactory(DataClasses.Company::address.name)
-                    companyPACol.setValueFactory(DataClasses.Company::pa.name)
-                    companyBIKCol.setValueFactory(DataClasses.Company::bik.name)
-                    companyPRNCol.setValueFactory(DataClasses.Company::prn.name)
-                    companyContractDateCol.setValueFactory(DataClasses.Company::contractDate.name)
-                    companiesTable.items = companies.toFXList()
-                    cInit = true
-                }
-                if (!oInit) {
-                    ownerCol.setValueFactory(DataClasses.Owner::owner.name)
-                    ownerCompanyCol.setValueFactory(DataClasses.Owner::company.name)
-                    individualCol.setValueFactory(DataClasses.Individual::individual.name)
-                    individualAddressCol.setValueFactory(DataClasses.Individual::individual.name)
-                    individualsTable.items = individuals.toFXList()
-                    ownersTable.items = owners.toFXList()
-                    oInit = true
-                }
                 when {
                     carsTable.isVisible -> Dialogs.print(
                         confirmBtn.scene.window as Stage, PageOrientation.LANDSCAPE,
@@ -197,32 +181,23 @@ class RedactDBController : Initializable {
         else Dialogs.warning("Данные введены неправильно")
     }
 
-
     fun changeCompanyCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
-        cars.filter { it.owner == companiesTable.selectionModel.selectedItem.company }
-            .forEach { cars[cars.indexOf(it)].owner = editEvent.newValue }
         carsTable.items = cars.toFXList()
         companiesTable.selectionModel.selectedItem.company = editEvent.newValue
     }
 
-
-    fun changeCompanyPRNCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
+/*    fun changeCompanyPRNCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
         if (editEvent.newValue.toIntOrNull() != null)
-            companiesTable.selectionModel.selectedItem.prn = editEvent.newValue
+            companiesTable.selectionModel.selectedItem.accountNumber = editEvent.newValue.toInt()
         else Dialogs.warning("Данные введены неправильно")
-    }
-
+    }*/
 
     fun changeOwnerCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Owner, String>) {
-        cars.filter { it.owner == ownersTable.selectionModel.selectedItem.owner }
-            .forEach { cars[cars.indexOf(it)].owner = editEvent.newValue }
         carsTable.items = cars.toFXList()
         ownersTable.selectionModel.selectedItem.owner = editEvent.newValue
     }
 
     fun changeIndividualCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Individual, String>) {
-        cars.filter { it.owner == individualsTable.selectionModel.selectedItem.individual }
-            .forEach { cars[cars.indexOf(it)].owner = editEvent.newValue }
         carsTable.items = cars.toFXList()
         individualsTable.selectionModel.selectedItem.individual = editEvent.newValue
     }
@@ -232,19 +207,19 @@ class RedactDBController : Initializable {
 
     fun onKeyReleasedRedactCompany(event: KeyEvent) =
         deletePos(event, companies) {
-            cars.removeAll { it.owner == companiesTable.selectionModel.selectedItem.company }
+            cars.removeAll { it.companyId == companiesTable.selectionModel.selectedItem.id }
             carsTable.items = cars.toFXList()
         }
 
     fun onKeyReleasedRedactOwner(event: KeyEvent) =
         deletePos(event, owners) {
-            cars.removeAll { it.owner == ownersTable.selectionModel.selectedItem.owner }
+            cars.removeAll { it.ownerId == ownersTable.selectionModel.selectedItem.id }
             carsTable.items = cars.toFXList()
         }
 
     fun onKeyReleasedRedactIndividual(event: KeyEvent) =
         deletePos(event, individuals) {
-            cars.removeAll { it.owner == individualsTable.selectionModel.selectedItem.individual }
+            cars.removeAll { it.individualId == individualsTable.selectionModel.selectedItem.id }
             carsTable.items = cars.toFXList()
         }
 

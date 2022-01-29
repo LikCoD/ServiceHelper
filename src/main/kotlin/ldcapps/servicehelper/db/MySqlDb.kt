@@ -3,8 +3,8 @@ package ldcapps.servicehelper.db
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ldcapps.servicehelper.generateToken
-import ldcapps.servicehelper.getToken
 import ldcapps.servicehelper.isOnline
+import liklibs.db.toSQL
 import java.io.File
 import java.sql.Connection
 import java.sql.Date
@@ -17,7 +17,7 @@ class MySqlDb(val dbName: String) {
         private var port: Int = 0
         private var login: String = ""
         private var password: String = ""
-        var token = getToken()
+        var token = null
 
         fun set(host: String = "", port: Int = 0, login: String = "", password: String = "") {
             this.host = host
@@ -168,7 +168,7 @@ class MySqlDb(val dbName: String) {
                 var o = res.getObject(it.name)
 
                 if (o is Date)
-                     o = DataClasses.Date(o)
+                     o = o.toSQL()
 
                 if (o?.toString()?.firstOrNull() == '[' && o.toString().lastOrNull() == ']')
                     it.set(newObj, Json.decodeFromString<Array<String>>(o.toString()).toMutableList())

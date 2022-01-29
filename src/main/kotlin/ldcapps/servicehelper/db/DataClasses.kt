@@ -1,32 +1,13 @@
 package ldcapps.servicehelper.db
 
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.arrFromJSON
 import ldcapps.servicehelper.fromJSON
-import ldcapps.servicehelper.settings
 import java.io.File
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import kotlinx.serialization.Serializable
+import liklibs.db.*
 
 sealed class DataClasses {
-
-    data class Date(val year: Int = 0, val month: Int = 0, val day: Int = 0) {
-        val localDate: LocalDate
-            get() = LocalDate.of(year, month, day)
-
-        val value: String
-            get() = DateTimeFormatter.ofPattern("dd.MM.yyyy").format(localDate).format()
-
-        override fun toString() = "$year-$month-$day"
-
-        constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
-
-        constructor(date: java.sql.Date) : this(
-            date.toString().substring(0..3).toIntOrNull() ?: 0,
-            date.toString().substring(5..6).toIntOrNull() ?: 0,
-            date.toString().substring(8..9).toIntOrNull() ?: 0
-        )
-
-    }
 
     data class Report(
         val user: String = "",
@@ -37,8 +18,8 @@ sealed class DataClasses {
         val owner: String = "",
         val carNumber: String = "",
         val carMileage: Int? = null,
-        val regDate: Date = Date(),
-        val exDate: Date = Date(),
+        val regDate: Date = Date(0, 0, 0),
+        val exDate: Date = Date(0, 0, 0),
         val hourNorm: Double = 0.0,
         val totalWorkPrice: Double = 0.0,
         val totalDPCPrice: Double = 0.0,
@@ -87,58 +68,76 @@ sealed class DataClasses {
         var phone: String = "",
     )
 
+    @DBInfo(
+        dbName = "defriuiuqmjmcl",
+        tableName = "cars",
+    )
+    @Serializable
     data class Car(
         var number: String = "",
-        var keyNum: String = "",
+        @DBField("key_") var key: String = "",
         var model: String = "",
         var vin: String = "",
         var year: Int = 0,
         var engine: Double = 0.0,
-        var owner: String = "",
+        var ownerId: Int? = null,
+        var companyId: Int? = null,
+        var individualId: Int? = null,
+        @NotInsertable @DBField("_id") var id: Int = -1
     )
 
+    @DBInfo(
+        dbName = "defriuiuqmjmcl",
+        tableName = "companies",
+    )
+    @Serializable
     data class Company(
         var company: String = "",
         var address: String = "",
-        var pa: String = "",
+        @DBField("paymentAccount") var pa: String = "",
         var bank: String = "",
-        var bik: String = "",
-        var prn: String = "",
-        var contractDate: String = "",
+        var swift: String = "",
+        var accountNumber: Int = -1,
+        var contractDate: Date = Date(),
+        @NotInsertable @DBField("_id") var id: Int = -1
     )
 
+    @DBInfo(
+        dbName = "defriuiuqmjmcl",
+        tableName = "owners",
+    )
+    @Serializable
     data class Owner(
         var owner: String = "",
-        var company: String = "",
+        var companyId: Int = -1,
+        @NotInsertable @DBField("_id") var id: Int = -1
     )
 
+    @DBInfo(
+        dbName = "defriuiuqmjmcl",
+        tableName = "individuals",
+    )
+    @Serializable
     data class Individual(
         var individual: String = "",
         var address: String = "",
+        @NotInsertable @DBField("_id") var id: Int = -1
     )
 
     data class ExcelTabs(val topMargin: Int = 1, val rightMargin: Int = 0, val tabsSequence: List<String>? = null)
 
+    @ExperimentalSerializationApi
     companion object {
-        init {
-            MySqlDb.set(settings.host, settings.port, settings.login, settings.password)
-        }
+        val cars = sqList<Car>("db_credentials.json")
+        val companies = sqList<Company>("db_credentials.json")
+        val owners = sqList<Owner>("db_credentials.json")
+        val individuals = sqList<Individual>("db_credentials.json")
 
-        var db: MySqlDb? = try {
-            MySqlDb(settings.dbName)
-        } catch (ex: Exception) {
-            null
-        }
-
-        var reports = SQList(db, "reports", Report(), arrFromJSON(".report"), ".report")
-        var cars = SQList(db, "cars", Car(), arrFromJSON(".cars"), ".cars")
-        var companies = SQList(db, "companies", Company(), arrFromJSON(".companies"), ".companies")
-        var owners = SQList(db, "owners", Owner(), arrFromJSON(".owners"), ".owners")
-        var individuals = SQList(db, "individuals", Individual(), arrFromJSON(".individuals"), ".individuals")
+        var reports = SQList(null, "reports", Report(), arrFromJSON(".report"), ".report")
 
         var excelTabs = arrFromJSON<ExcelTabs>(".excelTabs")
 
-        var user = db?.getUser(User()) ?: fromJSON(".user")
+        var user = fromJSON<User>(".user")
 
         fun delete() {
             File(".report").delete()

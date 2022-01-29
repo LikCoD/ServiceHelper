@@ -10,25 +10,28 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.*
 import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.controllers.tools.SignupController
-import ldcapps.servicehelper.db.DataClasses
-import ldcapps.servicehelper.db.DataClasses.Companion.user
 import java.io.File
 import java.net.URL
 import java.util.*
 
 
+@ExperimentalSerializationApi
 class LoginController : Initializable {
     lateinit var stage: Stage
     lateinit var signupBtn: Button
+
     @NotNullField
     lateinit var oosLocateTf: TextField
     lateinit var oosLocateBtn: Button
+
     @NotNullField
     lateinit var actsLocateTf: TextField
     lateinit var actsLocateBtn: Button
+
     @NotNullField
     lateinit var contractsLocateTf: TextField
     lateinit var contractsLocateBtn: Button
@@ -37,14 +40,18 @@ class LoginController : Initializable {
     lateinit var loginVb: VBox
     lateinit var signupPane: AnchorPane
     lateinit var pane: AnchorPane
+
     @NotNullField
     lateinit var loginTf: TextField
+
     @NotNullField
     lateinit var passwordTf: TextField
 
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
         oosLocateBtn.setOnAction { oosLocateTf.text = Dialogs.getDirectory(SignupController.stage, oosLocateTf.text) }
-        actsLocateBtn.setOnAction { actsLocateTf.text = Dialogs.getDirectory(SignupController.stage, actsLocateTf.text) }
+        actsLocateBtn.setOnAction {
+            actsLocateTf.text = Dialogs.getDirectory(SignupController.stage, actsLocateTf.text)
+        }
         contractsLocateBtn.setOnAction {
             contractsLocateTf.text = Dialogs.getDirectory(SignupController.stage, contractsLocateTf.text)
         }
@@ -80,25 +87,7 @@ class LoginController : Initializable {
                 File(actsLocateTf.text).mkdirs()
                 File(contractsLocateTf.text).mkdirs()
 
-                user = DataClasses.db?.getUserUsingLogin(loginTf.text, passwordTf.text, DataClasses.User()) ?: DataClasses.User()
-
-                if (user != DataClasses.User()) {
-                    if (stayOfflineBtn.isSelected)
-                        toJSON(".user", user)
-
-                    settings = Settings(oosLocateTf.text, contractsLocateTf.text, actsLocateTf.text)
-                    toJSON(".settings", settings)
-
-                    toJSON(".report", DataClasses.reports)
-                    toJSON(".cars", DataClasses.cars)
-                    toJSON(".companies", DataClasses.companies)
-                    toJSON(".owners", DataClasses.owners)
-                    toJSON(".individuals", DataClasses.individuals)
-
-                    Windows.ooController
-                    stage.close()
-                } else
-                    Dialogs.warning("Логин и/или пароль введены неправильно")
+                //TODO sync
             }
         }
     }

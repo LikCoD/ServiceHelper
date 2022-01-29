@@ -9,6 +9,7 @@ import javafx.scene.control.TextField
 import javafx.scene.layout.AnchorPane
 import javafx.scene.text.Text
 import javafx.stage.Stage
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.*
 import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.db.DataClasses
@@ -18,12 +19,14 @@ import ldclibs.javafx.controls.AutoCompletedTextField
 import ldclibs.javafx.controls.pickers.BankPicker
 import ldclibs.javafx.controls.pickers.PRNPicker
 import ldclibs.javafx.controls.pickers.PhonePicker
+import liklibs.db.toSQL
 import java.awt.Toolkit
 import java.net.URL
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+@ExperimentalSerializationApi
 class CreateContractController : Initializable {
     lateinit var pane: AnchorPane
     lateinit var confirmBtn: Button
@@ -84,8 +87,10 @@ class CreateContractController : Initializable {
         dateP.value = LocalDate.now()
         confirmBtn.setOnAction {
             if (check()) {
-                if (path != null || companies.map { it.company }.find { it == cusPRNTf.company } == null) {
+                if (path != null || companies.find { it.company == cusPRNTf.company } == null ) {
                     try {
+                        if (cusPRNTf.prn == null) return@setOnAction
+
                         val date = DateTimeFormatter.ofPattern("dd.MM.yyyy").format(dateP.value)
 
                         contract = Contract(
@@ -104,11 +109,10 @@ class CreateContractController : Initializable {
 
                         toJSON(path!!, contract)
 
-                        companies.removeIf { it.company == contract.cusCompany }
                         companies.add(
                             DataClasses.Company(
                                 cusPRNTf.company, cusPRNTf.address, cusPATf.pa, cusPATf.bank,
-                                cusPATf.bik, cusPRNTf.prn.toString(), date
+                                cusPATf.bik, cusPRNTf.prn!!, dateP.value.toSQL()
                             )
                         )
 

@@ -6,7 +6,6 @@ import javafx.scene.Node
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
 import javafx.util.Duration
-import java.awt.Color
 import kotlin.concurrent.thread
 
 object Animations {
@@ -16,6 +15,7 @@ object Animations {
         WARNING("-fx-background-color: rgb(225,170,0);"),
         ERROR("-fx-background-color: rgb(255,75,75);"),
     }
+
     fun emptyNode(node: Node, style: Style = Style.EMPTY){
         val tt = TranslateTransition(Duration.millis(50.0), node)
         val keyTyped = node.onKeyTyped

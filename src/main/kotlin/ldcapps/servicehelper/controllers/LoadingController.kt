@@ -8,14 +8,14 @@ import javafx.scene.control.Label
 import javafx.scene.control.ProgressBar
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.*
-import ldcapps.servicehelper.db.DataClasses
-import ldcapps.servicehelper.db.SQList
 import java.io.File
 import java.net.URL
 import java.util.*
 import kotlin.concurrent.thread
 
+@ExperimentalSerializationApi
 class LoadingController : Initializable {
     lateinit var stage: Stage
     lateinit var statusLb: Label
@@ -54,38 +54,7 @@ class LoadingController : Initializable {
     private fun load() {
         thread {
             try {
-                URL("https://oremotemysql.com/login.phpp").openConnection().apply { connectTimeout = 2000 }.connect()
 
-                Platform.runLater {
-                    statusLb.text = "Проверка..."
-                    continueOfflineBtn.isDisable = true
-                }
-
-                if (DataClasses.db?.checkToken() == true) {
-                    isOnline = true
-                    Platform.runLater { statusLb.text = "Синхронизация..." }
-
-                    fun <E : Any> addDiffEls(list1: MutableList<E>, list2: SQList<E>) =
-                        list1.forEach { if (!list2.contains(it)) list2.add(it) }
-
-                    addDiffEls(arrFromJSON(".report"), DataClasses.reports)
-                    addDiffEls(arrFromJSON(".cars"), DataClasses.cars)
-                    addDiffEls(arrFromJSON(".companies"), DataClasses.companies)
-                    addDiffEls(arrFromJSON(".owners"), DataClasses.owners)
-                    addDiffEls(arrFromJSON(".individuals"), DataClasses.individuals)
-
-                    if (File(".user").exists()) {
-                        toJSON(".report", DataClasses.reports.list)
-                        toJSON(".cars", DataClasses.cars.list)
-                        toJSON(".companies", DataClasses.companies.list)
-                        toJSON(".owners", DataClasses.owners.list)
-                        toJSON(".individuals", DataClasses.individuals.list)
-                    }
-                }
-                Platform.runLater {
-                    open(args.getOrNull(0))
-                    stage.close()
-                }
             } catch (e: Exception) {
                 Platform.runLater {
                     statusLb.text = "Ошибка подключения"

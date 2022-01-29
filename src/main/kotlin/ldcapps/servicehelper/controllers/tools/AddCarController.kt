@@ -5,8 +5,8 @@ import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.Node
 import javafx.scene.control.Button
-import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.Animations
 import ldcapps.servicehelper.NotNullField
 import ldcapps.servicehelper.NotNullField.Companion.check
@@ -15,7 +15,6 @@ import ldcapps.servicehelper.db.DataClasses.Companion.cars
 import ldcapps.servicehelper.db.DataClasses.Companion.companies
 import ldcapps.servicehelper.db.DataClasses.Companion.individuals
 import ldcapps.servicehelper.db.DataClasses.Companion.owners
-import ldcapps.servicehelper.toFXList
 import ldclibs.javafx.controls.AutoCompletedDoubleTextField
 import ldclibs.javafx.controls.AutoCompletedIntTextField
 import ldclibs.javafx.controls.AutoCompletedTextField
@@ -25,6 +24,7 @@ import java.net.URL
 import java.util.*
 import kotlin.concurrent.thread
 
+@ExperimentalSerializationApi
 class AddCarController : Initializable {
     @FXML
     private lateinit var confirmBtn: Button
@@ -34,15 +34,15 @@ class AddCarController : Initializable {
 
     @FXML
     @NotNullField("Company")
-    private lateinit var customerCb: ComboBox<String>
+    private lateinit var customerCb: AutoCompletedTextField<DataClasses.Company>
 
     @FXML
     @NotNullField("Company")
-    private lateinit var ownerTf: AutoCompletedTextField<String>
+    private lateinit var ownerTf: AutoCompletedTextField<DataClasses.Owner>
 
     @FXML
     @NotNullField("Individual")
-    private lateinit var individualTf: AutoCompletedTextField<String>
+    private lateinit var individualTf: AutoCompletedTextField<DataClasses.Individual>
 
     @FXML
     @NotNullField("Individual")
@@ -72,7 +72,7 @@ class AddCarController : Initializable {
     @NotNullField
     lateinit var keyTf: TextField
 
-    var addCompany = true
+    private var addCompany = true
 
     private fun enable(vararg nodes: Node) =
         nodes.forEach { it.isDisable = false }
@@ -95,12 +95,16 @@ class AddCarController : Initializable {
         modelTf.items = cars.map { it.model }
         yearTf.items = cars.map { it.year }
         engineTf.items = cars.map { it.engine }
-        customerCb.items = companies.map { it.company }.toFXList()
-        ownerTf.items = owners.map { it.owner }
-        individualTf.items = individuals.map { it.individual }
+        customerCb.items = companies
+        ownerTf.items = owners
+        individualTf.items = individuals
 
-        customerCb.setOnAction { ownerTf.text = customerCb.value }
-        individualTf.onAutoCompleted = { r -> addressTf.text = individuals.find { it.individual == r }!!.address }
+        customerCb.getString = { it.company }
+        ownerTf.getString = { it.owner }
+        individualTf.getString = { it.individual }
+
+        customerCb.onAutoCompleted = { ownerTf.text = it.company }
+        individualTf.onAutoCompleted = { r -> addressTf.text = r.address }
 
         numberPicker.onClose = {
             keyTf.text = numberPicker.number.toString()
@@ -113,7 +117,7 @@ class AddCarController : Initializable {
                     Animations.warningNode(numberPicker)
                     return@setOnAction
                 }
-                cars.map { it.keyNum }.find { it == keyTf.text } != null -> {
+                cars.map { it.key }.find { it == keyTf.text } != null -> {
                     Animations.warningNode(keyTf)
                     return@setOnAction
                 }
@@ -121,8 +125,8 @@ class AddCarController : Initializable {
 
             when {
                 check(false, "Company") ->
-                    if (owners.find { it.owner == ownerTf.text } == null)
-                        owners.add(DataClasses.Owner(ownerTf.text, customerCb.value))
+                    if (owners.find { it.owner == ownerTf.text } == null && customerCb.selectedItem != null)
+                        owners.add(DataClasses.Owner(ownerTf.text, customerCb.selectedItem!!.id))
                 check(false, "Individual") ->
                     if (individuals.find { it.individual == individualTf.text } == null)
                         individuals.add(DataClasses.Individual(individualTf.text, addressTf.text))
@@ -133,20 +137,30 @@ class AddCarController : Initializable {
                 }
             }
 
+            val individualId = individuals.find { it.individual == individualTf.text }?.id
+            val companyId = customerCb.selectedItem?.id
+            val ownerId = owners.find { it.owner == ownerTf.text }?.id
+
+            if (individualId == null && companyId == null && ownerId == null) return@setOnAction
+
             val car = DataClasses.Car(
-                numberPicker.value, keyTf.text,
+                numberPicker.value,
+                keyTf.text,
                 modelTf.text,
                 vinTf.text,
                 yearTf.text.toInt(),
                 engineTf.text.toDouble(),
-                customerCb.value
+                ownerId,
+                companyId,
+                individualId
             )
+
             cars.add(car)
 
             confirmBtn.text = "Успешно"
             thread {
                 Thread.sleep(1000)
-                runLater{
+                runLater {
                     ToolsController.ADD_CAR.update<AddCarController>()
                 }
             }

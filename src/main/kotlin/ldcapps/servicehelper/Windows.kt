@@ -6,6 +6,7 @@ import javafx.application.Application
 import javafx.application.Platform
 import javafx.stage.Stage
 import javafx.stage.StageStyle
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.controllers.*
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController
 import kotlin.system.exitProcess
@@ -13,6 +14,7 @@ import kotlin.system.exitProcess
 var isOnline = false
 var args: Array<String> = arrayOf()
 
+@ExperimentalSerializationApi
 fun main(arguments: Array<String>) {
     try {
         JUnique.acquireLock("servicehelperid") {
@@ -34,6 +36,7 @@ fun main(arguments: Array<String>) {
     Application.launch(Windows::class.java, *args)
 }
 
+@ExperimentalSerializationApi
 class Windows : Application() {
 
     override fun start(primaryStage: Stage) {

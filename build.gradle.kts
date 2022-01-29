@@ -14,6 +14,7 @@ version = "1.0"
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -29,6 +30,8 @@ dependencies {
     implementation("org.apache.poi", "poi-ooxml", "5.0.0")
 
     implementation("it.sauronsoftware:junique:1.0.4")
+
+    implementation("com.github.LikCoD:DBHelper:0.1.7.1")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("reflect"))

@@ -5,15 +5,14 @@ import com.ibm.icu.text.RuleBasedNumberFormat
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.fxml.FXMLLoader
-import javafx.scene.Node
-import javafx.scene.control.ComboBox
 import javafx.scene.control.TableView
-import javafx.scene.control.TextField
 import javafx.stage.Stage
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.controllers.tools.CreateContractController
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController
 import ldcapps.servicehelper.controllers.tools.ToolsController
 import ldcapps.servicehelper.db.DataClasses
+import liklibs.db.Date
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.Row
@@ -67,15 +66,9 @@ fun generateToken(tokenLength: Int = 100): String {
     return res
 }
 
-fun getToken(): String? {
-    val token = File("token.key")
-/*    if (token.exists())
-        return crypt.decrypt()*/
-    return null
-}
-
+@ExperimentalSerializationApi
 fun open(path: String? = null, stage: Stage? = null) {
-    if (!isOnline || DataClasses.db?.checkToken() == true) {
+    if (!isOnline) {
         val mainController = Windows.ooController
         val extension = path?.substringAfterLast(".")
         val controller =
@@ -148,3 +141,5 @@ fun numToStr(n: Double): String {
 
     return "${text.replaceFirstChar { it.titlecase(Locale.getDefault()) }} рублей $penny копеек"
 }
+
+fun Date.toLocalString() = "$day.$month.$year"
