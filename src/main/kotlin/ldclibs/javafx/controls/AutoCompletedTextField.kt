@@ -21,6 +21,7 @@ open class AutoCompletedTextField<T>(
 ) : TextField() {
     private val popup = PopupControl()
 
+    var selectedItem: T? = null
 
     val node: Parent?
         get() =
@@ -31,6 +32,8 @@ open class AutoCompletedTextField<T>(
                             override fun updateItem(item: T, empty: Boolean) {
                                 super.updateItem(item, empty)
                                 if (empty) return
+
+                                selectedItem = item
 
                                 text = getString(item)
                             }
