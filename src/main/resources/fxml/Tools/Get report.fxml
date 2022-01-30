@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import ldclibs.javafx.controls.*?>
+<?import javafx.geometry.Insets?>
 <AnchorPane prefHeight="0.0" prefWidth="0.0" style="-fx-background-color: trnansparent;" AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
             xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
@@ -18,7 +19,12 @@
             <Button id="cancel" fx:id="fillBtn" maxWidth="Infinity" mnemonicParsing="false"
                     prefHeight="40.0" prefWidth="150.0" stylesheets="@../../css/buttonsStyle.css" text="Заполнить Excel"
                     VBox.vgrow="ALWAYS"/>
+                <padding>
+                    <Insets bottom="10.0"/>
+                </padding>
             </VBox>
+            <ComboBox fx:id="yearCb" maxWidth="Infinity" prefHeight="30.0" prefWidth="120.0" visibleRowCount="12"
+                      VBox.vgrow="ALWAYS"/>
             <ComboBox fx:id="monthsCb" maxWidth="Infinity" prefHeight="30.0" prefWidth="120.0" visibleRowCount="12"
                       VBox.vgrow="ALWAYS"/>
             <ToggleButton id="db" fx:id="cashlessTb" alignment="CENTER_RIGHT" maxWidth="Infinity"

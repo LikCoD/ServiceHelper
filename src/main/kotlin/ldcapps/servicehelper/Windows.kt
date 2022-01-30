@@ -11,7 +11,6 @@ import ldcapps.servicehelper.controllers.*
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController
 import kotlin.system.exitProcess
 
-var isOnline = false
 var args: Array<String> = arrayOf()
 
 @ExperimentalSerializationApi
@@ -56,7 +55,7 @@ class Windows : Application() {
         fun print(stage: Stage) = init<PrintController>(FXMLInfo.Print, stage)
         fun act() = init<CreateAct>(FXMLInfo.CreateAct)
         fun blank() = init<PrintBlankController>(FXMLInfo.Blank)
-        fun login() = init<LoginController>(FXMLInfo.Login)
+        //fun login() = init<LoginController>(FXMLInfo.Login)
 
         private fun <T> init(FXMLInfo: FXMLInfo, primaryStage: Stage? = null): T? {
             try {

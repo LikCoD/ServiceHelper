@@ -3,13 +3,18 @@ package ldcapps.servicehelper.db
 import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.arrFromJSON
 import ldcapps.servicehelper.fromJSON
-import java.io.File
 import kotlinx.serialization.Serializable
 import liklibs.db.*
+import liklibs.db.annotations.DBField
+import liklibs.db.annotations.DBInfo
+import liklibs.db.annotations.DBTable
+import liklibs.db.annotations.Primary
 
+@ExperimentalSerializationApi
+@DBInfo("defriuiuqmjmcl", "db_credentials.json")
 sealed class DataClasses {
 
-    data class Report(
+    data class ReportOld(
         val user: String = "",
         val number: Int = 0,
         val type: Int = 0,
@@ -18,8 +23,8 @@ sealed class DataClasses {
         val owner: String = "",
         val carNumber: String = "",
         val carMileage: Int? = null,
-        val regDate: Date = Date(0, 0, 0),
-        val exDate: Date = Date(0, 0, 0),
+        val regDate: Date = Date(),
+        val exDate: Date = Date(),
         val hourNorm: Double = 0.0,
         val totalWorkPrice: Double = 0.0,
         val totalDPCPrice: Double = 0.0,
@@ -27,6 +32,28 @@ sealed class DataClasses {
         val workCount: Int = 0,
         val dfcCount: Int = 0,
         val dpcCount: Int = 0,
+    )
+
+    @Serializable
+    @DBTable("reports")
+    data class Report(
+        val number: Int = 0,
+        val type: Int = 0,
+        val executor: String = "",
+        val customer: String = "",
+        val owner: String = "",
+        val carNumber: String = "",
+        val carMileage: Int? = null,
+        @DBField("registrationDate") val regDate: Date = Date(),
+        @DBField("executionDate") val exDate: Date = Date(),
+        val hourNorm: Double = 0.0,
+        val totalWorkPrice: Double = 0.0,
+        val totalDPCPrice: Double = 0.0,
+        val vat: Double? = null,
+        val workCount: Int = 0,
+        val dfcCount: Int = 0,
+        val dpcCount: Int = 0,
+        @Primary var id: Int = -1
     )
 
     data class User(
@@ -68,11 +95,8 @@ sealed class DataClasses {
         var phone: String = "",
     )
 
-    @DBInfo(
-        dbName = "defriuiuqmjmcl",
-        tableName = "cars",
-    )
     @Serializable
+    @DBTable("cars")
     data class Car(
         var number: String = "",
         @DBField("key_") var key: String = "",
@@ -83,14 +107,11 @@ sealed class DataClasses {
         var ownerId: Int? = null,
         var companyId: Int? = null,
         var individualId: Int? = null,
-        @NotInsertable @DBField("_id") var id: Int = -1
+        @Primary var id: Int = -1
     )
 
-    @DBInfo(
-        dbName = "defriuiuqmjmcl",
-        tableName = "companies",
-    )
     @Serializable
+    @DBTable("companies")
     data class Company(
         var company: String = "",
         var address: String = "",
@@ -99,58 +120,38 @@ sealed class DataClasses {
         var swift: String = "",
         var accountNumber: Int = -1,
         var contractDate: Date = Date(),
-        @NotInsertable @DBField("_id") var id: Int = -1
+        @Primary var id: Int = -1
     )
 
-    @DBInfo(
-        dbName = "defriuiuqmjmcl",
-        tableName = "owners",
-    )
     @Serializable
+    @DBTable("owners")
     data class Owner(
         var owner: String = "",
         var companyId: Int = -1,
-        @NotInsertable @DBField("_id") var id: Int = -1
+        @Primary var id: Int = -1
     )
 
-    @DBInfo(
-        dbName = "defriuiuqmjmcl",
-        tableName = "individuals",
-    )
     @Serializable
+    @DBTable("individuals")
     data class Individual(
         var individual: String = "",
         var address: String = "",
-        @NotInsertable @DBField("_id") var id: Int = -1
+        @Primary var id: Int = -1
     )
 
     data class ExcelTabs(val topMargin: Int = 1, val rightMargin: Int = 0, val tabsSequence: List<String>? = null)
 
-    @ExperimentalSerializationApi
     companion object {
-        val cars = sqList<Car>("db_credentials.json")
-        val companies = sqList<Company>("db_credentials.json")
-        val owners = sqList<Owner>("db_credentials.json")
-        val individuals = sqList<Individual>("db_credentials.json")
+        val cars = sqList<Car>()
+        val companies = sqList<Company>()
+        val owners = sqList<Owner>()
+        val individuals = sqList<Individual>()
 
-        var reports = SQList(null, "reports", Report(), arrFromJSON(".report"), ".report")
+        val reports = sqList<Report>()
 
         var excelTabs = arrFromJSON<ExcelTabs>(".excelTabs")
 
         var user = fromJSON<User>(".user")
-
-        fun delete() {
-            File(".report").delete()
-            File(".companies").delete()
-            File(".cars").delete()
-            File(".individuals").delete()
-            File(".owners").delete()
-            File(".data").delete()
-            File(".excelTabs").delete()
-            File(".settings").delete()
-            File(".user").delete()
-            File("token.key").delete()
-        }
 
         init {
             while (excelTabs.size < 3) excelTabs.add(ExcelTabs())

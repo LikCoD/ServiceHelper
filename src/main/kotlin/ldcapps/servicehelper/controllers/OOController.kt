@@ -561,17 +561,20 @@ class OOController : Initializable {
                     dfcTable.selectionModel.clearSelection()
                     billTable.selectionModel.clearSelection()
 
-                    if (path == "")
+                    var opened = false
+
+                    if (path == "") {
+                        opened = true
                         path =
                             "${settings.oosLocate}\\${if (cash) "Нал" else "Безнал"}\\Заказ-Наряд №${ooAndBill.number} от " +
                                     "${ooAndBill.registrationDate} от ${ooAndBill.customer?.company ?: ooAndBill.owner}.${if (cash) "oo" else "oab"}"
+                    }
 
                     path = Regex("[/*?\"<>|]").replace(path, "")
 
                     toJSON(path, ooAndBill)
 
                     val report = DataClasses.Report(
-                        user.name,
                         ooAndBill.number,
                         if (cash) 0 else 1,
                         ooAndBill.executor!!.abbreviatedExecutor,
@@ -590,7 +593,11 @@ class OOController : Initializable {
                         ooAndBill.dfcs.size
                     )
 
-                    reports.removeIf { it.number == ooAndBill.number && it.carNumber == ooAndBill.car!!.number }
+                    if (opened){
+                        //TODO correct remove
+                        reports.removeIf { it.number == ooAndBill.number && it.carNumber == ooAndBill.car!!.number }
+                    }
+
                     reports.add(report)
 
                     fun MutableSet<Data.Hint>.checkHint(hint: Data.Hint) {

@@ -8,12 +8,14 @@ import javafx.scene.control.TabPane
 import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.HBox
 import javafx.stage.Stage
+import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.*
 import java.awt.Toolkit
 import java.io.File
 import java.net.URL
 import java.util.*
 
+@ExperimentalSerializationApi
 class MainController : Initializable {
     @FXML
     internal lateinit var stage: Stage

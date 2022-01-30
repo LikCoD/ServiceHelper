@@ -11,7 +11,6 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.controllers.tools.CreateContractController
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController
 import ldcapps.servicehelper.controllers.tools.ToolsController
-import ldcapps.servicehelper.db.DataClasses
 import liklibs.db.Date
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
@@ -55,40 +54,26 @@ class Data {
 var settings = fromJSON<Settings>(".settings")
 var data = fromJSON<Data>(".data")
 
-//val crypt = Crypt()
-
-fun generateToken(tokenLength: Int = 100): String {
-    var res = ""
-
-    for (i in 1..tokenLength)
-        res += (('a'..'z') + (1..9)).random()
-
-    return res
-}
-
 @ExperimentalSerializationApi
 fun open(path: String? = null, stage: Stage? = null) {
-    if (!isOnline) {
-        val mainController = Windows.ooController
-        val extension = path?.substringAfterLast(".")
-        val controller =
-            if (extension == "oab" || extension == "oo" || extension == null) ToolSelectorController() else Windows.tools()!!
+    val mainController = Windows.ooController
+    val extension = path?.substringAfterLast(".")
+    val controller =
+        if (extension == "oab" || extension == "oo" || extension == null) ToolSelectorController() else Windows.tools()!!
 
-        if (path == null || stage == null) return
+    if (path == null || stage == null) return
 
-        when (extension) {
-            "db" -> ToolsController.REDACT_DB.show(controller.redactDBTb, stage)
-            "report" -> ToolsController.GET_REPORT.show(controller.getReportTb, stage)
-            "settings" -> ToolsController.SETTINGS.show(controller.settingsTb, stage)
-            "contract" -> (ToolsController.CREATE_CONTRACT.show<CreateContractController>(controller.createContractTb, stage)).loadData(path)
-            "act" -> Windows.act()?.fill(fromJSON(path), path)
-            "oab", "oo" -> mainController?.fillOO(fromJSON(path), path)
-            else -> Dialogs.warning("Ошибка инициализации файла")
-        }
-
-    } else {
-        DataClasses.delete()
-        Windows.login()
+    when (extension) {
+        "db" -> ToolsController.REDACT_DB.show(controller.redactDBTb, stage)
+        "report" -> ToolsController.GET_REPORT.show(controller.getReportTb, stage)
+        "settings" -> ToolsController.SETTINGS.show(controller.settingsTb, stage)
+        "contract" -> (ToolsController.CREATE_CONTRACT.show<CreateContractController>(
+            controller.createContractTb,
+            stage
+        )).loadData(path)
+        "act" -> Windows.act()?.fill(fromJSON(path), path)
+        "oab", "oo" -> mainController?.fillOO(fromJSON(path), path)
+        else -> Dialogs.warning("Ошибка инициализации файла")
     }
 }
 
@@ -131,7 +116,9 @@ fun TableView<*>.initTableSize(vararg proportions: Int) {
     columns.forEachIndexed { i, tableColumn -> tableColumn.prefWidth = proportions[i] * w }
 }
 
+@ExperimentalSerializationApi
 fun <T> loadFXML(fxmlInfo: FXMLInfo): T = fxmlLoader(fxmlInfo).load()
+@ExperimentalSerializationApi
 fun fxmlLoader(fxmlInfo: FXMLInfo) =
     FXMLLoader(Windows::class.java.classLoader.getResource("fxml/${fxmlInfo.path}.fxml"))
 

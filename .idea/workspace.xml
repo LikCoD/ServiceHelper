@@ -4,30 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Connect to PostgreSQL">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Connect reports to PostgreSQL">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Animations.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Animations.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarDataController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarDataController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CreateAct.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CreateAct.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoadingController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoadingController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoginController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/CreateContractController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/CreateContractController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/SignupController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/SignupController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/ToolsController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/ToolsController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/MySqlDb.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/MySqlDb.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Add car.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Add car.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/MySqlDb.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/SQList.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/pickers/PRNPicker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/pickers/PRNPicker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Get report.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Get report.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/OONumber.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/OONumber.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +213,8 @@
       <workItem from="1642941371243" duration="1889000" />
       <workItem from="1643042151892" duration="1465000" />
       <workItem from="1643456555076" duration="14939000" />
-      <workItem from="1643475699614" duration="7949000" />
+      <workItem from="1643475699614" duration="16610000" />
+      <workItem from="1643542104321" duration="8282000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -274,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643470057148</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Connect to PostgreSQL">
+      <created>1643489020889</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1643489020889</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,7 +298,8 @@
     <MESSAGE value="Fix bug" />
     <MESSAGE value="Add selected item" />
     <MESSAGE value="Connect to PostgreSQL" />
-    <option name="LAST_COMMIT_MESSAGE" value="Connect to PostgreSQL" />
+    <MESSAGE value="Connect reports to PostgreSQL" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connect reports to PostgreSQL" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -309,6 +308,11 @@
           <properties class="com.google.gson.JsonSyntaxException" package="com.google.gson" />
           <option name="timeStamp" value="14" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.1.8/37348c8565ec5adf1b598133b1a410ceab46d0b0/DBHelper-v0.1.8-sources.jar!/liklibs/db/utlis/TableUtils.kt</url>
+          <line>41</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
