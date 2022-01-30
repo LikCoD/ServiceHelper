@@ -14,7 +14,6 @@ import ldcapps.servicehelper.NotNullField
 import ldcapps.servicehelper.NotNullField.Companion.check
 import ldclibs.javafx.controls.IntTextField
 import ldclibs.javafx.controls.MyTextField
-import org.jsoup.Jsoup
 import java.net.URL
 
 class PRNPicker : CustomPicker() {
