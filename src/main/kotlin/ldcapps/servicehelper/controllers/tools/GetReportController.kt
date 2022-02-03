@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.net.URL
 import java.time.LocalDate
+import java.time.format.TextStyle
 import java.util.*
 
 @ExperimentalSerializationApi
@@ -73,10 +74,10 @@ class GetReportController : Initializable {
         totalPriceCol.setValueFactory { (it.totalWorkPrice + it.totalDPCPrice).toString() }
         vatCol.setValueFactory { if (it.vat != null) it.vat.toString() else "-" }
         vatPriceCol.setValueFactory {
-            if (it.vat != null) (it.totalWorkPrice + it.totalDPCPrice) * it.vat / 100 else "-"
+            if (it.vat != null) (it.totalWorkPrice + it.totalDPCPrice) * it.vat!! / 100 else "-"
         }
         totalPriceWithVATCol.setValueFactory {
-            if (it.vat != null) (it.totalWorkPrice + it.totalDPCPrice) * (it.vat / 100 + 1)
+            if (it.vat != null) (it.totalWorkPrice + it.totalDPCPrice) * (it.vat!! / 100 + 1)
             else (it.totalWorkPrice + it.totalDPCPrice)
         }
         workCountCol.setValueFactory(DataClasses.Report::workCount.name)
@@ -86,13 +87,16 @@ class GetReportController : Initializable {
 
         monthsCb.items = months.toFXList()
         yearCb.items = years.toFXList()
-        init(LocalDate.now().monthValue, LocalDate.now().year)
+        init(
+            LocalDate.now().month.getDisplayName(TextStyle.FULL_STANDALONE, Locale.forLanguageTag("RU")),
+            LocalDate.now().year
+        )
 
-        monthsCb.setOnAction { init(month(monthsCb.value), yearCb.value) }
-        yearCb.setOnAction { init(month(monthsCb.value), yearCb.value) }
+        monthsCb.setOnAction { init(monthsCb.value, yearCb.value) }
+        yearCb.setOnAction { init(monthsCb.value, yearCb.value) }
 
-        cashTb.setOnAction { init(month(monthsCb.value), yearCb.value) }
-        cashlessTb.setOnAction { init(month(monthsCb.value), yearCb.value) }
+        cashTb.setOnAction { init(monthsCb.value, yearCb.value) }
+        cashlessTb.setOnAction { init(monthsCb.value, yearCb.value) }
 
         confirmBtn.setOnAction {
             if (Dialogs.print(
@@ -111,12 +115,16 @@ class GetReportController : Initializable {
         }
     }
 
-    private fun init(month: Int, year: Int) {
+    private fun init(month: String, year: Int) {
+        val m = month.replaceFirstChar { it.titlecase() }
+
+        val monthIndex = months.indexOf(m)
+
         table.items =
-            reports.filter { it.type == (if (cashTb.isSelected) 0 else 1) && it.exDate.month == month && it.exDate.year == year }.toFXList()
-        monthsCb.value = months[month]
+            reports.filter { it.type == (if (cashTb.isSelected) 0 else 1) && it.exDate.month == monthIndex && it.exDate.year == year }
+                .toFXList()
+
+        monthsCb.value = m
         yearCb.value = year
     }
-
-    private fun month(value: String): Int = months.indexOf(value)
 }

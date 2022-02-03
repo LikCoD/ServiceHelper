@@ -9,16 +9,16 @@ import javafx.scene.control.cell.ComboBoxTableCell
 import javafx.util.Callback
 import javafx.util.converter.DefaultStringConverter
 import java.text.DecimalFormat
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.full.declaredMemberProperties
 
-class Column<S> : TableColumn<S, String>() {
+class Column<S : Any> : TableColumn<S, String>() {
     var propName: String? = null
 
     fun setValueFactory(name: String) {
         propName = name
-        setValueFactory {
-            val field = it!!::class.java.getDeclaredField(propName!!)
-            field.isAccessible = true
-            field.get(it).toString()
+        setValueFactory { s ->
+            s::class.declaredMemberProperties.find { it.name == propName }?.getter?.call(s)
         }
     }
 
@@ -34,17 +34,15 @@ class Column<S> : TableColumn<S, String>() {
         }
     }
 
-    inline fun setValueFactory(crossinline value: (S) -> Any) =
+    inline fun setValueFactory(crossinline value: (S) -> Any?) =
         setCellValueFactory { SimpleStringProperty(value(it.value).toString()) }
 
     fun setPriceValueFactory(name: String) {
         propName = name
 
-        setValueFactory {
-            val field = it!!::class.java.getDeclaredField(propName!!)
-            field.isAccessible = true
-            val res = field.getDouble(it)
-            DecimalFormat("#0.00").format(res)
+        setValueFactory {s ->
+            val price = s::class.declaredMemberProperties.find { it.name == propName }?.getter?.call(s)
+            DecimalFormat("#0.00").format(price)
         }
     }
 
@@ -52,7 +50,7 @@ class Column<S> : TableColumn<S, String>() {
         if (name != null) propName = name
 
         setCellValueFactory {
-            val res = value(it.value)?.toDouble()?: return@setCellValueFactory SimpleStringProperty("-")
+            val res = value(it.value)?.toDouble() ?: return@setCellValueFactory SimpleStringProperty("-")
 
             val price = DecimalFormat("#0.00").format(res)
             SimpleStringProperty(price)
@@ -77,26 +75,28 @@ class Column<S> : TableColumn<S, String>() {
 
     var onEditCommitted: EventHandler<CellEditEvent<S, String>>? = null
 
-    var onEditCommit: Nothing? = null
+    val onEditCommit: Nothing? = null
 
     init {
         if (isEditable)
-            setOnEditCommit {
+            setOnEditCommit { event ->
                 if (propName != null) {
                     val item = tableView.selectionModel.selectedItem!!
-                    val field = item.javaClass.getDeclaredField(propName!!)
-                    field.isAccessible = true
-                    when (field.get(item)) {
-                        is String -> field.set(item, it.newValue)
-                        is Int -> field.set(item, it.newValue.toIntOrNull() ?: 0)
-                        is Double -> field.set(item, it.newValue.toDoubleOrNull() ?: 0.0)
+                    val field = item::class.declaredMemberProperties.find { it.name == propName }
+
+                    if (field !is KMutableProperty<*>) return@setOnEditCommit
+
+                    when (field.getter.call(item)) {
+                        is String -> field.setter.call(item, event.newValue)
+                        is Int -> field.setter.call(item, event.newValue.toIntOrNull() ?: 0)
+                        is Double -> field.setter.call(item, event.newValue.toDoubleOrNull() ?: 0.0)
                     }
 
                     tableView.refresh()
                 }
 
                 if (onEditCommitted != null) {
-                    onEditCommitted!!.handle(it)
+                    onEditCommitted!!.handle(event)
 
                     tableView.refresh()
                 }

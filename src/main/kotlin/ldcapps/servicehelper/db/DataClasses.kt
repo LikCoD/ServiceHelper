@@ -1,60 +1,61 @@
 package ldcapps.servicehelper.db
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.arrFromJSON
 import ldcapps.servicehelper.fromJSON
-import kotlinx.serialization.Serializable
-import liklibs.db.*
+import liklibs.db.Date
 import liklibs.db.annotations.DBField
 import liklibs.db.annotations.DBInfo
 import liklibs.db.annotations.DBTable
 import liklibs.db.annotations.Primary
+import liklibs.db.delegates.DBProperty.dbProperty
+import liklibs.db.sqList
 
-@ExperimentalSerializationApi
 @DBInfo("defriuiuqmjmcl", "db_credentials.json")
 sealed class DataClasses {
 
-    data class ReportOld(
-        val user: String = "",
-        val number: Int = 0,
-        val type: Int = 0,
-        val executor: String = "",
-        val customer: String = "",
-        val owner: String = "",
-        val carNumber: String = "",
-        val carMileage: Int? = null,
-        val regDate: Date = Date(),
-        val exDate: Date = Date(),
-        val hourNorm: Double = 0.0,
-        val totalWorkPrice: Double = 0.0,
-        val totalDPCPrice: Double = 0.0,
-        val vat: Double? = null,
-        val workCount: Int = 0,
-        val dfcCount: Int = 0,
-        val dpcCount: Int = 0,
-    )
-
-    @Serializable
     @DBTable("reports")
-    data class Report(
-        val number: Int = 0,
-        val type: Int = 0,
-        val executor: String = "",
-        val customer: String = "",
-        val owner: String = "",
-        val carNumber: String = "",
-        val carMileage: Int? = null,
-        @DBField("registrationDate") val regDate: Date = Date(),
-        @DBField("executionDate") val exDate: Date = Date(),
-        val hourNorm: Double = 0.0,
-        val totalWorkPrice: Double = 0.0,
-        val totalDPCPrice: Double = 0.0,
-        val vat: Double? = null,
-        val workCount: Int = 0,
-        val dfcCount: Int = 0,
-        val dpcCount: Int = 0,
-        @Primary var id: Int = -1
-    )
+    class Report(
+        number: Int,
+        type: Int,
+        executor: String,
+        customer: String,
+        owner: String,
+        carNumber: String,
+        carMileage: Int?,
+        regDate: Date,
+        exDate: Date,
+        hourNorm: Double,
+        totalWorkPrice: Double,
+        totalDPCPrice: Double,
+        vat: Double?,
+        workCount: Int,
+        dfcCount: Int,
+        dpcCount: Int
+    ) {
+        val number by dbProperty(number)
+        val type by dbProperty(type)
+        val executor by dbProperty(executor)
+        val customer by dbProperty(customer)
+        val owner by dbProperty(owner)
+        val carNumber by dbProperty(carNumber)
+        val carMileage by dbProperty(carMileage)
+
+        @DBField("registrationDate")
+        val regDate by dbProperty(regDate)
+
+        @DBField("executionDate")
+        val exDate by dbProperty(exDate)
+        val hourNorm by dbProperty(hourNorm)
+        val totalWorkPrice by dbProperty(totalWorkPrice)
+        val totalDPCPrice by dbProperty(totalDPCPrice)
+        val vat by dbProperty(vat)
+        val workCount by dbProperty(workCount)
+        val dfcCount by dbProperty(dfcCount)
+        val dpcCount by dbProperty(dpcCount)
+
+        @Primary
+        var id by dbProperty(0)
+    }
 
     data class User(
         val name: String = "",
@@ -95,49 +96,81 @@ sealed class DataClasses {
         var phone: String = "",
     )
 
-    @Serializable
     @DBTable("cars")
-    data class Car(
-        var number: String = "",
-        @DBField("key_") var key: String = "",
-        var model: String = "",
-        var vin: String = "",
-        var year: Int = 0,
-        var engine: Double = 0.0,
-        var ownerId: Int? = null,
-        var companyId: Int? = null,
-        var individualId: Int? = null,
-        @Primary var id: Int = -1
-    )
+    class Car(
+        number: String,
+        key: String,
+        model: String,
+        vin: String,
+        year: Int,
+        engine: Double,
+        ownerId: Int?,
+        companyId: Int?,
+        individualId: Int?,
+    ) {
+        var number by dbProperty(number)
 
-    @Serializable
+        @DBField("key_")
+        var key by dbProperty(key)
+        var model by dbProperty(model)
+        var vin by dbProperty(vin)
+        var year by dbProperty(year)
+        var engine by dbProperty(engine)
+        var ownerId by dbProperty(ownerId)
+        var companyId by dbProperty(companyId)
+        var individualId by dbProperty(individualId)
+
+        @Primary
+        var id by dbProperty(0)
+    }
+
     @DBTable("companies")
-    data class Company(
-        var company: String = "",
-        var address: String = "",
-        @DBField("paymentAccount") var pa: String = "",
-        var bank: String = "",
-        var swift: String = "",
-        var accountNumber: Int = -1,
-        var contractDate: Date = Date(),
-        @Primary var id: Int = -1
-    )
+    class Company(
+        company: String,
+        address: String,
+        pa: String,
+        bank: String,
+        swift: String,
+        accountNumber: Int,
+        contractDate: Date
+    ) {
+        var company by dbProperty(company)
+        var address by dbProperty(address)
 
-    @Serializable
+        @DBField("paymentAccount")
+        var pa by dbProperty(pa)
+        var bank by dbProperty(bank)
+        var swift by dbProperty(swift)
+        var accountNumber by dbProperty(accountNumber)
+        var contractDate by dbProperty(contractDate)
+
+        @Primary
+        var id by dbProperty(0)
+    }
+
     @DBTable("owners")
-    data class Owner(
-        var owner: String = "",
-        var companyId: Int = -1,
-        @Primary var id: Int = -1
-    )
+    class Owner(
+        owner: String,
+        companyId: Int
+    ) {
+        var owner by dbProperty(owner)
+        var companyId by dbProperty(companyId)
 
-    @Serializable
+        @Primary
+        var id by dbProperty(0)
+    }
+
     @DBTable("individuals")
-    data class Individual(
-        var individual: String = "",
-        var address: String = "",
-        @Primary var id: Int = -1
-    )
+    class Individual(
+        individual: String = "",
+        address: String = ""
+    ) {
+        var individual by dbProperty(individual)
+        var address by dbProperty(address)
+
+        @Primary
+        var id by dbProperty(0)
+    }
 
     data class ExcelTabs(val topMargin: Int = 1, val rightMargin: Int = 0, val tabsSequence: List<String>? = null)
 

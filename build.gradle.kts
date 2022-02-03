@@ -18,8 +18,6 @@ repositories {
 }
 
 dependencies {
-    implementation("mysql", "mysql-connector-java", "8.0.23")
-
     implementation("com.ibm.icu:icu4j:70.1")
 
     implementation("com.google.code.gson:gson:2.8.9")
@@ -30,7 +28,7 @@ dependencies {
 
     implementation("it.sauronsoftware:junique:1.0.4")
 
-    implementation("com.github.LikCoD:DBHelper:v0.2")
+    implementation("com.github.LikCoD:DBHelper:v0.3.1")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("reflect"))
