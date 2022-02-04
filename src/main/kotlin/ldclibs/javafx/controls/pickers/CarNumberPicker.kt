@@ -83,7 +83,8 @@ class CarNumberPicker(var number: Int = 0, var letters: String = "", var region:
                     letters = lettersTf.text
                     number = numbersTf.text.toInt()
                     region = regionTf.text.toInt()
-                    value = patternCb.value
+
+                    value = if (patternCb.value != "") patternCb.value else patterns[0]
 
                     onClose()
                     this@CarNumberPicker.hide()
