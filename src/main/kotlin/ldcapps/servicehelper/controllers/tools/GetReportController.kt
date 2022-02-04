@@ -14,10 +14,17 @@ import ldcapps.servicehelper.db.DataClasses.Companion.reports
 import ldcapps.servicehelper.initTableSize
 import ldcapps.servicehelper.toFXList
 import ldclibs.javafx.controls.Column
+import liklibs.db.toLocalDate
+import org.apache.poi.ss.usermodel.CellCopyPolicy
+import org.apache.poi.ss.usermodel.CellType
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator
+import org.apache.poi.xssf.usermodel.XSSFRow
+import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.net.URL
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.TextStyle
 import java.util.*
 
@@ -108,9 +115,38 @@ class GetReportController : Initializable {
         }
 
         fillBtn.setOnAction {
-            TODO()
-            Dialogs.getFile(confirmBtn.scene.window as Stage, null, "xlsx" to "Excel")?.let { file ->
-                val wb = XSSFWorkbook(File(file))
+            Dialogs.getFile(confirmBtn.scene.window as Stage, File(".").absolutePath, "xlsx" to "Excel")?.let { file ->
+                XSSFWorkbook(file).use { wb ->
+                    val sheet = wb.getSheet("Выр. (отгрузка)")
+
+                    val reportRow = reports.sortedBy { it.exDate.year * 10000 + it.exDate.month * 100 + it.exDate.day }
+
+                    var rowIndex = 11
+                    var reportIndex = 0
+                    var currentRow: XSSFRow? = sheet.getRow(rowIndex)
+
+                    while (currentRow?.getCell(1)?.cellType == CellType.NUMERIC) {
+                        val cellDate = currentRow.getCell(1)?.dateCellValue ?: continue
+                        val date = LocalDate.ofInstant(cellDate.toInstant(), ZoneId.systemDefault())
+
+                        while (reportRow.getOrNull(reportIndex) != null && reportRow[reportIndex].exDate.toLocalDate() < date) {
+                            sheet.insertRow(9, rowIndex).fill(reportRow[reportIndex])
+
+                            reportIndex++
+                        }
+
+                        rowIndex++
+                        currentRow = sheet.getRow(rowIndex)
+                    }
+
+                    for (i in reportIndex until reports.size) {
+                        sheet.insertRow(9, rowIndex - 1).fill(reportRow[reportIndex])
+                    }
+
+                    XSSFFormulaEvaluator.evaluateAllFormulaCells(wb)
+
+                    wb.write(File("filled_report.xlsx").apply { createNewFile() }.outputStream())
+                }
             }
         }
     }
@@ -126,5 +162,18 @@ class GetReportController : Initializable {
 
         monthsCb.value = m
         yearCb.value = year
+    }
+
+    private fun XSSFSheet.insertRow(srcRow: Int, destRow: Int): XSSFRow {
+        shiftRows(destRow, lastRowNum, 1)
+        copyRows(srcRow, srcRow, destRow, CellCopyPolicy())
+
+        return getRow(destRow)
+    }
+
+    private fun XSSFRow.fill(report: DataClasses.Report) {
+        getCell(1).setCellValue(report.exDate.toLocalDate())
+        getCell(2).setCellValue(report.customer)
+        getCell(3).setCellValue(report.totalDPCPrice + report.totalDPCPrice)
     }
 }

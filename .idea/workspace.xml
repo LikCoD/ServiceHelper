@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Fix">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Create act.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/CreateAct.fxml" afterDir="false" />
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Improve autofill">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +62,15 @@
   <component name="HierarchyBrowserManager">
     <option name="SCOPE" value="Production" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/build.gradle.kts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Dialogs.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -81,9 +92,10 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -208,7 +220,8 @@
       <workItem from="1643542104321" duration="8630000" />
       <workItem from="1643815675575" duration="3662000" />
       <workItem from="1643821221713" duration="9067000" />
-      <workItem from="1643877471001" duration="1796000" />
+      <workItem from="1643877471001" duration="2922000" />
+      <workItem from="1643914738516" duration="7854000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -294,7 +307,28 @@
       <option name="project" value="LOCAL" />
       <updated>1643879282150</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Fix">
+      <created>1643880088061</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1643880088061</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Fix">
+      <created>1643963291312</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1643963291313</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Improve autofill">
+      <created>1643965950894</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1643965950894</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +358,8 @@
     <MESSAGE value="Change info builder" />
     <MESSAGE value="Migrate to new db-helper version" />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Improve autofill" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve autofill" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -333,11 +368,6 @@
           <properties class="com.google.gson.JsonSyntaxException" package="com.google.gson" />
           <option name="timeStamp" value="14" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt</url>
-          <line>122</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
