@@ -130,6 +130,7 @@ sealed class DataClasses {
         address: String,
         pa: String,
         bank: String,
+        bankAddress: String,
         swift: String,
         accountNumber: Int,
         contractDate: Date
@@ -140,6 +141,7 @@ sealed class DataClasses {
         @DBField("paymentAccount")
         var pa by dbProperty(pa)
         var bank by dbProperty(bank)
+        var bankAddress by dbProperty(bankAddress)
         var swift by dbProperty(swift)
         var accountNumber by dbProperty(accountNumber)
         var contractDate by dbProperty(contractDate)

@@ -111,7 +111,7 @@ class CreateContractController : Initializable {
 
                         companies.add(
                             DataClasses.Company(
-                                cusPRNTf.company, cusPRNTf.address, cusPATf.pa, cusPATf.bank,
+                                cusPRNTf.company, cusPRNTf.address, cusPATf.pa, cusPATf.bank, cusPATf.bankAddress,
                                 cusPATf.bik, cusPRNTf.prn!!, dateP.value.toSQL()
                             )
                         )
