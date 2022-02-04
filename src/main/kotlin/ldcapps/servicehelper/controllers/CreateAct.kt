@@ -109,7 +109,7 @@ class CreateAct : Initializable {
             workCb.items = ooAndBill.works.map { it.name }.toFXList()
             detailCb.items = (ooAndBill.dfcs.map { it.name } + ooAndBill.dpcs.map { it.name }).toFXList()
             act.abbreviatedFullName = executor!!.abbreviatedExecutor
-            act.executionDate = executionDate.toString()
+            act.executionDate = executionDate.toLocalString()
             act.carNumber = car!!.number
             act.carModel = car!!.model
             act.carMileage = carMileage
@@ -129,7 +129,7 @@ class CreateAct : Initializable {
                 work = workCb.editor.text ?: ""
                 detail = detailCb.editor.text ?: ""
                 date = dateP.editor.text
-                carMileage = mileageTf.text.toInt()
+                carMileage = mileageTf.text.toIntOrNull()
                 headerTx.text =
                     "$date на СТО $abbreviatedFullName, расположенным по адресу " +
                             "${DataClasses.user.serviceAddress} поступил автомобиль марки $carModel $carYear года выпуска, VIN " +
