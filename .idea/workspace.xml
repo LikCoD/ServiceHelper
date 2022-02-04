@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Add bank address">
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Add dependencies">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +88,7 @@
   "keyToString": {
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "P:/Kotlin/Kbp",
+    "last_opened_file_path": "P:/Kotlin/SQLTest",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -297,7 +298,7 @@
       <workItem from="1643815675575" duration="3662000" />
       <workItem from="1643821221713" duration="9067000" />
       <workItem from="1643877471001" duration="2922000" />
-      <workItem from="1643914738516" duration="25335000" />
+      <workItem from="1643914738516" duration="30443000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -432,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643990207905</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Add dependencies">
+      <created>1643997226560</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1643997226560</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -466,7 +474,8 @@
     <MESSAGE value="Fix" />
     <MESSAGE value="Improve car number picker" />
     <MESSAGE value="Add bank address" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add bank address" />
+    <MESSAGE value="Add dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add dependencies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -593,7 +593,7 @@ class OOController : Initializable {
                         ooAndBill.dfcs.size
                     )
 
-                    if (opened){
+                    if (opened) {
                         //TODO correct remove
                         reports.removeIf { it.number == ooAndBill.number && it.carNumber == ooAndBill.car!!.number }
                     }
@@ -874,11 +874,17 @@ class OOController : Initializable {
         ooAndBill.customer = DataClasses.companies
             .find { it.id == (DataClasses.owners.find { o -> o.id == car.ownerId }?.companyId ?: car.companyId) }
 
-        val owner =
-            DataClasses.owners.find { o -> o.id == car.ownerId }?.owner ?:
-            DataClasses.companies.find { o -> o.id == car.companyId }?.company
 
-        ooAndBill.owner = owner
+        if (ooAndBill.customer != null) {
+            ooAndBill.owner = DataClasses.owners.find { o -> o.id == car.ownerId }?.owner
+                ?: DataClasses.companies.find { o -> o.id == car.companyId }?.company
+        } else {
+            val individual = DataClasses.individuals.find { i -> i.id == car.individualId }
+
+            ooAndBill.owner = individual?.individual
+            ooAndBill.customerAddress = individual?.address
+        }
+
 
         worksHint = data.works.filter { it.carModel == car.model }
         dpcsHint = data.dpcs.filter { it.carModel == car.model }
@@ -895,8 +901,8 @@ class OOController : Initializable {
         carYearLb.text = car.year.toString()
         carVINLb.text = car.vin
         carNumberLb.text = car.number
-        ownerTf.text = owner
-        ownerTx.text = "Владелец: $owner"
+        ownerTf.text = ooAndBill.owner
+        ownerTx.text = "Владелец: ${ooAndBill.owner}"
         customerAddress.text = "Адрес: ${ooAndBill.customer?.address ?: ooAndBill.customerAddress}"
 
         if (ooAndBill.customer == null) {
