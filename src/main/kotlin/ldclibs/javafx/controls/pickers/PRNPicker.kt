@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import ldcapps.servicehelper.Dialogs
+import ldcapps.servicehelper.Animations
 import ldcapps.servicehelper.NotNullField
 import ldcapps.servicehelper.NotNullField.Companion.check
 import ldclibs.javafx.controls.IntTextField
@@ -36,23 +36,22 @@ class PRNPicker : CustomPicker() {
     @NotNullField(size = 9)
     private var prnTf = IntTextField(9).apply {
         setOnKeyReleased {
-            if (text.length == maxSize)
+            if (text.length == maxSize) {
                 companyTf.requestFocus()
+                try {
+                    val url = URL("https://www.portal.nalog.gov.by/grp/getData?unp=$text&charset=UTF-8&type=json")
+                    val json = Json.parseToJsonElement(url.openStream().reader().readText()).jsonObject["ROW"]?.jsonObject
+                        ?: return@setOnKeyReleased
+
+                    companyTf.text = json["VNAIMK"]?.jsonPrimitive?.contentOrNull ?: "-"
+                    addressTf.text = json["VPADRES"]?.jsonPrimitive?.contentOrNull ?: "-"
+                } catch (_: Exception) {
+                    Animations.warningNode(this)
+                }
+            }
         }
 
         promptText = "УНП"
-        setOnAction {
-            try {
-                val url = URL("https://www.portal.nalog.gov.by/grp/getData?unp=$text&charset=UTF-8&type=json")
-                val json = Json.parseToJsonElement(url.openStream().reader().readText()).jsonObject["ROW"]?.jsonObject
-                    ?: return@setOnAction
-
-                companyTf.text = json["VNAIMK"]?.jsonPrimitive?.contentOrNull ?: "-"
-                addressTf.text = json["VPADRES"]?.jsonPrimitive?.contentOrNull ?: "-"
-            } catch (ex: Exception) {
-                Dialogs.information("Ошибка подключения\n${ex.message}")
-            }
-        }
         prefHeight = 30.0
         prefWidth = 100.0
     }

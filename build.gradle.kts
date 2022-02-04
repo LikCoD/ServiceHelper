@@ -23,6 +23,8 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 
+    implementation("org.jsoup:jsoup:1.14.3")
+
     implementation("org.apache.poi", "poi", "5.0.0")
     implementation("org.apache.poi", "poi-ooxml", "5.0.0")
 

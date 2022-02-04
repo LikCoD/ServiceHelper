@@ -5,7 +5,6 @@ import javafx.scene.Parent
 import javafx.scene.control.Button
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
-import ldcapps.servicehelper.Data
 import ldcapps.servicehelper.NotNullField
 import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.data
@@ -13,6 +12,7 @@ import ldclibs.javafx.controls.AutoCompletedTextField
 import ldclibs.javafx.controls.IntTextField
 import ldclibs.javafx.controls.MyTextField
 import ldclibs.javafx.controls.StringTextField
+import org.jsoup.Jsoup
 
 class BankPicker : CustomPicker() {
     var startBik: String = ""
@@ -75,8 +75,25 @@ class BankPicker : CustomPicker() {
     @NotNullField(size = 4)
     private var t3 = StringTextField(4, true).apply {
         setOnKeyReleased {
-            if (text.length == maxSize)
+            if (text.length == maxSize) {
+                try {
+                    var body = Jsoup.connect("https://banks.of.by/bic.php?bic=all").get().body()
+                    body.select("dl")[0].children().windowed(2).forEach {
+                        val swift = it[0].select("a").text()
+                        if (!swift.startsWith(text)) return@forEach
+
+                        bikTf.text = swift
+
+                        body = Jsoup.connect("https://banks.of.by/bic.php?bic=$swift").get().body()
+                        body.select("dl")[0].children().windowed(2).forEach { i ->
+                            if (i[0].text() == "Название (сокращённое)") bankTf.text = i[1].text()
+                            if (i[0].text() == "Адрес") bankAddressTf.text = i[1].text()
+                        }
+                    }
+                } catch (_: Exception) {
+                }
                 t4.requestFocus()
+            }
         }
 
         prefHeight = 30.0
@@ -142,12 +159,6 @@ class BankPicker : CustomPicker() {
     private var bankTf = AutoCompletedTextField(data.banks.map { it.name }).apply {
         promptText = "Банк"
         items = data.banks.map { it.name }
-
-        onAutoCompleted = { b ->
-            val acBank = data.banks.find { it.name == b } ?: Data.Bank()
-            bankAddressTf.text = acBank.address
-            bikTf.text = acBank.bik
-        }
 
         prefHeight = 30.0
         prefWidth = 405.0
