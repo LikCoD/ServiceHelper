@@ -1,5 +1,9 @@
 package ldclibs.javafx.controls
 
+import javafx.event.EventTarget
+import javafx.scene.control.TextField
+import tornadofx.attachTo
+
 open class IntTextField(maxSize: Int? = null, allCaps: Boolean = false) :
     MyTextField(
         filter = Regex("[0-9]"),
@@ -65,3 +69,20 @@ open class StringTextFieldTableCell<S>(maxSize: Int? = null, allCaps: Boolean = 
 
 open class PriceTextFieldTableCell<S>(maxSize: Int? = null, allCaps: Boolean = false) :
     MyTableCell<S>(PriceTextField(maxSize, allCaps))
+
+fun EventTarget.intTextfield(
+    value: String? = null,
+    maxSize: Int? = null,
+    op: IntTextField.() -> Unit = {}
+) = IntTextField(maxSize, false).attachTo(this, op) {
+    if (value != null) it.text = value
+}
+
+fun EventTarget.stringTextfield(
+    value: String? = null,
+    maxSize: Int? = null,
+    allCaps: Boolean = false,
+    op: StringTextField.() -> Unit = {}
+) = StringTextField(maxSize, allCaps).attachTo(this, op) {
+    if (value != null) it.text = value
+}

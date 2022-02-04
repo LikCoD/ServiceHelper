@@ -18,6 +18,8 @@ repositories {
 }
 
 dependencies {
+    implementation("no.tornado:tornadofx:1.7.20")
+
     implementation("com.ibm.icu:icu4j:70.1")
 
     implementation("com.google.code.gson:gson:2.8.9")
