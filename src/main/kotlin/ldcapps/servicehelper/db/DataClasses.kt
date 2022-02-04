@@ -3,10 +3,7 @@ package ldcapps.servicehelper.db
 import ldcapps.servicehelper.arrFromJSON
 import ldcapps.servicehelper.fromJSON
 import liklibs.db.Date
-import liklibs.db.annotations.DBField
-import liklibs.db.annotations.DBInfo
-import liklibs.db.annotations.DBTable
-import liklibs.db.annotations.Primary
+import liklibs.db.annotations.*
 import liklibs.db.delegates.DBProperty.dbProperty
 import liklibs.db.sqList
 
@@ -147,6 +144,7 @@ sealed class DataClasses {
         var contractDate by dbProperty(contractDate)
 
         @Primary
+        @Dependency("companyId", "Car")
         var id by dbProperty(0)
     }
 
@@ -159,6 +157,7 @@ sealed class DataClasses {
         var companyId by dbProperty(companyId)
 
         @Primary
+        @Dependency("ownerId", "Car")
         var id by dbProperty(0)
     }
 
@@ -171,6 +170,7 @@ sealed class DataClasses {
         var address by dbProperty(address)
 
         @Primary
+        @Dependency("individualId", "Car")
         var id by dbProperty(0)
     }
 
