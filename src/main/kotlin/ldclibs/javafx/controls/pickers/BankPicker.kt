@@ -161,7 +161,7 @@ class BankPicker : CustomPicker() {
     }
 
     @NotNullField
-    private var bikTf = StringTextField(allCaps = true).apply {
+    private var bikTf = MyTextField(allCaps = true).apply {
         promptText = "БИК"
         prefHeight = 30.0
         prefWidth = 100.0
