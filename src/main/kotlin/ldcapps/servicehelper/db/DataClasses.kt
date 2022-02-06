@@ -4,7 +4,8 @@ import ldcapps.servicehelper.arrFromJSON
 import ldcapps.servicehelper.fromJSON
 import liklibs.db.Date
 import liklibs.db.annotations.*
-import liklibs.db.delegates.DBProperty.dbProperty
+import liklibs.db.delegates.dbDependency
+import liklibs.db.delegates.dbProperty
 import liklibs.db.sqList
 
 @DBInfo("defriuiuqmjmcl", "db_credentials.json")
@@ -121,6 +122,18 @@ sealed class DataClasses {
         var id by dbProperty(0)
     }
 
+    @DBTable("owners")
+    class Owner(
+        owner: String,
+        companyId: Int
+    ) {
+        var owner by dbProperty(owner)
+        var companyId by dbProperty(companyId)
+
+        @Primary
+        var id by dbDependency(0, Car::ownerId)
+    }
+
     @DBTable("companies")
     class Company(
         company: String,
@@ -144,21 +157,7 @@ sealed class DataClasses {
         var contractDate by dbProperty(contractDate)
 
         @Primary
-        @Dependency("companyId", "Car")
-        var id by dbProperty(0)
-    }
-
-    @DBTable("owners")
-    class Owner(
-        owner: String,
-        companyId: Int
-    ) {
-        var owner by dbProperty(owner)
-        var companyId by dbProperty(companyId)
-
-        @Primary
-        @Dependency("ownerId", "Car")
-        var id by dbProperty(0)
+        var id by dbDependency(0, Car::companyId, Owner::companyId)
     }
 
     @DBTable("individuals")
@@ -170,8 +169,7 @@ sealed class DataClasses {
         var address by dbProperty(address)
 
         @Primary
-        @Dependency("individualId", "Car")
-        var id by dbProperty(0)
+        var id by dbDependency(0, Car::individualId)
     }
 
     data class ExcelTabs(val topMargin: Int = 1, val rightMargin: Int = 0, val tabsSequence: List<String>? = null)

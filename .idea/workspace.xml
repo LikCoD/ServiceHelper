@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Add dependencies">
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="add moshi json lib">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
     </list>
@@ -88,7 +90,7 @@
   "keyToString": {
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "P:/Kotlin/SQLTest",
+    "last_opened_file_path": "P:/Kotlin/ServiceHelper",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -108,7 +110,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ServiceHelper [createExe]">
+  <component name="RunManager" selected="Kotlin.WindowsKt">
     <configuration name="Converter.concertOwner" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -298,7 +300,8 @@
       <workItem from="1643815675575" duration="3662000" />
       <workItem from="1643821221713" duration="9067000" />
       <workItem from="1643877471001" duration="2922000" />
-      <workItem from="1643914738516" duration="30443000" />
+      <workItem from="1643914738516" duration="34016000" />
+      <workItem from="1644090075967" duration="4936000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -440,7 +443,21 @@
       <option name="project" value="LOCAL" />
       <updated>1643997226560</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Fix">
+      <created>1644004571547</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1644004571547</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Fix value issue">
+      <created>1644006321942</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1644006321943</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -471,11 +488,13 @@
     <MESSAGE value="Migrate to new db-helper version" />
     <MESSAGE value="Improve autofill" />
     <MESSAGE value="Implement fill excel func" />
-    <MESSAGE value="Fix" />
     <MESSAGE value="Improve car number picker" />
     <MESSAGE value="Add bank address" />
     <MESSAGE value="Add dependencies" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add dependencies" />
+    <MESSAGE value="Fix" />
+    <MESSAGE value="Fix value issue" />
+    <MESSAGE value="add moshi json lib" />
+    <option name="LAST_COMMIT_MESSAGE" value="add moshi json lib" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -484,10 +503,103 @@
           <properties class="com.google.gson.JsonSyntaxException" package="com.google.gson" />
           <option name="timeStamp" value="14" />
         </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.squareup.moshi.JsonDataException" package="com.squareup.moshi" />
+          <option name="timeStamp" value="71" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.squareup.moshi.JsonEncodingException" package="com.squareup.moshi" />
+          <option name="timeStamp" value="72" />
+        </breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/test/kotlin/Converter.kt</url>
           <line>79</line>
           <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt</url>
+          <line>873</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/pickers/CarNumberPicker.kt</url>
+          <line>88</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/utlis/TableUtils.kt</url>
+          <line>31</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/utlis/TableUtils.kt</url>
+          <line>56</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
+          <line>18</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
+          <line>111</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
+          <line>132</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
+          <line>119</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
+          <line>124</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
+          <line>127</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/Reflection.kt</url>
+          <line>19</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
+          <line>15</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBProperty.kt</url>
+          <line>19</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
+          <line>17</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
+          <line>22</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
+          <line>24</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
+          <line>27</line>
+          <option name="timeStamp" value="90" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

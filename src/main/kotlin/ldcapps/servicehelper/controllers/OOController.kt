@@ -1086,8 +1086,8 @@ class OOController : Initializable {
 
     class OOAndBill(
         var number: Int = 0,
-        var registrationDate: Date = Date(0, 0, 0),
-        var executionDate: Date = Date(0, 0, 0),
+        var registrationDate: Date = Date(),
+        var executionDate: Date = Date(),
         var car: DataClasses.Car? = null,
         var carMileage: Int? = null,
         var customer: DataClasses.Company? = null,

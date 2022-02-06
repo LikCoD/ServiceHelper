@@ -1,7 +1,9 @@
 package ldcapps.servicehelper
 
-import com.google.gson.Gson
 import com.ibm.icu.text.RuleBasedNumberFormat
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.fxml.FXMLLoader
@@ -83,17 +85,27 @@ fun fxList(vararg el: String): ObservableList<String> = FXCollections.observable
 inline fun <reified T> fromJSON(file: File, textNotExist: String = "{}"): T {
     if (!file.exists()) file.writeText(textNotExist)
 
-    val text = file.readText()
-    return Gson().fromJson(text, T::class.java)
+    val json = file.readText()
+    return Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter(T::class.java).fromJson(json)!!
 }
 
 inline fun <reified T> fromJSON(fileName: String, textNotExist: String = "{}"): T =
     fromJSON(File(fileName), textNotExist)
 
-inline fun <reified T : Any> arrFromJSON(file: String): MutableList<T> = fromJSON<Array<T>>(file, "[]").toMutableList()
+inline fun <reified T : Any> arrFromJSON(fileName: String): MutableList<T> {
+    val file = File(fileName)
+    if (!file.exists()) file.writeText("[]")
+
+    val json = file.readText()
+    return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        .adapter<MutableList<T>>(Types.newParameterizedType(MutableList::class.java, T::class.java)).fromJson(json)!!
+}
 
 fun <T : Any> toJSON(fileName: String, jClass: T) = toJSON(File(fileName), jClass)
-fun <T : Any> toJSON(file: File, jClass: T) = file.writeText(Gson().toJson(jClass))
+fun <T : Any> toJSON(file: File, jClass: T) {
+    val json = Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter<T>(jClass::class.java).toJson(jClass)
+    file.writeText(json)
+}
 
 inline fun <reified O> getCellValue(cell: Cell?, defValue: O) = when (cell?.cellType) {
     CellType.NUMERIC -> Converter().toGenerics(cell.numericCellValue) ?: defValue
@@ -118,6 +130,7 @@ fun TableView<*>.initTableSize(vararg proportions: Int) {
 
 @ExperimentalSerializationApi
 fun <T> loadFXML(fxmlInfo: FXMLInfo): T = fxmlLoader(fxmlInfo).load()
+
 @ExperimentalSerializationApi
 fun fxmlLoader(fxmlInfo: FXMLInfo) =
     FXMLLoader(Windows::class.java.classLoader.getResource("fxml/${fxmlInfo.path}.fxml"))
