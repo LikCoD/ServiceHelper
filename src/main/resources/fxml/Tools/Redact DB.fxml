@@ -12,7 +12,7 @@
         <VBox prefHeight="200.0" prefWidth="100.0">
             <Button id="confirm" fx:id="confirmBtn" defaultButton="true" maxWidth="Infinity" mnemonicParsing="false"
                     prefHeight="40.0" prefWidth="150.0" minWidth="150.0" stylesheets="@../../css/buttonsStyle.css"
-                    text="Подтвердить" VBox.vgrow="ALWAYS"/>
+                    text="Распечатать" VBox.vgrow="ALWAYS"/>
             <ToggleButton fx:id="carsTb" alignment="CENTER_RIGHT" maxWidth="Infinity" mnemonicParsing="false"
                           prefHeight="48.0" prefWidth="48.0" selected="true" stylesheets="@../../css/toolsBtns.css"
                           text=" " VBox.vgrow="ALWAYS" id="db">
@@ -85,7 +85,7 @@
                     <Column fx:id="carYearCol" onEditCommitted="#changeCarYearCellEvent" prefWidth="-1.0" text="Год вып."/>
                     <Column fx:id="carEngineCol" onEditCommitted="#changeCarEngineCellEvent" prefWidth="-1.0"
                             text="V Двиг."/>
-                    <Column fx:id="carOwnerCol" prefWidth="-1.0"
+                    <Column fx:id="carOwnerCol" onEditCommitted="#changeCarOwnerCellEvent" prefWidth="-1.0"
                             text="Владелец"/>
                 </columns>
             </TableView>

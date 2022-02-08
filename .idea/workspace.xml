@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="add moshi json lib">
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Add dependencies">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Redact DB.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Redact DB.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +91,7 @@
   "keyToString": {
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "P:/Kotlin/ServiceHelper",
+    "last_opened_file_path": "P:/Kotlin/SQLTest",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -111,53 +112,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Kotlin.WindowsKt">
-    <configuration name="Converter.concertOwner" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;Converter.concertOwner&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="Converter.convert" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;Converter.convert&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="Converter.convertCar" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Converter.convertCar (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -171,6 +126,29 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;Converter.convertCar&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Converter.convertCompany" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;Converter.convertCompany&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -194,6 +172,29 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;Converter.convertIndividual&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Converter.oo" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;Converter.oo&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -235,19 +236,19 @@
     </configuration>
     <list>
       <item itemvalue="Gradle.ServiceHelper [createExe]" />
-      <item itemvalue="Gradle.Converter.concertOwner" />
-      <item itemvalue="Gradle.Converter.convert" />
-      <item itemvalue="Gradle.Converter.convertCar" />
+      <item itemvalue="Gradle.Converter.convertCar (1)" />
+      <item itemvalue="Gradle.Converter.convertCompany" />
+      <item itemvalue="Gradle.Converter.oo" />
       <item itemvalue="Gradle.Converter.convertIndividual" />
       <item itemvalue="Kotlin.WindowsKt" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Kotlin.WindowsKt" />
-        <item itemvalue="Gradle.Converter.convertCar" />
+        <item itemvalue="Gradle.Converter.convertCar (1)" />
+        <item itemvalue="Gradle.Converter.convertCompany" />
+        <item itemvalue="Gradle.Converter.oo" />
         <item itemvalue="Gradle.Converter.convertIndividual" />
-        <item itemvalue="Gradle.Converter.concertOwner" />
-        <item itemvalue="Gradle.Converter.convert" />
       </list>
     </recent_temporary>
   </component>
@@ -301,7 +302,11 @@
       <workItem from="1643821221713" duration="9067000" />
       <workItem from="1643877471001" duration="2922000" />
       <workItem from="1643914738516" duration="34016000" />
-      <workItem from="1644090075967" duration="4936000" />
+      <workItem from="1644090075967" duration="7227000" />
+      <workItem from="1644172602696" duration="2141000" />
+      <workItem from="1644174880206" duration="3076000" />
+      <workItem from="1644309737824" duration="550000" />
+      <workItem from="1644310907692" duration="3248000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -457,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644006321943</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Add dependencies">
+      <created>1644137063278</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1644137063282</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,11 +502,11 @@
     <MESSAGE value="Implement fill excel func" />
     <MESSAGE value="Improve car number picker" />
     <MESSAGE value="Add bank address" />
-    <MESSAGE value="Add dependencies" />
     <MESSAGE value="Fix" />
     <MESSAGE value="Fix value issue" />
     <MESSAGE value="add moshi json lib" />
-    <option name="LAST_COMMIT_MESSAGE" value="add moshi json lib" />
+    <MESSAGE value="Add dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add dependencies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -512,94 +524,14 @@
           <option name="timeStamp" value="72" />
         </breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/Converter.kt</url>
-          <line>79</line>
-          <option name="timeStamp" value="29" />
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.4/6445e7609128cd64ac76288d3993359cbf0ba7cc/DBHelper-v0.3.4-sources.jar!/liklibs/db/delegates/DBProperty.kt</url>
+          <line>25</line>
+          <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt</url>
-          <line>873</line>
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/pickers/CarNumberPicker.kt</url>
-          <line>88</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/utlis/TableUtils.kt</url>
-          <line>31</line>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/utlis/TableUtils.kt</url>
-          <line>56</line>
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
-          <line>18</line>
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
-          <line>111</line>
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
-          <line>132</line>
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
-          <line>119</line>
-          <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
-          <line>124</line>
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/DB.kt</url>
-          <line>127</line>
-          <option name="timeStamp" value="83" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/Reflection.kt</url>
-          <line>19</line>
-          <option name="timeStamp" value="84" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
-          <line>15</line>
-          <option name="timeStamp" value="85" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBProperty.kt</url>
-          <line>19</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
-          <line>17</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
-          <line>22</line>
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
-          <line>24</line>
-          <option name="timeStamp" value="89" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.3/d92a7158920c05f146a77342e3ddc87d2194d85a/DBHelper-v0.3.3-sources.jar!/liklibs/db/delegates/DBDependency.kt</url>
-          <line>27</line>
-          <option name="timeStamp" value="90" />
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.3.4/6445e7609128cd64ac76288d3993359cbf0ba7cc/DBHelper-v0.3.4-sources.jar!/liklibs/db/delegates/DBProperty.kt</url>
+          <line>30</line>
+          <option name="timeStamp" value="101" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

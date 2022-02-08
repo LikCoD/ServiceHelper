@@ -69,7 +69,7 @@ class RedactDBController : Initializable {
                 car.companyId != null -> companies.find { it.id == car.companyId }?.company ?: ""
                 car.ownerId != null -> owners.find { it.id == car.ownerId }?.owner ?: ""
                 car.individualId != null -> individuals.find { it.id == car.individualId }?.individual ?: ""
-                else -> ""
+                else -> "-?-"
             }
         }
         companyCol.setValueFactory(DataClasses.Company::company.name)
@@ -80,7 +80,7 @@ class RedactDBController : Initializable {
         companyContractDateCol.setValueFactory { it.contractDate.toLocalString() }
 
         ownerCol.setValueFactory(DataClasses.Owner::owner.name)
-        ownerCompanyCol.setValueFactory {owner ->
+        ownerCompanyCol.setValueFactory { owner ->
             companies.find { it.id == owner.companyId }?.company ?: ""
         }
         individualCol.setValueFactory(DataClasses.Individual::individual.name)
@@ -145,25 +145,11 @@ class RedactDBController : Initializable {
             ownersAndIndividualsAp.isVisible = true
         }
         confirmBtn.setOnAction {
-            Dialogs.confirmation("БД успешно отредактированно") {
-                when {
-                    carsTable.isVisible -> Dialogs.print(
-                        confirmBtn.scene.window as Stage, PageOrientation.LANDSCAPE,
-                        carsTable, companiesTable, ownersAndIndividualsAp
-                    )
-                    companiesTable.isVisible -> Dialogs.print(
-                        confirmBtn.scene.window as Stage, PageOrientation.LANDSCAPE,
-                        companiesTable, carsTable, ownersAndIndividualsAp
-                    )
-                    else -> Dialogs.print(
-                        confirmBtn.scene.window as Stage,
-                        PageOrientation.LANDSCAPE,
-                        ownersAndIndividualsAp,
-                        carsTable,
-                        companiesTable
-                    )
-                }
-            }
+            Dialogs.print(
+                confirmBtn.scene.window as Stage,
+                PageOrientation.LANDSCAPE,
+                carsTable, companiesTable, ownersAndIndividualsAp
+            )
 
             ToolsController.REDACT_DB.update()
         }
@@ -179,6 +165,18 @@ class RedactDBController : Initializable {
         if (editEvent.newValue.toDoubleOrNull() != null)
             carsTable.selectionModel.selectedItem.engine = editEvent.newValue.toDoubleOrNull() ?: 0.0
         else Dialogs.warning("Данные введены неправильно")
+    }
+
+    fun changeCarOwnerCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
+        val companyId = companies.find { it.company == editEvent.newValue }?.id
+        val ownerId = owners.find { it.owner == editEvent.newValue }?.id
+        val individualId = individuals.find { it.individual == editEvent.newValue }?.id
+
+        if (companyId == null && ownerId == null && individualId == null) return
+
+        carsTable.selectionModel.selectedItem.companyId = companyId
+        carsTable.selectionModel.selectedItem.ownerId = ownerId
+        carsTable.selectionModel.selectedItem.individualId = individualId
     }
 
     fun changeCompanyCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
