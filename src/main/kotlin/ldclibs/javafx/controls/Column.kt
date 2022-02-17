@@ -5,6 +5,7 @@ import javafx.collections.FXCollections
 import javafx.event.EventHandler
 import javafx.scene.control.TableCell
 import javafx.scene.control.TableColumn
+import javafx.scene.control.TextField
 import javafx.scene.control.cell.ComboBoxTableCell
 import javafx.util.Callback
 import javafx.util.converter.DefaultStringConverter
@@ -60,8 +61,8 @@ class Column<S : Any> : TableColumn<S, String>() {
     fun setPriceTextFieldCellFactory() =
         setCellFactory { object : PriceTextFieldTableCell<S>() {} }
 
-    fun setTextFieldCellFactory() =
-        setCellFactory { object : MyTableCell<S>() {} }
+    fun setTextFieldCellFactory(textField: TextField = TextField()) =
+        setCellFactory { object : MyTableCell<S>(textField) {} }
 
     fun setDoubleTextFieldCellFactory() =
         setCellFactory { object : DoubleTextFieldTableCell<S>() {} }

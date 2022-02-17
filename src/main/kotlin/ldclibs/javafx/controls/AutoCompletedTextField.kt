@@ -1,6 +1,7 @@
 package ldclibs.javafx.controls
 
 import javafx.beans.InvalidationListener
+import javafx.beans.property.ObjectProperty
 import javafx.scene.Parent
 import javafx.scene.control.ListCell
 import javafx.scene.control.ListView
@@ -18,6 +19,7 @@ open class AutoCompletedTextField<T>(
     var maxSize: Int? = null,
     var allCaps: Boolean = false,
     var getString: ((T) -> String) = { it.toString() },
+    val valueProperty: ObjectProperty<T>? = null,
 ) : TextField() {
     private val popup = PopupControl()
 
@@ -26,7 +28,7 @@ open class AutoCompletedTextField<T>(
     val node: Parent?
         get() =
             if (items != null)
-                ListView(items!!.distinct().filter { getString(it).contains(text, true) }.toFXList()).apply {
+                ListView(items!!.distinct().filter { getString(it).contains(text ?: "", true) }.toFXList()).apply {
                     cellFactory = Callback<ListView<T>?, ListCell<T>?> {
                         object : ListCell<T>() {
                             override fun updateItem(item: T, empty: Boolean) {
@@ -52,6 +54,7 @@ open class AutoCompletedTextField<T>(
                             positionCaret(text.length)
 
                             onAutoCompleted(item)
+                            valueProperty?.set(item)
                         }
                     }
                 }
@@ -83,16 +86,15 @@ open class AutoCompletedTextField<T>(
     }
 
     override fun replaceText(start: Int, end: Int, text: String?) {
-        val fText = if (allCaps) text!!.toUpperCase() else text!!
+        val fText = if (allCaps) text!!.uppercase() else text!!
         if (((filter == null || fText.matches(filter!!)) && (maxSize == null || this.text.length <= maxSize!! - 1)) || fText == "")
-            super.replaceText(start, end, replacement(if (allCaps) text.toUpperCase() else fText, this.text))
+            super.replaceText(start, end, replacement(if (allCaps) text.uppercase() else fText, text))
     }
 
     override fun replaceSelection(text: String?) {
-        val fText = if (allCaps) text!!.toUpperCase() else text!!
+        val fText = if (allCaps) text!!.uppercase() else text!!
         if (((filter == null || fText.matches(filter!!)) && (maxSize == null || this.text.length <= maxSize!! - 1)) || fText == "")
-            super.replaceSelection(replacement(fText, this.text))
+            super.replaceSelection(replacement(fText, text))
     }
-
 
 }
