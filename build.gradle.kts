@@ -3,7 +3,7 @@ var fileName = "ServiceHelper"
 plugins {
     java
     application
-    id("org.jetbrains.kotlin.jvm") version "1.5.0"
+    id("org.jetbrains.kotlin.jvm") version "1.6.10"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0"
     id("org.openjfx.javafxplugin") version "0.0.7"
     id("edu.sc.seis.launch4j") version "2.4.6"
@@ -33,7 +33,7 @@ dependencies {
 
     implementation("it.sauronsoftware:junique:1.0.4")
 
-    implementation("com.github.LikCoD:DBHelper:v0.3.5")
+    implementation("com.github.LikCoD:DBHelper:v0.5.2")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("reflect"))

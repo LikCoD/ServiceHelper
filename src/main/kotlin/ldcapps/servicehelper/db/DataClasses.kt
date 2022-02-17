@@ -175,10 +175,10 @@ sealed class DataClasses {
     data class ExcelTabs(val topMargin: Int = 1, val rightMargin: Int = 0, val tabsSequence: List<String>? = null)
 
     companion object {
-        val cars = sqList<Car>()
         val companies = sqList<Company>()
-        val owners = sqList<Owner>()
         val individuals = sqList<Individual>()
+        val owners = sqList<Owner>()
+        val cars = sqList<Car>()
 
         val reports = sqList<Report>()
 
