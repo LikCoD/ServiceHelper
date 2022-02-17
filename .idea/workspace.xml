@@ -4,40 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Change reflection">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/detail/DetailView.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/detail/LocalDateAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/detail/PrintView.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/detail/SavedDetailView.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/detail/SelectedDetailView.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/pickers/VINPicker.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/drawable/no-signal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/FXMLInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/FXMLInfo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/NotNullField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/NotNullField.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CarDataController.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CreateAct.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/CreateAct.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoadingController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoadingController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt" afterDir="false" />
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Fill some field when vin filled">
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/AutoCompletedTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/AutoCompletedTextField.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/Column.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/Column.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/MyTextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/MyTextField.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/TextFields.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldclibs/javafx/controls/TextFields.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/drawable/sync.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/CarData.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/OO.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/OO.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Add car.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Add car.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Redact DB.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/Tools/Redact DB.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,13 +65,13 @@
     <option name="SCOPE" value="Production" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Dialogs.kt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/build.gradle.kts" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/build.gradle.kts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Dialogs.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -117,18 +85,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last.edited.regexp" value="q?1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "P:/Kotlin/ServiceHelper",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="P:\Kotlin\ServiceHelper\db" />
@@ -333,6 +303,7 @@
       <workItem from="1644832358717" duration="3525000" />
       <workItem from="1645012473531" duration="11764000" />
       <workItem from="1645036724019" duration="21170000" />
+      <workItem from="1645126965658" duration="355000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -502,7 +473,21 @@
       <option name="project" value="LOCAL" />
       <updated>1644351163362</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Add columns for ownerId, companyId, individualId">
+      <created>1645127082943</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1645127082943</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Fill some field when vin filled">
+      <created>1645127235078</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1645127235078</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -542,7 +527,9 @@
     <MESSAGE value="Improve db edit" />
     <MESSAGE value="Improve textfields for tornadofx" />
     <MESSAGE value="Change reflection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change reflection" />
+    <MESSAGE value="Add columns for ownerId, companyId, individualId" />
+    <MESSAGE value="Fill some field when vin filled" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fill some field when vin filled" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
@@ -604,7 +591,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt</url>
-          <line>148</line>
+          <line>146</line>
           <option name="timeStamp" value="143" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">

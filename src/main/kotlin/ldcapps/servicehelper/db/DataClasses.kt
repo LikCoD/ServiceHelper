@@ -114,8 +114,14 @@ sealed class DataClasses {
         var vin by dbProperty(vin)
         var year by dbProperty(year)
         var engine by dbProperty(engine)
+
+        @Dependency("owners", "_id")
         var ownerId by dbProperty(ownerId)
+
+        @Dependency("companies", "_id")
         var companyId by dbProperty(companyId)
+
+        @Dependency("individuals", "_id")
         var individualId by dbProperty(individualId)
 
         @Primary
@@ -128,6 +134,8 @@ sealed class DataClasses {
         companyId: Int
     ) {
         var owner by dbProperty(owner)
+
+        @Dependency("companies", "_id")
         var companyId by dbProperty(companyId)
 
         @Primary
