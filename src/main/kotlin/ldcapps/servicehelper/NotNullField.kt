@@ -5,20 +5,20 @@ import javafx.scene.Node
 import javafx.scene.control.ComboBox
 import javafx.scene.control.DatePicker
 import javafx.scene.control.TextField
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.jvm.isAccessible
 
 @Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FIELD, AnnotationTarget.CLASS)
+@Target(AnnotationTarget.PROPERTY)
 annotation class NotNullField(val type: String = "", val size: Int = -1) {
     companion object {
-        fun <T : Any> get(obj: T, type: String = "") = obj::class.java.declaredFields.map {
+        fun <T : Any> get(obj: T, type: String = "") = obj::class.declaredMemberProperties.filter {
             it.isAccessible = true
 
-            val field = it.get(obj)
-            val annotation = it.getAnnotation(NotNullField::class.java)
+            val annotation = it.findAnnotation<NotNullField>()
 
-            field to annotation
-        }.filter {
-            it.first is Node && it.second != null && it.second.type == type
+            annotation != null && annotation.type == type
         }
 
         fun <T : Any> check(obj: T, anim: Boolean = true, type: String = "", checkSize: Boolean): Boolean {
@@ -27,17 +27,18 @@ annotation class NotNullField(val type: String = "", val size: Int = -1) {
 
             fields.forEach {
                 var stringValue: String? = null
+                val node = it.getter.call(obj)
 
-                when (val node = it.first) {
+                when (node) {
                     is TextField -> stringValue = node.text?.trim()
                     is DatePicker -> stringValue = node.value?.toString()?.trim()
                     is ComboBox<*> -> stringValue = node.value?.toString()?.trim()
                 }
 
-                val size = it.second.size
+                val size = it.findAnnotation<NotNullField>()?.size ?: 0
                 if (stringValue == null || stringValue == "" || (checkSize && size > 0 && stringValue.length != size)) {
                     isNotNull = false
-                    if (anim) Animations.emptyNode(it.first as Node)
+                    if (anim) Animations.emptyNode(node as Node)
                 }
             }
 
