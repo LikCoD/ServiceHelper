@@ -13,13 +13,14 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.text.Text
 import javafx.stage.Stage
-import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.*
 import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.controllers.tools.AddCarController
 import ldcapps.servicehelper.controllers.tools.ToolsController
 import ldcapps.servicehelper.db.DataClasses
 import ldcapps.servicehelper.db.DataClasses.Companion.cars
+import ldcapps.servicehelper.db.DataClasses.Companion.companies
+import ldcapps.servicehelper.db.DataClasses.Companion.owners
 import ldcapps.servicehelper.db.DataClasses.Companion.reports
 import ldcapps.servicehelper.db.DataClasses.Companion.user
 import ldclibs.javafx.controls.*
@@ -33,7 +34,6 @@ import java.net.URL
 import java.text.DecimalFormat
 import java.util.*
 
-@ExperimentalSerializationApi
 class OOController : Initializable {
     @FXML
     private lateinit var mainVBox: VBox
@@ -151,10 +151,13 @@ class OOController : Initializable {
     private lateinit var ownerTf: MyTextField
 
     @FXML
+    private lateinit var companyTf: AutoCompletedTextField<DataClasses.Company>
+
+    @FXML
     private lateinit var previewBtn: Button
 
     @FXML
-    private lateinit var ooAndBillScroll: ScrollPane
+    lateinit var ooAndBillScroll: ScrollPane
 
     @FXML
     private lateinit var ooAndBillAp: AnchorPane
@@ -436,6 +439,9 @@ class OOController : Initializable {
         dpcNameTf.getString = { "${it.name} * ${it.count} (${it.state})" }
         dfcNameTf.getString = { "${it.name} * ${it.count} (${it.state})" }
 
+        companyTf.items = companies
+        companyTf.getString = { it.company }
+
         excelWorkBtn.setOnAction { _ ->
             Dialogs.getFile(confirmBtn.scene.window as Stage, null, "xlsx" to "Excel")?.let { path ->
                 XSSFWorkbook(File(path)).use {
@@ -540,7 +546,7 @@ class OOController : Initializable {
 
         cancelBtn.setOnAction {
             when (action) {
-                ButtonActions.CONFIRM -> Dialogs.confirmation("Подтвердите выход") { MainController.closeSelectedTab() }
+                ButtonActions.CONFIRM -> Dialogs.confirmation("Подтвердите выход") { MainView.closeSelectedTab() }
                 ButtonActions.APPLY_CHANGES -> {
                     registrationDp.value = ooAndBill.registrationDate.toLocalDate()
                     executionDp.value = ooAndBill.executionDate.toLocalDate()
@@ -627,6 +633,8 @@ class OOController : Initializable {
                     toJSON(".data", data)
 
                     Dialogs.confirmation("Заказ-Наряд №${ooAndBill.number} успешно создан и находится по пути:\n$path\nРаспечатать его?") {
+                        ooAndBillScroll.isVisible = true
+
                         ooAndBill.customer?.let {
                             Dialogs.print(confirmBtn.scene.window as Stage, PageOrientation.PORTRAIT, ooAp, billAp)
                         } ?: Dialogs.print(confirmBtn.scene.window as Stage, PageOrientation.PORTRAIT, ooAp)
@@ -699,10 +707,10 @@ class OOController : Initializable {
                 }
                 ButtonActions.APPLY_CAR -> {
                     if (!check(type = "Car")) return@setOnAction
-                    cars.find { it.key == carNumberTf.text }?.let { updateCar(it) }
+                    cars.find { it.key == carNumberTf.text }?.let { updateCar(it, companyTf.selectedItem) }
                         ?: Dialogs.confirmation("Данного гос. номера авто нет в БД, но вы можите добавить его в меню \"Инструменты\"") {
                             ToolsController.ADD_CAR.show<AddCarController>(
-                                Windows.tools()!!.addCarTb,
+                                Windows.tools?.addCarTb ?: return@confirmation,
                                 confirmBtn.scene.window
                             ).keyTf.text = carNumberTf.text
                         }
@@ -717,10 +725,10 @@ class OOController : Initializable {
 
             if (ooAndBillScroll.isVisible) {
                 firstHBox.children.add(1, positionsVBox)
-                MainController.changeStageSize(FXMLInfo.OO, previewBtn)
+                MainView.changeStageSize(FXMLInfo.OO, previewBtn)
             } else {
                 mainVBox.children.add(positionsVBox)
-                MainController.changeStageSize(FXMLInfo.OOCollapsed, previewBtn)
+                MainView.changeStageSize(FXMLInfo.OOCollapsed, previewBtn)
             }
         }
 
@@ -844,7 +852,7 @@ class OOController : Initializable {
         executionDate5Tx.text = ooAndBill.executionDate.toLocalString()
         carMileageLb.text = ooAndBill.carMileage?.toString()
 
-        MainController.selectedTab.text = "${if (cash) "Н" else "Б"} ЗН №${ooAndBill.number}, ${ooAndBill.car?.model}"
+        MainView.selectedTab.text = "${if (cash) "Н" else "Б"} ЗН №${ooAndBill.number}, ${ooAndBill.car?.model}"
 
         ooNumberTx.text = "ЗАКАЗ-НАРЯД №${ooAndBill.number}"
 
@@ -863,28 +871,46 @@ class OOController : Initializable {
         executionDp.value = ooAndBill.executionDate.toLocalDate()
 
         refresh()
-        updateInfo()
         updateCar()
         updateExecutor()
+        updateInfo()
     }
 
-    private fun updateCar(car: DataClasses.Car = ooAndBill.car!!) {
+    private fun updateCar(
+        car: DataClasses.Car = ooAndBill.car!!,
+        company: DataClasses.Company? = companies.find { car.companyId == it.id }
+    ) {
         ooAndBill.car = car
 
-        ooAndBill.customer = DataClasses.companies
-            .find { it.id == (DataClasses.owners.find { o -> o.id == car.ownerId }?.companyId ?: car.companyId) }
+        val owner = owners.find { car.ownerId == it.id }
 
+        when {
+            owner != null -> {
+                if (company != null) {
+                    ooAndBill.customer = company
+                    ooAndBill.owner = owner.owner
 
-        if (ooAndBill.customer != null) {
-            ooAndBill.owner = DataClasses.owners.find { o -> o.id == car.ownerId }?.owner
-                ?: DataClasses.companies.find { o -> o.id == car.companyId }?.company
-        } else {
-            val individual = DataClasses.individuals.find { i -> i.id == car.individualId }
+                    companyTf.isDisable = false
+                    companyTf.text = company.company
+                } else Dialogs.warning("Нет компании в БД")
+            }
+            company != null -> {
+                ooAndBill.customer = company
+                ooAndBill.owner = company.company
 
-            ooAndBill.owner = individual?.individual
-            ooAndBill.customerAddress = individual?.address
+                companyTf.isDisable = false
+                companyTf.text = company.company
+            }
+            else -> {
+                val individual = DataClasses.individuals.find { i -> i.id == car.individualId }
+
+                ooAndBill.owner = individual?.individual
+                ooAndBill.customerAddress = individual?.address
+
+                companyTf.isDisable = true
+                companyTf.text = ""
+            }
         }
-
 
         worksHint = data.works.filter { it.carModel == car.model }
         dpcsHint = data.dpcs.filter { it.carModel == car.model }
