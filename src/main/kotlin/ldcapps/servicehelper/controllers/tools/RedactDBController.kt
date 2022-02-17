@@ -20,6 +20,7 @@ import ldcapps.servicehelper.db.DataClasses.Companion.owners
 import ldcapps.servicehelper.initTableSize
 import ldcapps.servicehelper.toFXList
 import ldcapps.servicehelper.toLocalString
+import ldclibs.javafx.controls.AutoCompletedTextField
 import ldclibs.javafx.controls.Column
 import ldclibs.javafx.controls.MyTableCell
 import java.awt.Toolkit
@@ -34,12 +35,14 @@ class RedactDBController : Initializable {
     lateinit var ownersAndIndividualsTb: ToggleButton
     lateinit var carsTable: TableView<DataClasses.Car>
     lateinit var carNumberCol: Column<DataClasses.Car>
-    lateinit var carShortNumberCol: Column<DataClasses.Car>
+    lateinit var carKeyCol: Column<DataClasses.Car>
     lateinit var carModelCol: Column<DataClasses.Car>
     lateinit var carVINCol: Column<DataClasses.Car>
     lateinit var carYearCol: Column<DataClasses.Car>
     lateinit var carEngineCol: Column<DataClasses.Car>
     lateinit var carOwnerCol: Column<DataClasses.Car>
+    lateinit var carCompanyCol: Column<DataClasses.Car>
+    lateinit var carIndividualCol: Column<DataClasses.Car>
     lateinit var companiesTable: TableView<DataClasses.Company>
     lateinit var companyCol: Column<DataClasses.Company>
     lateinit var companyAddressCol: Column<DataClasses.Company>
@@ -55,22 +58,28 @@ class RedactDBController : Initializable {
     lateinit var individualCol: Column<DataClasses.Individual>
     lateinit var individualAddressCol: Column<DataClasses.Individual>
 
+    private val carOwnersAutoCompletedTextField = AutoCompletedTextField(owners, getString = { it.owner })
+    private val carCompaniesAutoCompletedTextField = AutoCompletedTextField(companies, getString = { it.company })
+    private val carIndividualsAutoCompletedTextField = AutoCompletedTextField(individuals, getString = { it.individual })
+
     override fun initialize(url: URL?, resourceBundle: ResourceBundle?) {
-        carsTable.initTableSize(1, 1, 2, 2, 1, 1, 2)
+        carsTable.initTableSize(1, 1, 2, 2, 1, 1, 2, 2, 2)
+        companiesTable.initTableSize(2, 2, 2, 1, 1, 1)
 
         carNumberCol.setValueFactory(DataClasses.Car::number.name)
-        carShortNumberCol.setValueFactory(DataClasses.Car::key.name)
+        carKeyCol.setValueFactory(DataClasses.Car::key.name)
         carModelCol.setValueFactory(DataClasses.Car::model.name)
         carVINCol.setValueFactory(DataClasses.Car::vin.name)
         carYearCol.setValueFactory(DataClasses.Car::year.name)
         carEngineCol.setValueFactory(DataClasses.Car::engine.name)
+        carCompanyCol.setValueFactory { car ->
+            companies.find { it.id == car.companyId }?.company ?: "-?-"
+        }
         carOwnerCol.setValueFactory { car ->
-            when {
-                car.companyId != null -> companies.find { it.id == car.companyId }?.company ?: ""
-                car.ownerId != null -> owners.find { it.id == car.ownerId }?.owner ?: ""
-                car.individualId != null -> individuals.find { it.id == car.individualId }?.individual ?: ""
-                else -> "-?-"
-            }
+            owners.find { it.id == car.ownerId }?.owner ?: "-?-"
+        }
+        carIndividualCol.setValueFactory { car ->
+            individuals.find { it.id == car.individualId }?.individual ?: "-?-"
         }
         companyCol.setValueFactory(DataClasses.Company::company.name)
         companyAddressCol.setValueFactory(DataClasses.Company::address.name)
@@ -87,12 +96,15 @@ class RedactDBController : Initializable {
         individualAddressCol.setValueFactory(DataClasses.Individual::address.name)
 
         carNumberCol.setTextFieldCellFactory()
-        carShortNumberCol.setTextFieldCellFactory()
+        carKeyCol.setTextFieldCellFactory()
         carModelCol.setTextFieldCellFactory()
         carVINCol.setTextFieldCellFactory()
         carYearCol.setIntTextFieldCellFactory()
         carEngineCol.setDoubleTextFieldCellFactory()
-        carOwnerCol.setComboBoxCellFactory(*(companies.map { it.company } + owners.map { it.owner } + individuals.map { it.individual }).toTypedArray())
+
+        carOwnerCol.setTextFieldCellFactory(carOwnersAutoCompletedTextField)
+        carCompanyCol.setTextFieldCellFactory(carCompaniesAutoCompletedTextField)
+        carIndividualCol.setTextFieldCellFactory(carIndividualsAutoCompletedTextField)
 
         companyCol.setTextFieldCellFactory()
         companyAddressCol.setTextFieldCellFactory()
@@ -115,15 +127,11 @@ class RedactDBController : Initializable {
         individualsTable.items = individuals.toFXList()
 
         carsTb.setOnAction {
-            carsTable.initTableSize(1, 1, 2, 2, 1, 1, 2)
-
             carsTable.isVisible = true
             companiesTable.isVisible = false
             ownersAndIndividualsAp.isVisible = false
         }
         companiesTb.setOnAction {
-            companiesTable.initTableSize(2, 2, 2, 1, 1, 1)
-
             carsTable.isVisible = false
             companiesTable.isVisible = true
             ownersAndIndividualsAp.isVisible = false
@@ -168,21 +176,30 @@ class RedactDBController : Initializable {
     }
 
     fun changeCarOwnerCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
-        val companyId = companies.find { it.company == editEvent.newValue }?.id
-        val ownerId = owners.find { it.owner == editEvent.newValue }?.id
-        val individualId = individuals.find { it.individual == editEvent.newValue }?.id
+        if (carsTable.selectionModel.selectedItem.companyId == null) {
+            Dialogs.warning("Сначала выберите компанию")
+            return
+        }
+        carsTable.selectionModel.selectedItem.ownerId = carOwnersAutoCompletedTextField.selectedItem?.id
+        carsTable.selectionModel.selectedItem.individualId = null
+    }
 
-        if (companyId == null && ownerId == null && individualId == null) return
+    fun changeCarCompanyCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
+        carsTable.selectionModel.selectedItem.companyId = carCompaniesAutoCompletedTextField.selectedItem?.id
+        carsTable.selectionModel.selectedItem.individualId = null
+    }
 
-        carsTable.selectionModel.selectedItem.companyId = companyId
-        carsTable.selectionModel.selectedItem.ownerId = ownerId
-        carsTable.selectionModel.selectedItem.individualId = individualId
+    fun changeCarIndividualCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Car, String>) {
+        carsTable.selectionModel.selectedItem.companyId = null
+        carsTable.selectionModel.selectedItem.ownerId = null
+        carsTable.selectionModel.selectedItem.individualId = carIndividualsAutoCompletedTextField.selectedItem?.id
     }
 
     fun changeCompanyCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
         carsTable.items = cars.toFXList()
         companiesTable.selectionModel.selectedItem.company = editEvent.newValue
     }
+
 
 /*    fun changeCompanyPRNCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
         if (editEvent.newValue.toIntOrNull() != null)
@@ -199,7 +216,6 @@ class RedactDBController : Initializable {
         carsTable.items = cars.toFXList()
         individualsTable.selectionModel.selectedItem.individual = editEvent.newValue
     }
-
 
     fun onKeyReleasedRedactCar(event: KeyEvent) = deletePos(event, cars)
 

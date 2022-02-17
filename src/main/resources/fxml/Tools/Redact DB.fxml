@@ -7,7 +7,8 @@
 <?import ldclibs.javafx.controls.*?>
 <AnchorPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ldcapps.servicehelper.controllers.tools.RedactDBController">
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ldcapps.servicehelper.controllers.tools.RedactDBController">
     <HBox>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <Button id="confirm" fx:id="confirmBtn" defaultButton="true" maxWidth="Infinity" mnemonicParsing="false"
@@ -24,9 +25,7 @@
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <image>
-                                <Image url="@../../drawable/car.png"/>
-                            </image>
+                            <Image url="@../../drawable/car.png"/>
                         </ImageView>
                         <padding>
                             <Insets left="10.0"/>
@@ -42,9 +41,7 @@
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <image>
-                                <Image url="@../../drawable/company.png"/>
-                            </image>
+                            <Image url="@../../drawable/company.png"/>
                         </ImageView>
                         <padding>
                             <Insets left="10.0"/>
@@ -54,15 +51,14 @@
             </ToggleButton>
             <ToggleButton fx:id="ownersAndIndividualsTb" alignment="CENTER_RIGHT" maxWidth="Infinity"
                           mnemonicParsing="false" prefHeight="30.0" prefWidth="48.0"
-                          stylesheets="@../../css/toolsBtns.css" text=" " toggleGroup="$redactDB" VBox.vgrow="ALWAYS" id="db">
+                          stylesheets="@../../css/toolsBtns.css" text=" " toggleGroup="$redactDB" VBox.vgrow="ALWAYS"
+                          id="db">
                 <graphic>
                     <AnchorPane>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true"
                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <image>
-                                <Image url="@../../drawable/person.png"/>
-                            </image>
+                            <Image url="@../../drawable/person.png"/>
                         </ImageView>
                         <padding>
                             <Insets left="10.0"/>
@@ -78,22 +74,28 @@
                 <columns>
                     <Column fx:id="carNumberCol" prefWidth="-1.0"
                             text="Гос. Номер"/>
-                    <Column fx:id="carShortNumberCol" prefWidth="-1.0"
-                            text="Гос. Номер (сокр.)"/>
+                    <Column fx:id="carKeyCol" prefWidth="-1.0"
+                            text="Ключ"/>
                     <Column fx:id="carModelCol" prefWidth="-1.0" text="Модель"/>
                     <Column fx:id="carVINCol" prefWidth="-1.0" text="VIN №"/>
-                    <Column fx:id="carYearCol" onEditCommitted="#changeCarYearCellEvent" prefWidth="-1.0" text="Год вып."/>
+                    <Column fx:id="carYearCol" onEditCommitted="#changeCarYearCellEvent" prefWidth="-1.0"
+                            text="Год вып."/>
                     <Column fx:id="carEngineCol" onEditCommitted="#changeCarEngineCellEvent" prefWidth="-1.0"
                             text="V Двиг."/>
-                    <Column fx:id="carOwnerCol" onEditCommitted="#changeCarOwnerCellEvent" prefWidth="-1.0"
+                    <Column fx:id="carCompanyCol" prefWidth="-1.0" onEditCommitted="#changeCarCompanyCellEvent"
+                            text="Компания"/>
+                    <Column fx:id="carOwnerCol" prefWidth="-1.0" onEditCommitted="#changeCarOwnerCellEvent"
                             text="Владелец"/>
+                    <Column fx:id="carIndividualCol" prefWidth="-1.0" onEditCommitted="#changeCarIndividualCellEvent"
+                            text="Физ. лицо"/>
                 </columns>
             </TableView>
             <TableView fx:id="companiesTable" editable="true" maxHeight="-Infinity" maxWidth="-Infinity"
                        minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#onKeyReleasedRedactCompany"
                        prefHeight="970.0" prefWidth="1400.0" visible="false">
                 <columns>
-                    <Column fx:id="companyCol" onEditCommitted="#changeCompanyCellEvent" prefWidth="-1.0" text="Компания"/>
+                    <Column fx:id="companyCol" onEditCommitted="#changeCompanyCellEvent" prefWidth="-1.0"
+                            text="Компания"/>
                     <Column fx:id="companyAddressCol" prefWidth="-1.0" text="Адрес владельца"/>
                     <Column fx:id="companyPACol" prefWidth="-1.0" text="Р/с"/>
                     <Column fx:id="companyBIKCol" prefWidth="-1.0" text="БИК"/>
@@ -110,7 +112,7 @@
                                 <Column fx:id="ownerCol" maxWidth="1.7976931348623157E308"
                                         onEditCommitted="#changeOwnerCellEvent" prefWidth="-1.0" text="Владелец"/>
                                 <Column fx:id="ownerCompanyCol" maxWidth="1.7976931348623157E308"
-                                         prefWidth="-1.0" text="Компания"/>
+                                        prefWidth="-1.0" text="Компания"/>
                             </columns>
                         </Column>
                     </columns>
