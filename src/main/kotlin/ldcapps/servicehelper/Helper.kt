@@ -1,15 +1,13 @@
 package ldcapps.servicehelper
 
+import com.google.gson.Gson
 import com.ibm.icu.text.RuleBasedNumberFormat
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.TableView
 import javafx.stage.Stage
-import kotlinx.serialization.ExperimentalSerializationApi
+import ldcapps.servicehelper.Windows.mainController
 import ldcapps.servicehelper.controllers.tools.CreateContractController
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController
 import ldcapps.servicehelper.controllers.tools.ToolsController
@@ -17,9 +15,13 @@ import liklibs.db.Date
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.Row
+import tornadofx.asObservable
+import tornadofx.getProperty
+import tornadofx.property
 import java.awt.Toolkit
 import java.io.File
 import java.text.DecimalFormat
+import java.time.LocalDate
 import java.util.*
 
 data class Settings(
@@ -53,17 +55,51 @@ class Data {
     )
 }
 
+class Config(var customers: MutableList<String> = mutableListOf(), var colors: MutableList<String> = mutableListOf(), var details: MutableList<String> = mutableListOf())
+
+class Detail(
+    var id: Int = 0,
+    date: LocalDate = LocalDate.now(),
+    car: String = "",
+    detail: String = "",
+    price: Double = 0.0,
+    customer: String = "",
+    var type: String = ""
+) {
+    var date: LocalDate by property(date)
+    var car: String by property(car)
+    var detail: String by property(detail)
+    var price: Double by property(price)
+    var customer: String by property(customer)
+
+    fun dateProperty() = getProperty(Detail::date)
+    fun carProperty() = getProperty(Detail::car)
+    fun detailProperty() = getProperty(Detail::detail)
+    fun priceProperty() = getProperty(Detail::price)
+    fun customerProperty() = getProperty(Detail::customer)
+}
+
+data class DetailND(
+    var date: LocalDate = LocalDate.now(),
+    var car: String = "",
+    var detail: String = "",
+    var price: Double = 0.0,
+    var customer: String = "",
+    var type: String = ""
+)
+
+
+var details = mutableListOf<Detail>().asObservable()
+var savedDetails = mutableListOf<Array<DetailND>>().asObservable()
+var pConfig = fromJSON<Config>(".config")
 var settings = fromJSON<Settings>(".settings")
 var data = fromJSON<Data>(".data")
 
-@ExperimentalSerializationApi
 fun open(path: String? = null, stage: Stage? = null) {
-    val mainController = Windows.ooController
-    val extension = path?.substringAfterLast(".")
-    val controller =
-        if (extension == "oab" || extension == "oo" || extension == null) ToolSelectorController() else Windows.tools()!!
-
     if (path == null || stage == null) return
+
+    val extension = path.substringAfterLast(".")
+    val controller = if (extension == "oab" || extension == "oo") ToolSelectorController() else Windows.tools ?: return
 
     when (extension) {
         "db" -> ToolsController.REDACT_DB.show(controller.redactDBTb, stage)
@@ -74,7 +110,7 @@ fun open(path: String? = null, stage: Stage? = null) {
             stage
         )).loadData(path)
         "act" -> Windows.act()?.fill(fromJSON(path), path)
-        "oab", "oo" -> mainController?.fillOO(fromJSON(path), path)
+        "oab", "oo" -> mainController.fillOO(fromJSON(path), path)
         else -> Dialogs.warning("Ошибка инициализации файла")
     }
 }
@@ -85,26 +121,18 @@ fun fxList(vararg el: String): ObservableList<String> = FXCollections.observable
 inline fun <reified T> fromJSON(file: File, textNotExist: String = "{}"): T {
     if (!file.exists()) file.writeText(textNotExist)
 
-    val json = file.readText()
-    return Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter(T::class.java).fromJson(json)!!
+    return Gson().fromJson(file.reader(), T::class.java)
 }
 
 inline fun <reified T> fromJSON(fileName: String, textNotExist: String = "{}"): T =
     fromJSON(File(fileName), textNotExist)
 
-inline fun <reified T : Any> arrFromJSON(fileName: String): MutableList<T> {
-    val file = File(fileName)
-    if (!file.exists()) file.writeText("[]")
-
-    val json = file.readText()
-    return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        .adapter<MutableList<T>>(Types.newParameterizedType(MutableList::class.java, T::class.java)).fromJson(json)!!
-}
+inline fun <reified T : Any> arrFromJSON(fileName: String): MutableList<T> =
+    fromJSON<Array<T>>(fileName, "[]").toMutableList()
 
 fun <T : Any> toJSON(fileName: String, jClass: T) = toJSON(File(fileName), jClass)
 fun <T : Any> toJSON(file: File, jClass: T) {
-    val json = Moshi.Builder().add(KotlinJsonAdapterFactory()).build().adapter<T>(jClass::class.java).toJson(jClass)
-    file.writeText(json)
+    file.writeText(Gson().toJson(jClass))
 }
 
 inline fun <reified O> getCellValue(cell: Cell?, defValue: O) = when (cell?.cellType) {
@@ -128,10 +156,6 @@ fun TableView<*>.initTableSize(vararg proportions: Int) {
     columns.forEachIndexed { i, tableColumn -> tableColumn.prefWidth = proportions[i] * w }
 }
 
-@ExperimentalSerializationApi
-fun <T> loadFXML(fxmlInfo: FXMLInfo): T = fxmlLoader(fxmlInfo).load()
-
-@ExperimentalSerializationApi
 fun fxmlLoader(fxmlInfo: FXMLInfo) =
     FXMLLoader(Windows::class.java.classLoader.getResource("fxml/${fxmlInfo.path}.fxml"))
 
