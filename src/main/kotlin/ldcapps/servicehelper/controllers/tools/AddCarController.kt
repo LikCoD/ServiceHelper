@@ -6,7 +6,6 @@ import javafx.fxml.Initializable
 import javafx.scene.Node
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
-import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.Animations
 import ldcapps.servicehelper.NotNullField
 import ldcapps.servicehelper.NotNullField.Companion.check
@@ -18,13 +17,12 @@ import ldcapps.servicehelper.db.DataClasses.Companion.owners
 import ldclibs.javafx.controls.AutoCompletedDoubleTextField
 import ldclibs.javafx.controls.AutoCompletedIntTextField
 import ldclibs.javafx.controls.AutoCompletedTextField
-import ldclibs.javafx.controls.MyTextField
 import ldclibs.javafx.controls.pickers.CarNumberPicker
+import ldclibs.javafx.controls.pickers.VINPicker
 import java.net.URL
 import java.util.*
 import kotlin.concurrent.thread
 
-@ExperimentalSerializationApi
 class AddCarController : Initializable {
     @FXML
     private lateinit var confirmBtn: Button
@@ -54,7 +52,7 @@ class AddCarController : Initializable {
 
     @FXML
     @NotNullField(size = 17)
-    private lateinit var vinTf: MyTextField
+    private lateinit var vinTf: VINPicker
 
     @FXML
     @NotNullField(size = 4)
@@ -106,6 +104,14 @@ class AddCarController : Initializable {
         customerCb.onAutoCompleted = { ownerTf.text = it.company }
         individualTf.onAutoCompleted = { r -> addressTf.text = r.address }
 
+        vinTf.vinInfoList = cars.map { VINPicker.VinInfo(it.vin.substring(3, 9), it.engine, it.model) }
+
+        vinTf.onClose = {
+            yearTf.text = vinTf.year.toString()
+            engineTf.text = vinTf.selectedInfo?.engine?.toString() ?: ""
+            modelTf.text = vinTf.selectedInfo?.model ?: ""
+        }
+
         numberPicker.onClose = {
             keyTf.text = numberPicker.number.toString()
         }
@@ -113,26 +119,31 @@ class AddCarController : Initializable {
         confirmBtn.setOnAction {
             when {
                 !check() -> return@setOnAction
-                cars.map { it.number }.find { it == numberPicker.value } != null -> {
+                cars.find { it.number == numberPicker.value } != null -> {
                     Animations.warningNode(numberPicker)
                     return@setOnAction
                 }
-                cars.map { it.key }.find { it == keyTf.text } != null -> {
+                cars.find { it.key == keyTf.text } != null -> {
                     Animations.warningNode(keyTf)
+                    return@setOnAction
+                }
+                companies.find { it.company == customerCb.text } == null && addCompany -> {
+                    Animations.warningNode(customerCb)
                     return@setOnAction
                 }
             }
 
             when {
-                check(false, "Company") ->
-                    if (owners.find { it.owner == ownerTf.text } == null && customerCb.selectedItem != null)
+                addCompany && !check(type = "Company") && ownerTf.text != customerCb.text -> {
+                    if (owners.find { it.owner == ownerTf.text } == null)
                         owners.add(DataClasses.Owner(ownerTf.text, customerCb.selectedItem!!.id))
-                check(false, "Individual") ->
+
+                    return@setOnAction
+                }
+                !check(type = "Individual") -> {
                     if (individuals.find { it.individual == individualTf.text } == null)
                         individuals.add(DataClasses.Individual(individualTf.text, addressTf.text))
-                else -> {
-                    check(type = "Company")
-                    check(type = "Individual")
+
                     return@setOnAction
                 }
             }
@@ -147,7 +158,7 @@ class AddCarController : Initializable {
                 numberPicker.value,
                 keyTf.text,
                 modelTf.text,
-                vinTf.text,
+                vinTf.value,
                 yearTf.text.toInt(),
                 engineTf.text.toDouble(),
                 ownerId,

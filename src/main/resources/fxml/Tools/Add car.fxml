@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import ldclibs.javafx.controls.*?>
 <?import ldclibs.javafx.controls.pickers.CarNumberPicker?>
+<?import ldclibs.javafx.controls.pickers.VINPicker?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="380.0" prefWidth="540.0"
             style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1"
@@ -12,24 +13,22 @@
     <VBox spacing="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
           AnchorPane.topAnchor="0.0">
         <HBox spacing="10">
-            <AutoCompletedTextField fx:id="customerCb" prefHeight="30.0" prefWidth="250.0" maxWidth="Infinity"
+            <AutoCompletedTextField fx:id="customerCb" prefHeight="30.0" prefWidth="265.0" maxWidth="Infinity"
                       promptText="Заказчик" HBox.hgrow="ALWAYS"/>
-            <AutoCompletedTextField fx:id="ownerTf" prefHeight="30.0" prefWidth="250.0" maxWidth="Infinity"
+            <AutoCompletedTextField fx:id="ownerTf" prefHeight="30.0" prefWidth="235.0" maxWidth="Infinity"
                                     promptText="Владелец / Компания" HBox.hgrow="ALWAYS"/>
         </HBox>
         <HBox spacing="10">
-            <AutoCompletedTextField fx:id="individualTf" prefHeight="30.0" prefWidth="250.0" maxWidth="Infinity"
+            <AutoCompletedTextField fx:id="individualTf" prefHeight="30.0" prefWidth="265.0" maxWidth="Infinity"
                                     promptText="Заказчик / Физ. лицо" HBox.hgrow="ALWAYS" disable="true"/>
-            <AutoCompletedTextField fx:id="addressTf" prefHeight="30.0" prefWidth="250.0" maxWidth="Infinity"
+            <AutoCompletedTextField fx:id="addressTf" prefHeight="30.0" prefWidth="235.0" maxWidth="Infinity"
                                     promptText="Адрес" HBox.hgrow="ALWAYS" disable="true"/>
         </HBox>
         <HBox spacing="10">
-            <AutoCompletedTextField fx:id="modelTf" prefHeight="30.0" prefWidth="510.0" promptText="Модель"
+            <AutoCompletedTextField fx:id="modelTf" prefHeight="30.0" prefWidth="265.0" promptText="Модель"
                                     maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
-        </HBox>
-        <HBox spacing="10">
-            <MyTextField fx:id="vinTf" prefHeight="30.0" prefWidth="510.0" promptText="VIN #" maxWidth="Infinity"
-                       HBox.hgrow="ALWAYS" allCaps="true"/>
+            <VINPicker fx:id="vinTf" prefHeight="30.0" prefWidth="235.0" promptText="VIN #" maxWidth="Infinity"
+                       HBox.hgrow="ALWAYS"/>
         </HBox>
         <HBox spacing="10">
             <AutoCompletedIntTextField maxSize="4" fx:id="yearTf" prefHeight="30.0" prefWidth="100.0"
