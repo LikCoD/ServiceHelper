@@ -127,7 +127,7 @@ class GetReportController : Initializable {
 
                     while (currentRow?.getCell(1)?.cellType == CellType.NUMERIC) {
                         val cellDate = currentRow.getCell(1)?.dateCellValue ?: continue
-                        val date = LocalDate.ofInstant(cellDate.toInstant(), ZoneId.systemDefault())
+                        val date = cellDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
 
                         while (reportRow.getOrNull(reportIndex) != null && reportRow[reportIndex].exDate.toLocalDate() < date) {
                             sheet.insertRow(9, rowIndex).fill(reportRow[reportIndex])
