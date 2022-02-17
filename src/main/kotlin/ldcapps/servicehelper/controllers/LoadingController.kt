@@ -9,8 +9,6 @@ import javafx.scene.control.ProgressBar
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import kotlinx.serialization.ExperimentalSerializationApi
-import ldcapps.servicehelper.*
-import java.io.File
 import java.net.URL
 import java.util.*
 import kotlin.concurrent.thread
@@ -28,10 +26,10 @@ class LoadingController : Initializable {
         stage.setOnShowing { load() }
 
         continueOfflineBtn.setOnAction {
-            if (File(".user").exists()) open(args.getOrNull(0))
+/*            if (File(".user").exists()) open(args.getOrNull(0))
             else Platform.runLater { statusLb.text = "Пользователь не сохранен" }
 
-            stage.close()
+            stage.close()*/
         }
 
         tryAgainBtn.setOnAction {

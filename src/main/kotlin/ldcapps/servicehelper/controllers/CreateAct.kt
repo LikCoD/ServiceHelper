@@ -7,7 +7,6 @@ import javafx.scene.control.*
 import javafx.scene.layout.AnchorPane
 import javafx.scene.text.Text
 import javafx.stage.Stage
-import kotlinx.serialization.ExperimentalSerializationApi
 import ldcapps.servicehelper.*
 import ldcapps.servicehelper.NotNullField.Companion.check
 import ldcapps.servicehelper.db.DataClasses
@@ -19,7 +18,6 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.properties.Delegates
 
-@ExperimentalSerializationApi
 class CreateAct : Initializable {
     lateinit var stage: Stage
     lateinit var confirmBtn: Button
