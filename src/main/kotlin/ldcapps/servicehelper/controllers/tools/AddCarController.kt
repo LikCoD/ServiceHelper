@@ -140,7 +140,7 @@ class AddCarController : Initializable {
 
                     return@setOnAction
                 }
-                !check(type = "Individual") -> {
+                !addCompany && !check(type = "Individual") -> {
                     if (individuals.find { it.individual == individualTf.text } == null)
                         individuals.add(DataClasses.Individual(individualTf.text, addressTf.text))
 
