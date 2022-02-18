@@ -3,10 +3,10 @@ package ldcapps.servicehelper.db
 import ldcapps.servicehelper.arrFromJSON
 import ldcapps.servicehelper.fromJSON
 import liklibs.db.Date
+import liklibs.db.SQList
 import liklibs.db.annotations.*
 import liklibs.db.delegates.dbDependency
 import liklibs.db.delegates.dbProperty
-import liklibs.db.sqList
 
 @DBInfo("defriuiuqmjmcl", "db_credentials.json")
 sealed class DataClasses {
@@ -183,12 +183,12 @@ sealed class DataClasses {
     data class ExcelTabs(val topMargin: Int = 1, val rightMargin: Int = 0, val tabsSequence: List<String>? = null)
 
     companion object {
-        val companies = sqList<Company>()
-        val individuals = sqList<Individual>()
-        val owners = sqList<Owner>()
-        val cars = sqList<Car>()
+        lateinit var companies: SQList<Company>
+        lateinit var individuals: SQList<Individual>
+        lateinit var owners: SQList<Owner>
+        lateinit var cars: SQList<Car>
 
-        val reports = sqList<Report>()
+        lateinit var reports: SQList<Report>
 
         var excelTabs = arrFromJSON<ExcelTabs>(".excelTabs")
 

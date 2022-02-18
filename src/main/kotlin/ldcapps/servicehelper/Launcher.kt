@@ -4,24 +4,19 @@ import it.sauronsoftware.junique.AlreadyLockedException
 import it.sauronsoftware.junique.JUnique
 import javafx.application.Platform
 import javafx.stage.Stage
+import ldcapps.servicehelper.controllers.LoadingView
 import ldcapps.servicehelper.controllers.MainView
 import ldcapps.servicehelper.styles.MainStyle
 import tornadofx.App
 import tornadofx.launch
-import tornadofx.reloadStylesheetsOnFocus
 import kotlin.system.exitProcess
 
-class MyApp : App(MainView::class, MainStyle::class) {
+class MApp: App(LoadingView::class, MainStyle::class){
     override fun start(stage: Stage) {
-        stage.minWidth = 250.0
-        stage.minHeight = 350.0
+        stage.minWidth = 400.0
         super.start(stage)
 
         open(parameters.raw.firstOrNull(), stage)
-    }
-
-    init {
-        reloadStylesheetsOnFocus()
     }
 }
 
@@ -35,7 +30,7 @@ fun main(args: Array<String>) {
                 stage.isAlwaysOnTop = false
             }
 
-            if (it != null) open(it)
+            open(it)
 
             it
         }
@@ -44,5 +39,5 @@ fun main(args: Array<String>) {
         exitProcess(1)
     }
 
-    launch<MyApp>(args)
+    launch<MApp>(args)
 }
