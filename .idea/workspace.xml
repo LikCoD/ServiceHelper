@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Add loading screen">
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Add dependency">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoadingView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoadingView.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,13 +66,13 @@
     <option name="SCOPE" value="Production" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/build.gradle.kts" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Dialogs.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/GetReportController.kt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -86,20 +86,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;P:/Kotlin/ServiceHelper&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="P:\Kotlin\ServiceHelper" />
       <recent name="P:\Kotlin\ServiceHelper\db" />
       <recent name="C:\Projects\ServiceHelper\src\main\kotlin\ldcapps\servicehelper\controllers\detail" />
       <recent name="P:\Kotlin\ServiceHelper\src\main\resources\drawable" />
+      <recent name="P:\Kotlin\ServiceHelper" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="ldclibs.javafx.controls" />
@@ -107,7 +113,30 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.LauncherKt">
+  <component name="RunManager" selected="Gradle.Converter.convertCar">
+    <configuration name="Converter.convertCar" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;Converter.convertCar&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="Converter.convertCompany (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -131,7 +160,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="DelegateTest.toJson" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="Converter.convertIndividual" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -144,7 +173,30 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;ldcapps.servicehelper.controllers.DelegateTest.toJson&quot;" />
+            <option value="&quot;Converter.convertIndividual&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Converter.convertOwner" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;Converter.convertOwner&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -175,29 +227,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="VINYear.test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;ldcapps.servicehelper.controllers.VINYear.test&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="LauncherKt" type="JetRunConfigurationType" singleton="true" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ldcapps.servicehelper.LauncherKt" />
       <module name="ServiceHelper.main" />
@@ -206,30 +235,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WindowsKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ldcapps.servicehelper.WindowsKt" />
-      <module name="ServiceHelper.main" />
-      <shortenClasspath name="NONE" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../ServiceHelper" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Gradle.ServiceHelper [createExe]" />
+      <item itemvalue="Gradle.Converter.convertCar" />
+      <item itemvalue="Gradle.Converter.convertIndividual" />
+      <item itemvalue="Gradle.Converter.convertOwner" />
       <item itemvalue="Gradle.Converter.convertCompany (1)" />
-      <item itemvalue="Gradle.DelegateTest.toJson" />
-      <item itemvalue="Gradle.VINYear.test" />
-      <item itemvalue="Kotlin.WindowsKt" />
       <item itemvalue="Kotlin.LauncherKt" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Converter.convertCar" />
+        <item itemvalue="Gradle.Converter.convertIndividual" />
+        <item itemvalue="Gradle.Converter.convertOwner" />
         <item itemvalue="Kotlin.LauncherKt" />
-        <item itemvalue="Gradle.VINYear.test" />
         <item itemvalue="Gradle.Converter.convertCompany (1)" />
-        <item itemvalue="Gradle.DelegateTest.toJson" />
-        <item itemvalue="Kotlin.WindowsKt" />
       </list>
     </recent_temporary>
   </component>
@@ -298,8 +318,7 @@
       <workItem from="1644832358717" duration="3525000" />
       <workItem from="1645012473531" duration="11764000" />
       <workItem from="1645036724019" duration="21170000" />
-      <workItem from="1645126965658" duration="355000" />
-      <workItem from="1645170841209" duration="7354000" />
+      <workItem from="1645126965658" duration="2799000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -483,12 +502,12 @@
       <option name="project" value="LOCAL" />
       <updated>1645127235078</updated>
     </task>
-    <task id="LOCAL-00027" summary="Add loading screen">
-      <created>1645177865786</created>
+    <task id="LOCAL-00027" summary="Add dependency">
+      <created>1645127339568</created>
       <option name="number" value="00027" />
       <option name="presentableId" value="LOCAL-00027" />
       <option name="project" value="LOCAL" />
-      <updated>1645177865786</updated>
+      <updated>1645127339568</updated>
     </task>
     <option name="localTasksCounter" value="28" />
     <servers />
@@ -532,8 +551,8 @@
     <MESSAGE value="Change reflection" />
     <MESSAGE value="Add columns for ownerId, companyId, individualId" />
     <MESSAGE value="Fill some field when vin filled" />
-    <MESSAGE value="Add loading screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add loading screen" />
+    <MESSAGE value="Add dependency" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add dependency" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
@@ -592,6 +611,11 @@
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.4/a83a43c432899cf9a6eb3cca40b821e1b50e762f/DBHelper-v0.4-sources.jar!/liklibs/db/DBData.kt</url>
           <line>26</line>
           <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt</url>
+          <line>146</line>
+          <option name="timeStamp" value="143" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt</url>

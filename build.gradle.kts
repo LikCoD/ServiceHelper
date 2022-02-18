@@ -22,7 +22,7 @@ dependencies {
 
     implementation("com.ibm.icu:icu4j:70.1")
 
-    implementation("com.google.code.gson:gson:2.8.9")
+    implementation("com.google.code.gson:gson:2.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
 
@@ -33,7 +33,7 @@ dependencies {
 
     implementation("it.sauronsoftware:junique:1.0.4")
 
-    implementation("com.github.LikCoD:DBHelper:v0.5.2")
+    implementation("com.github.LikCoD:DBHelper:v0.5.3")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("reflect"))
