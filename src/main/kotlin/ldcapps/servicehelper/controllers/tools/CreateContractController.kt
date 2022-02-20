@@ -29,20 +29,28 @@ class CreateContractController : Initializable {
     lateinit var pane: AnchorPane
     lateinit var confirmBtn: Button
     lateinit var openBtn: Button
+
     @NotNullField
     lateinit var cusFullNameTf: TextField
+
     @NotNullField
     lateinit var cusPATf: BankPicker
+
     @NotNullField
     lateinit var footingTf: AutoCompletedTextField<String>
+
     @NotNullField
     lateinit var cusPRNTf: PRNPicker
+
     @NotNullField
     lateinit var dateP: DatePicker
+
     @NotNullField
     lateinit var cusInPersonTf: AutoCompletedTextField<String>
+
     @NotNullField
     lateinit var cusPhoneTf: PhonePicker
+
     @NotNullField
     lateinit var cusEmailTf: TextField
     lateinit var page1: AnchorPane
@@ -79,13 +87,17 @@ class CreateContractController : Initializable {
         cusPRNTf.onClose = { initContract() }
         cusPhoneTf.onClose = { initContract() }
 
+        cusPATf.bankList = companies.map {
+            BankPicker.Bank(it.pa.substring(5, 9), it.swift, it.bank, it.bankAddress)
+        }
+
         footingTf.items = data.footings
         cusInPersonTf.items = data.inPersons
         pane.prefHeight = Toolkit.getDefaultToolkit().screenSize.height - 25.0
         dateP.value = LocalDate.now()
         confirmBtn.setOnAction {
             if (check()) {
-                if (path != null || companies.find { it.company == cusPRNTf.company } == null ) {
+                if (path != null || companies.find { it.company == cusPRNTf.company } == null) {
                     try {
                         if (cusPRNTf.prn == null) return@setOnAction
 
@@ -199,13 +211,29 @@ class CreateContractController : Initializable {
     }
 
     class Contract(
-        var date: String? = null, var footing: String = "", var exCompanyName: String = "",
+        var date: String? = null,
+        var footing: String = "",
+        var exCompanyName: String = "",
         var exAbbreviatedCompanyName: String? = null,
-        var exRegsCert: String? = null, var exAddress: String? = null, var exPA: String? = null, var exBank: String? = null,
-        var exBankAddress: String? = null, var exBIK: String? = null, var exPRN: String? = null,
-        var exPhone: String? = null, var exEmail: String? = null, var cusCompany: String = "",
-        var cusFullName: String = "", var cusInPerson: String = "", var cusAddress: String? = null,
-        var cusPA: String? = null, var cusBank: String? = null, var cusBankAddress: String = "", var cusBIK: String? = null,
-        var cusPRN: String? = null, var cusPhone: String = "", var cusEmail: String = ""
+        var exRegsCert: String? = null,
+        var exAddress: String? = null,
+        var exPA: String? = null,
+        var exBank: String? = null,
+        var exBankAddress: String? = null,
+        var exBIK: String? = null,
+        var exPRN: String? = null,
+        var exPhone: String? = null,
+        var exEmail: String? = null,
+        var cusCompany: String = "",
+        var cusFullName: String = "",
+        var cusInPerson: String = "",
+        var cusAddress: String? = null,
+        var cusPA: String? = null,
+        var cusBank: String? = null,
+        var cusBankAddress: String = "",
+        var cusBIK: String? = null,
+        var cusPRN: String? = null,
+        var cusPhone: String = "",
+        var cusEmail: String = ""
     )
 }

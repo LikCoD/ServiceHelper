@@ -14,7 +14,14 @@ import ldclibs.javafx.controls.MyTextField
 import ldclibs.javafx.controls.StringTextField
 import org.jsoup.Jsoup
 
-class BankPicker : CustomPicker() {
+class BankPicker(bankList: List<Bank> = emptyList()) : CustomPicker() {
+    var bankList = bankList
+        set(value) {
+            field = value
+
+            t3.items = value
+        }
+
     var startBik: String = ""
     var pa: String = ""
         set(value) {
@@ -73,7 +80,7 @@ class BankPicker : CustomPicker() {
     }
 
     @NotNullField(size = 4)
-    private var t3 = StringTextField(4, true).apply {
+    private var t3 = AutoCompletedTextField(bankList, maxSize = 4, allCaps = true).apply {
         setOnKeyReleased {
             if (text.length == maxSize) {
                 try {
@@ -96,8 +103,18 @@ class BankPicker : CustomPicker() {
             }
         }
 
+        onAutoCompleted = {
+            bikTf.text = it.swift
+            bankTf.text = it.bank
+            bankAddressTf.text = it.address
+
+            t4.requestFocus()
+        }
+
+        getString = { it.shortSwift }
+
         prefHeight = 30.0
-        prefWidth = 50.0
+        prefWidth = 55.0
     }
 
     @NotNullField(size = 4)
@@ -251,4 +268,6 @@ class BankPicker : CustomPicker() {
         editor.isEditable = iseditable
         isEditable = true
     }
+
+    data class Bank(val shortSwift: String, val swift: String, val bank: String, val address: String)
 }
