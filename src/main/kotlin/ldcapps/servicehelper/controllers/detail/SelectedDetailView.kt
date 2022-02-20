@@ -8,6 +8,7 @@ import javafx.scene.paint.Color
 import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 import ldcapps.servicehelper.*
+import liklibs.db.toSQL
 import tornadofx.*
 import java.io.File
 import java.time.LocalDate
@@ -67,14 +68,20 @@ class SelectedDetailView(private var type: String) : View() {
                         colBox = pages.last().vbox { }
                     }
 
-                    colBox.label("Всего: ${String.format("%.2f", sDetails.sumOf { it.price })}"){
+                    colBox.label("Всего: ${String.format("%.2f", sDetails.sumOf { it.price })}") {
                         font = Font.font(null, FontWeight.BOLD, 10.0)
                     }
                     date.forEach { ld ->
                         val fDetails = sDetails.filter { it.date == ld }
                         if (colCount + 13 > 594)
                             newCol()
-                        colBox.label("${DateTimeFormatter.ofPattern("MM.dd.yy").format(ld)}: ${String.format("%.2f", fDetails.sumOf { it.price })}") {
+                        colBox.label(
+                            "${DateTimeFormatter.ofPattern("MM.dd.yy").format(ld)}: ${
+                                String.format(
+                                    "%.2f",
+                                    fDetails.sumOf { it.price })
+                            }"
+                        ) {
                             colCount += 13
                             prefWidth = paperWidth / 3
                             alignment = Pos.CENTER
@@ -123,17 +130,19 @@ class SelectedDetailView(private var type: String) : View() {
             }
             hbox(10) {
                 fun save() {
-                    savedDetails = arrFromJSON<Array<DetailND>>(".saveddetails").asObservable()
-                    savedDetails.add(0, details.filter { it.type == type }.map {
-                        DetailND(
-                            it.date,
-                            it.car,
-                            it.detail,
-                            it.price,
-                            it.customer,
-                            it.type
-                        )
-                    }.toTypedArray())
+                    val savedDetails = arrFromJSON<SavedDetails>(".saveddetails")
+                    savedDetails.add(
+                        0, SavedDetails(savedDetails.size, details.filter { it.type == type }.map {
+                            DetailND(
+                                it.date.toSQL(),
+                                it.car,
+                                it.detail,
+                                it.price,
+                                it.customer,
+                                it.type
+                            )
+                        }
+                        ))
                     toJSON(File(".saveddetails"), savedDetails.toList())
                 }
 
@@ -141,30 +150,33 @@ class SelectedDetailView(private var type: String) : View() {
                     details.removeIf { it.type == type }
                     toJSON(
                         File(".details"),
-                        details.map { DetailND(it.date, it.car, it.detail, it.price, it.customer, it.type) })
+                        details.map { DetailND(it.date.toSQL(), it.car, it.detail, it.price, it.customer, it.type) })
                 }
 
                 fun stay() {
                     details.map { it.apply { if (type == this@SelectedDetailView.type) type = "1" } }
                     toJSON(
                         File(".details"),
-                        details.map { DetailND(it.date, it.car, it.detail, it.price, it.customer, it.type) })
+                        details.map { DetailND(it.date.toSQL(), it.car, it.detail, it.price, it.customer, it.type) })
                 }
 
                 val printCb = checkbox("Печать") { isSelected = true }
                 val saveCb = checkbox("Сохранить") { isSelected = true }
-                val delCb = checkbox("Удалить") { isSelected = true
-                    action{
+                val delCb = checkbox("Удалить") {
+                    isSelected = true
+                    action {
                         if (isSelected)
                             stayCb.isSelected = false
-                    }}
+                    }
+                }
 
 
                 stayCb = checkbox("Запретить редактирование") {
-                action{
-                    if (isSelected)
-                        delCb.isSelected = false
-                }}
+                    action {
+                        if (isSelected)
+                            delCb.isSelected = false
+                    }
+                }
 
                 button("Подтвердить") {
                     action {

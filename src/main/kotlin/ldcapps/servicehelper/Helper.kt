@@ -7,6 +7,7 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.TableView
+import javafx.scene.paint.Color
 import javafx.stage.Stage
 import ldcapps.servicehelper.Windows.mainController
 import ldcapps.servicehelper.controllers.tools.CreateContractController
@@ -56,7 +57,7 @@ class Data {
     )
 }
 
-class Config(var customers: MutableList<String> = mutableListOf(), var colors: MutableList<String> = mutableListOf(), var details: MutableList<String> = mutableListOf())
+class Config(var customers: MutableList<String> = mutableListOf(), var colors: MutableList<String> = mutableListOf())
 
 class Detail(
     var id: Int = 0,
@@ -81,7 +82,7 @@ class Detail(
 }
 
 data class DetailND(
-    var date: LocalDate = LocalDate.now(),
+    var date: Date,
     var car: String = "",
     var detail: String = "",
     var price: Double = 0.0,
@@ -89,9 +90,12 @@ data class DetailND(
     var type: String = ""
 )
 
+data class SavedDetails(
+    val index: Int,
+    val details: List<DetailND>
+)
 
 var details = mutableListOf<Detail>().asObservable()
-var savedDetails = mutableListOf<Array<DetailND>>().asObservable()
 var pConfig = fromJSON<Config>(".config")
 var settings = fromJSON<Settings>(".settings")
 var data = fromJSON<Data>(".data")
@@ -122,7 +126,7 @@ fun fxList(vararg el: String): ObservableList<String> = FXCollections.observable
 inline fun <reified T> fromJSON(file: File): T {
     if (!file.exists()) file.writeText("{}")
 
-    return Klaxon().parse<T>(file) ?: throw IllegalStateException()
+    return Klaxon().parse<T>(file.readText()) ?: throw IllegalStateException()
 }
 
 inline fun <reified T> fromJSON(fileName: String): T =
@@ -134,7 +138,7 @@ inline fun <reified T : Any> arrFromJSON(fileName: String): MutableList<T> =
 inline fun <reified T : Any> arrFromJSON(file: File): MutableList<T> {
     if (!file.exists()) file.writeText("[]")
 
-    return Klaxon().parseArray<T>(file)?.toMutableList() ?: throw IllegalStateException()
+    return Klaxon().parseArray<T>(file.readText())?.toMutableList() ?: throw IllegalStateException()
 }
 
 

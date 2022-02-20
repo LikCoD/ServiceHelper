@@ -1,18 +1,24 @@
 package ldcapps.servicehelper.controllers.detail
 
 import javafx.beans.property.SimpleStringProperty
-import javafx.scene.control.*
+import javafx.collections.ObservableList
+import javafx.scene.control.Button
+import javafx.scene.control.ComboBox
+import javafx.scene.control.DatePicker
+import javafx.scene.control.TableView
 import javafx.scene.input.KeyCode
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 import ldcapps.servicehelper.*
 import ldcapps.servicehelper.styles.MainStyle
+import liklibs.db.toLocalDate
+import liklibs.db.toSQL
 import tornadofx.*
 import java.time.LocalDate
 
 class DetailView : View() {
 
-    companion object{
+    companion object {
         lateinit var mainStage: Stage
     }
 
@@ -106,14 +112,14 @@ class DetailView : View() {
                         action {
                             isSelected = !isSelected
                             if (tableRow.item != null && tableRow.item.type != "1")
-                            if (!isSelected) {
-                                isSelected = true
-                                rowItem.type = "0"
-                                table.refresh()
-                            } else Dialogs.confirmation("Убрать галочку?") {
-                                isSelected = false
-                                rowItem.type = ""
-                            }
+                                if (!isSelected) {
+                                    isSelected = true
+                                    rowItem.type = "0"
+                                    table.refresh()
+                                } else Dialogs.confirmation("Убрать галочку?") {
+                                    isSelected = false
+                                    rowItem.type = ""
+                                }
                             refresh()
                             items = details
                             saveDetails()
@@ -132,7 +138,7 @@ class DetailView : View() {
                 }
                 setOnMouseClicked {
                     if (tableRow.item != null) {
-                        if(tableRow.item.type != "1") {
+                        if (tableRow.item.type != "1") {
                             fun plusItem() {
                                 tableRow.item.type = when {
                                     tableRow.item.type == "" -> pConfig.colors.firstOrNull() ?: ""
@@ -270,13 +276,13 @@ class DetailView : View() {
     }
 
     private fun saveDetails() =
-        toJSON(".details", details.map { DetailND(it.date, it.car, it.detail, it.price, it.customer, it.type) })
+        toJSON(".details", details.map { DetailND(it.date.toSQL(), it.car, it.detail, it.price, it.customer, it.type) })
 
-    private fun loadDetails() =
-        arrFromJSON<DetailND>(".details").mapIndexed { i, it ->
+    private fun loadDetails(): ObservableList<Detail> {
+        return arrFromJSON<DetailND>(".details").mapIndexed { i, it ->
             Detail(
                 i + 1,
-                it.date,
+                it.date.toLocalDate(),
                 it.car,
                 it.detail,
                 it.price,
@@ -284,4 +290,5 @@ class DetailView : View() {
                 it.type
             )
         }.asObservable()
+    }
 }
