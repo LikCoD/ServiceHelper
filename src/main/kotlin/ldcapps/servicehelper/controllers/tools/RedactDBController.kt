@@ -200,13 +200,6 @@ class RedactDBController : Initializable {
         companiesTable.selectionModel.selectedItem.company = editEvent.newValue
     }
 
-
-/*    fun changeCompanyPRNCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Company, String>) {
-        if (editEvent.newValue.toIntOrNull() != null)
-            companiesTable.selectionModel.selectedItem.accountNumber = editEvent.newValue.toInt()
-        else Dialogs.warning("Данные введены неправильно")
-    }*/
-
     fun changeOwnerCellEvent(editEvent: TableColumn.CellEditEvent<DataClasses.Owner, String>) {
         carsTable.items = cars.toFXList()
         ownersTable.selectionModel.selectedItem.owner = editEvent.newValue

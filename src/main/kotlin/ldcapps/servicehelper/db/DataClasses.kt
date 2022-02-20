@@ -105,6 +105,7 @@ sealed class DataClasses {
         ownerId: Int?,
         companyId: Int?,
         individualId: Int?,
+        id: Int? = 0,
     ) {
         var number by dbProperty(number)
 
@@ -125,13 +126,14 @@ sealed class DataClasses {
         var individualId by dbProperty(individualId)
 
         @Primary
-        var id by dbProperty(0)
+        var id by dbProperty(id)
     }
 
     @DBTable("owners")
     class Owner(
         owner: String,
-        companyId: Int
+        companyId: Int,
+        id: Int = 0
     ) {
         var owner by dbProperty(owner)
 
@@ -139,7 +141,7 @@ sealed class DataClasses {
         var companyId by dbProperty(companyId)
 
         @Primary
-        var id by dbDependency(0, Car::ownerId)
+        var id by dbDependency(id, Car::ownerId)
     }
 
     @DBTable("companies")
@@ -151,7 +153,8 @@ sealed class DataClasses {
         bankAddress: String,
         swift: String,
         accountNumber: Int,
-        contractDate: Date
+        contractDate: Date,
+        id: Int = 0
     ) {
         var company by dbProperty(company)
         var address by dbProperty(address)
@@ -165,7 +168,7 @@ sealed class DataClasses {
         var contractDate by dbProperty(contractDate)
 
         @Primary
-        var id by dbDependency(0, Car::companyId, Owner::companyId)
+        var id by dbDependency(id, Car::companyId, Owner::companyId)
     }
 
     @DBTable("individuals")

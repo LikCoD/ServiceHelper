@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Update lib version">
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Change JSON parser">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Helper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/OO.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/OO.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,30 +89,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;P:/Kotlin/ServiceHelper&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "P:/Kotlin/ServiceHelper",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;JSON&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "JSON"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="P:\Kotlin\ServiceHelper" />
       <recent name="P:\Kotlin\ServiceHelper\db" />
+      <recent name="P:\Kotlin\ServiceHelper" />
       <recent name="C:\Projects\ServiceHelper\src\main\kotlin\ldcapps\servicehelper\controllers\detail" />
       <recent name="P:\Kotlin\ServiceHelper\src\main\resources\drawable" />
     </key>
@@ -240,9 +240,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Kotlin.LauncherKt" />
+        <item itemvalue="Gradle.Converter.oo" />
         <item itemvalue="Gradle.Jsona.delegates" />
         <item itemvalue="Kotlin.MainKt" />
-        <item itemvalue="Gradle.Converter.oo" />
         <item itemvalue="Gradle.Json.delegates" />
       </list>
     </recent_temporary>
@@ -316,7 +316,9 @@
       <workItem from="1645302993378" duration="699000" />
       <workItem from="1645351955982" duration="601000" />
       <workItem from="1645353194620" duration="1842000" />
-      <workItem from="1645355174724" duration="3431000" />
+      <workItem from="1645355174724" duration="3735000" />
+      <workItem from="1645362489274" duration="4218000" />
+      <workItem from="1645368387278" duration="3600000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -528,7 +530,21 @@
       <option name="project" value="LOCAL" />
       <updated>1645210763653</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Improve owner change">
+      <created>1645359671984</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1645359671984</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Change JSON parser">
+      <created>1645359717026</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1645359717026</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,8 +576,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Improve AddCarController.kt, fix bugs, optimization" />
-    <MESSAGE value="Add @@NotNullField annotation, improve animations, fix bug" />
     <MESSAGE value="Fix bug" />
     <MESSAGE value="Add selected item" />
     <MESSAGE value="Connect to PostgreSQL" />
@@ -585,7 +599,9 @@
     <MESSAGE value="Update libs" />
     <MESSAGE value="Fixx" />
     <MESSAGE value="Update lib version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update lib version" />
+    <MESSAGE value="Improve owner change" />
+    <MESSAGE value="Change JSON parser" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change JSON parser" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
@@ -645,6 +661,24 @@
           <line>210</line>
           <option name="timeStamp" value="174" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/RedactDBController.kt</url>
+          <line>65</line>
+          <option name="timeStamp" value="186" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainView.kt</url>
+          <line>47</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="187" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LikCoD/DBHelper/v0.6/3f1c842e293c267947e177a65c88ee2eeff9bd93/DBHelper-v0.6-sources.jar!/liklibs/db/SQList.kt</url>
+          <line>66</line>
+          <option name="timeStamp" value="202" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -652,6 +686,11 @@
         <PinnedItemInfo parentTag="Jsona$OOAndBill" memberName="executor" />
       </pinned-members>
     </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="JetRunConfigurationType">
+        <watch expression="DataClasses.owners" language="kotlin" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand>

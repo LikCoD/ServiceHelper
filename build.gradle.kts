@@ -34,7 +34,7 @@ dependencies {
 
     implementation("it.sauronsoftware:junique:1.0.4")
 
-    implementation("com.github.LikCoD:DBHelper:v0.6")
+    implementation("com.github.LikCoD:DBHelper:v0.6.1")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("reflect"))
