@@ -55,7 +55,8 @@
                                     maxWidth="60.0"/>
                     <DatePicker fx:id="registrationDp" onMouseClicked="#onPositionsMouseClicked" prefHeight="30.0"
                                 minWidth="100.0" maxWidth="100.0"/>
-                    <AutoCompletedTextField fx:id="companyTf" prefHeight="30.0" minWidth="170.0" maxWidth="170.0"/>
+                    <AutoCompletedTextField fx:id="companyTf" prefHeight="30.0" minWidth="170.0" maxWidth="170.0"
+                                            onMouseClicked="#onPositionsMouseClicked"/>
                 </HBox>
                 <HBox spacing="10">
                     <PriceTextField fx:id="totalPriceTf" editable="false"

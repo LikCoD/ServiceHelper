@@ -888,7 +888,7 @@ class OOController : Initializable {
             owner != null -> {
                 if (company != null) {
                     ooAndBill.customer = company
-                    ooAndBill.owner = owner.owner
+                    ooAndBill.owner = companies.find { car.companyId == it.id }!!.company
 
                     companyTf.isDisable = false
                     companyTf.text = company.company
@@ -896,7 +896,7 @@ class OOController : Initializable {
             }
             company != null -> {
                 ooAndBill.customer = company
-                ooAndBill.owner = company.company
+                ooAndBill.owner = companies.find { car.companyId == it.id }!!.company
 
                 companyTf.isDisable = false
                 companyTf.text = company.company
@@ -1077,6 +1077,7 @@ class OOController : Initializable {
             mouseEvent.source.toString().contains("dpc") -> ButtonActions.ADD_DPC
             mouseEvent.source.toString().contains("dfc") -> ButtonActions.ADD_DFC
             mouseEvent.source.toString().contains("carNumberTf") -> ButtonActions.APPLY_CAR
+            mouseEvent.source.toString().contains("companyTf") -> ButtonActions.APPLY_CAR
             else -> ButtonActions.APPLY_CHANGES
         }
 
