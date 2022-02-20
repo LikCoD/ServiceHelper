@@ -1,5 +1,6 @@
 package ldcapps.servicehelper
 
+import com.beust.klaxon.Klaxon
 import com.google.gson.Gson
 import com.ibm.icu.text.RuleBasedNumberFormat
 import javafx.collections.FXCollections
@@ -118,21 +119,28 @@ fun open(path: String? = null, stage: Stage? = null) {
 fun <E> Iterable<E>.toFXList(): ObservableList<E> = FXCollections.observableArrayList(this.toList())
 fun fxList(vararg el: String): ObservableList<String> = FXCollections.observableArrayList(*el)
 
-inline fun <reified T> fromJSON(file: File, textNotExist: String = "{}"): T {
-    if (!file.exists()) file.writeText(textNotExist)
+inline fun <reified T> fromJSON(file: File): T {
+    if (!file.exists()) file.writeText("{}")
 
-    return Gson().fromJson(file.reader(), T::class.java)
+    return Klaxon().parse<T>(file) ?: throw IllegalStateException()
 }
 
-inline fun <reified T> fromJSON(fileName: String, textNotExist: String = "{}"): T =
-    fromJSON(File(fileName), textNotExist)
+inline fun <reified T> fromJSON(fileName: String): T =
+    fromJSON(File(fileName))
 
 inline fun <reified T : Any> arrFromJSON(fileName: String): MutableList<T> =
-    fromJSON<Array<T>>(fileName, "[]").toMutableList()
+    arrFromJSON(File(fileName))
+
+inline fun <reified T : Any> arrFromJSON(file: File): MutableList<T> {
+    if (!file.exists()) file.writeText("[]")
+
+    return Klaxon().parseArray<T>(file)?.toMutableList() ?: throw IllegalStateException()
+}
+
 
 fun <T : Any> toJSON(fileName: String, jClass: T) = toJSON(File(fileName), jClass)
 fun <T : Any> toJSON(file: File, jClass: T) {
-    file.writeText(Gson().toJson(jClass))
+    file.writeText(Klaxon().toJsonString(jClass))
 }
 
 inline fun <reified O> getCellValue(cell: Cell?, defValue: O) = when (cell?.cellType) {
