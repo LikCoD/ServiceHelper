@@ -131,20 +131,13 @@ class AddCarController : Initializable {
                     Animations.warningNode(customerCb)
                     return@setOnAction
                 }
-            }
-
-            when {
-                addCompany && !check(type = "Company") && ownerTf.text != customerCb.text -> {
+                addCompany && check(type = "Company") && ownerTf.text != customerCb.text -> {
                     if (owners.find { it.owner == ownerTf.text } == null)
                         owners.add(DataClasses.Owner(ownerTf.text, customerCb.selectedItem!!.id))
-
-                    return@setOnAction
                 }
-                !addCompany && !check(type = "Individual") -> {
+                !addCompany && check(type = "Individual") -> {
                     if (individuals.find { it.individual == individualTf.text } == null)
                         individuals.add(DataClasses.Individual(individualTf.text, addressTf.text))
-
-                    return@setOnAction
                 }
             }
 

@@ -888,7 +888,7 @@ class OOController : Initializable {
             owner != null -> {
                 if (company != null) {
                     ooAndBill.customer = company
-                    ooAndBill.owner = companies.find { car.companyId == it.id }!!.company
+                    ooAndBill.owner = owner.owner
 
                     companyTf.isDisable = false
                     companyTf.text = company.company
