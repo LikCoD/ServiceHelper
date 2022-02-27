@@ -4,7 +4,7 @@ plugins {
     java
     application
     id("org.jetbrains.kotlin.jvm") version "1.6.10"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.10"
     id("org.openjfx.javafxplugin") version "0.0.7"
     id("edu.sc.seis.launch4j") version "2.4.6"
 }
