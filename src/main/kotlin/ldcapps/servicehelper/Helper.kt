@@ -1,13 +1,11 @@
 package ldcapps.servicehelper
 
 import com.beust.klaxon.Klaxon
-import com.google.gson.Gson
 import com.ibm.icu.text.RuleBasedNumberFormat
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.TableView
-import javafx.scene.paint.Color
 import javafx.stage.Stage
 import ldcapps.servicehelper.Windows.mainController
 import ldcapps.servicehelper.controllers.tools.CreateContractController
@@ -38,9 +36,9 @@ data class Settings(
 )
 
 class Data {
-    var works: MutableSet<Hint> = mutableSetOf()
-    var dpcs: MutableSet<Hint> = mutableSetOf()
-    var dfcs: MutableSet<Hint> = mutableSetOf()
+    var works: MutableList<Hint> = mutableListOf()
+    var dpcs: MutableList<Hint> = mutableListOf()
+    var dfcs: MutableList<Hint> = mutableListOf()
     var bankAddresses: MutableList<String> = mutableListOf()
     var footings: MutableList<String> = mutableListOf()
     var inPersons: MutableList<String> = mutableListOf()

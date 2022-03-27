@@ -519,11 +519,14 @@ class OOController : Initializable {
         }
 
         workNameTf.onAutoCompleted = { work ->
+            workNameTf.text = work.name
             workPriceTf.text = work.price.toString()
             workPriceTf.requestFocus()
         }
 
         dpcNameTf.onAutoCompleted = { dpc ->
+            dpcNameTf.text = dpc.name
+            dpcCountTf.text = dpc.count.toString()
             dpcPriceTf.text = dpc.price.toString()
             dpcUnitCb.value = dpc.unit
             dpcStateCb.value = dpc.state
@@ -531,6 +534,8 @@ class OOController : Initializable {
         }
 
         dfcNameTf.onAutoCompleted = { dfc ->
+            dfcNameTf.text = dfc.name
+            dfcCountTf.text = dfc.count.toString()
             dfcUnitCb.value = dfc.unit
             dfcStateCb.value = dfc.state
         }
@@ -608,15 +613,10 @@ class OOController : Initializable {
 
                     reports.add(report)
 
-                    fun MutableSet<Data.Hint>.checkHint(hint: Data.Hint) {
-                        val oldHint = find { h -> h.carModel == ooAndBill.car?.model && h.name == hint.name }
-
-                        if (oldHint != null) {
-                            if (oldHint.price != hint.price) oldHint.price = hint.price
-                            if (oldHint.count != hint.count) oldHint.count = hint.count
-                            if (oldHint.state != hint.state) oldHint.state = hint.state
-                            if (oldHint.unit != hint.unit) oldHint.unit = hint.unit
-                        } else add(hint)
+                    fun MutableList<Data.Hint>.checkHint(hint: Data.Hint) {
+                        val hintIndex = indexOfFirst { h -> h.carModel == ooAndBill.car?.model && h.name == hint.name }
+                        if (hintIndex == -1) add(hint)
+                        else set(hintIndex, hint)
                     }
 
                     ooAndBill.works.forEach {
