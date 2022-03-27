@@ -23,6 +23,7 @@ import ldcapps.servicehelper.db.DataClasses.Companion.companies
 import ldcapps.servicehelper.db.DataClasses.Companion.owners
 import ldcapps.servicehelper.db.DataClasses.Companion.reports
 import ldcapps.servicehelper.db.DataClasses.Companion.user
+import ldcapps.servicehelper.db.Orders
 import ldclibs.javafx.controls.*
 import liklibs.db.Date
 import liklibs.db.toLocalDate
@@ -427,6 +428,7 @@ class OOController : Initializable {
 
     private var action = ButtonActions.CONFIRM
     private var path = ""
+    private var id: Int? = null
 
     private var cash = false
 
@@ -631,6 +633,12 @@ class OOController : Initializable {
                     }
 
                     toJSON(".data", data)
+
+                    try {
+                        Orders.OrderAndBill.fromOOAndBill(ooAndBill, id)
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                    }
 
                     Dialogs.confirmation("Заказ-Наряд №${ooAndBill.number} успешно создан и находится по пути:\n$path\nРаспечатать его?") {
                         ooAndBillScroll.isVisible = true
@@ -863,9 +871,10 @@ class OOController : Initializable {
         }
     }
 
-    fun fill(filledOOAndBill: OOAndBill, path: String = "") {
+    fun fill(ooAndBill: OOAndBill, path: String = "", id: Int? = null) {
         this.path = path
-        ooAndBill = filledOOAndBill
+        this.id = id
+        this.ooAndBill = ooAndBill
 
         registrationDp.value = ooAndBill.registrationDate.toLocalDate()
         executionDp.value = ooAndBill.executionDate.toLocalDate()

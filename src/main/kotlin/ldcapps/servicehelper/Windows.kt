@@ -2,10 +2,7 @@ package ldcapps.servicehelper
 
 import javafx.stage.Stage
 import javafx.stage.StageStyle
-import ldcapps.servicehelper.controllers.CreateAct
-import ldcapps.servicehelper.controllers.MainView
-import ldcapps.servicehelper.controllers.PrintBlankController
-import ldcapps.servicehelper.controllers.PrintController
+import ldcapps.servicehelper.controllers.*
 import ldcapps.servicehelper.controllers.detail.DetailView
 import ldcapps.servicehelper.controllers.tools.ToolSelectorController
 import tornadofx.find
@@ -18,6 +15,13 @@ object Windows {
     //fun login() = init<LoginController>(FXMLInfo.Login)
 
     lateinit var mainController: MainView
+
+    var export: ExportView? = null
+        get() {
+            find<ExportView>().openWindow()
+
+            return field
+        }
 
     var tools: ToolSelectorController? = null
         get() {

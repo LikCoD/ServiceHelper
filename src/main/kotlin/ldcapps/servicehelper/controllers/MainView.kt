@@ -62,6 +62,10 @@ class MainView : View() {
                     toolBtn("open") {
                         open(Dialogs.getFile(primaryStage, settings.oosLocate), primaryStage)
                     }
+                    toolBtn("cloud-storage") {
+                        Windows.export
+                    }
+
                     toolBtn("tools") {
                         Windows.tools
                     }
@@ -207,7 +211,7 @@ class MainView : View() {
         }
     }
 
-    fun fillOO(ooAndBill: OOController.OOAndBill, path: String = "") {
+    fun fillOO(ooAndBill: OOController.OOAndBill, path: String = "", id: Int? = null) {
         val loader = fxmlLoader(FXMLInfo.OO)
         val loadedPane = loader.load<AnchorPane>()
         val controller = loader.getController<OOController>()
@@ -227,7 +231,7 @@ class MainView : View() {
         root.selectionModel.select(root.tabs.last())
         root.tabs.last().content = loadedPane
 
-        controller.fill(ooAndBill, path)
+        controller.fill(ooAndBill, path, id)
     }
 
     companion object {
