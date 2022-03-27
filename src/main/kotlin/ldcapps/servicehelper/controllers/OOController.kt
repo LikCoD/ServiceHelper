@@ -634,13 +634,15 @@ class OOController : Initializable {
 
                     toJSON(".data", data)
 
-                    try {
-                        Orders.OrderAndBill.fromOOAndBill(ooAndBill, id)
-                    } catch (ex: Exception) {
-                        ex.printStackTrace()
+                    Dialogs.confirmation("Заказ-Наряд №${ooAndBill.number} успешно создан и находится по пути:\n$path\nЭкспортировать его?") {
+                        try {
+                            Orders.OrderAndBill.fromOOAndBill(ooAndBill, id)
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
                     }
 
-                    Dialogs.confirmation("Заказ-Наряд №${ooAndBill.number} успешно создан и находится по пути:\n$path\nРаспечатать его?") {
+                    Dialogs.confirmation("Распечатать?") {
                         ooAndBillScroll.isVisible = true
 
                         ooAndBill.customer?.let {
