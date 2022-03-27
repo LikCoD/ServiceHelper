@@ -12,9 +12,19 @@ plugins {
 group = "com.likco"
 version = "1.0"
 
+val spaceUsername: String by project
+val spacePassword: String by project
+
 repositories {
     mavenCentral()
     maven { url = uri("https://jitpack.io") }
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/likco/p/dbhelper/maven")
+        credentials {
+            username = spaceUsername
+            password = spacePassword
+        }
+    }
 }
 
 dependencies {
@@ -34,7 +44,7 @@ dependencies {
 
     implementation("it.sauronsoftware:junique:1.0.4")
 
-    implementation("com.github.LikCoD:DBHelper:v0.6.1")
+    implementation("liklibs.db:db-helper:0.9.2")
 
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("reflect"))
@@ -43,8 +53,8 @@ dependencies {
 }
 
 javafx {
-    modules = mutableListOf("javafx.controls", "javafx.fxml")
-    version = "15.0.1"
+    modules = listOf("javafx.controls", "javafx.fxml")
+    version = "17.0.2"
 }
 
 tasks.test {
@@ -64,12 +74,12 @@ tasks.compileJava {
     options.isFork = true
     options.isFailOnError = false
 
-    options.release.set(8)
+    options.release.set(16)
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(16))
     }
 }
 

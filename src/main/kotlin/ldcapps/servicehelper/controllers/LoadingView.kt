@@ -6,10 +6,12 @@ import javafx.scene.Parent
 import javafx.scene.control.Label
 import javafx.scene.text.Font
 import ldcapps.servicehelper.db.DataClasses
+import ldcapps.servicehelper.db.Orders
 import ldcapps.servicehelper.styles.MainStyle
 import liklibs.db.sqList
 import tornadofx.*
 import kotlin.concurrent.thread
+
 
 class LoadingView : View() {
 
@@ -29,14 +31,14 @@ class LoadingView : View() {
                 }
                 font = Font.font(24.0)
             }
-            stateLabel = label("Подключение"){
+            stateLabel = label("Подключение") {
                 anchorpaneConstraints {
                     rightAnchor = 5
                     bottomAnchor = 0
                 }
             }
         }
-        progressbar(-1.0){
+        progressbar(-1.0) {
             maxWidth = Double.MAX_VALUE
         }
     }
@@ -44,25 +46,33 @@ class LoadingView : View() {
     init {
         thread {
             setState("Компании")
-            DataClasses.companies = sqList()
+            DataClasses.companies = sqList(conflictResolver = ConflictResolverView::addConflict)
 
             setState("Физ. лица")
-            DataClasses.individuals = sqList()
+            DataClasses.individuals = sqList(conflictResolver = ConflictResolverView::addConflict)
 
             setState("Владельцы")
-            DataClasses.owners = sqList()
+            DataClasses.owners = sqList(conflictResolver = ConflictResolverView::addConflict)
 
             setState("Авто")
-            DataClasses.cars = sqList()
+            DataClasses.cars = sqList(conflictResolver = ConflictResolverView::addConflict)
 
             setState("Отчеты")
-            DataClasses.reports = sqList()
+            DataClasses.reports = sqList(conflictResolver = ConflictResolverView::addConflict)
 
-            Platform.runLater { replaceWith<MainView>(sizeToScene = true, centerOnScreen = true) }
+            setState("Заказ-наряды")
+            Orders.ordersAndBills = sqList(conflictResolver = ConflictResolverView::addConflict)
+
+            setState("Конфликт")
+            ConflictResolverView.onAllResolved = {
+                Platform.runLater { replaceWith<MainView>(sizeToScene = true, centerOnScreen = true) }
+            }
+
+            Platform.runLater { ConflictResolverView.open() }
         }
     }
 
-    private fun setState(state: String){
+    private fun setState(state: String) {
         Platform.runLater { stateLabel.text = state }
     }
 }

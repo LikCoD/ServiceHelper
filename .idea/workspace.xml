@@ -4,11 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Fit details to Klaxon parser">
+    <list default="true" id="b758a7c7-0e9a-45dd-baf1-a97559acbd27" name="Changes" comment="Change serialization plugin version">
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Name.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/ConflictResolverView.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/ExportView.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/Orders.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Launcher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Launcher.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/Windows.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoadingView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/LoadingView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/MainView.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/OOController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/controllers/tools/AddCarController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/ldcapps/servicehelper/db/DataClasses.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,9 +57,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Annotation" />
         <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Annotation" />
       </list>
     </option>
   </component>
@@ -100,7 +114,11 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.kotlinCompiler&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
@@ -110,12 +128,13 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="P:\Kotlin\ServiceHelper\db" />
       <recent name="P:\Kotlin\ServiceHelper" />
+      <recent name="P:\Kotlin\ServiceHelper\db" />
       <recent name="C:\Projects\ServiceHelper\src\main\kotlin\ldcapps\servicehelper\controllers\detail" />
       <recent name="P:\Kotlin\ServiceHelper\src\main\resources\drawable" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="ldcapps.servicehelper.controllers" />
       <recent name="ldclibs.javafx.controls" />
       <recent name="ldclibs.javafx.controls.pickers" />
       <recent name="" />
@@ -334,7 +353,11 @@
       <workItem from="1645355174724" duration="3735000" />
       <workItem from="1645362489274" duration="4218000" />
       <workItem from="1645368387278" duration="14744000" />
-      <workItem from="1645984298059" duration="2490000" />
+      <workItem from="1645984298059" duration="5286000" />
+      <workItem from="1648108320862" duration="10000" />
+      <workItem from="1648109467306" duration="14255000" />
+      <workItem from="1648237358406" duration="11370000" />
+      <workItem from="1648367841072" duration="23627000" />
     </task>
     <task id="LOCAL-00001" summary="Improve AddCarController.kt, fix bugs, optimization">
       <created>1634070167859</created>
@@ -581,7 +604,21 @@
       <option name="project" value="LOCAL" />
       <updated>1645383376048</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Fix">
+      <created>1645987152118</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1645987152118</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Change serialization plugin version">
+      <created>1645987175378</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1645987175378</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -613,14 +650,12 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Connect reports to PostgreSQL" />
     <MESSAGE value="Change info builder" />
     <MESSAGE value="Migrate to new db-helper version" />
     <MESSAGE value="Improve autofill" />
     <MESSAGE value="Implement fill excel func" />
     <MESSAGE value="Improve car number picker" />
     <MESSAGE value="Add bank address" />
-    <MESSAGE value="Fix" />
     <MESSAGE value="Fix value issue" />
     <MESSAGE value="add moshi json lib" />
     <MESSAGE value="Add dependencies" />
@@ -638,7 +673,9 @@
     <MESSAGE value="Improve" />
     <MESSAGE value="Improve offline mode" />
     <MESSAGE value="Fit details to Klaxon parser" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fit details to Klaxon parser" />
+    <MESSAGE value="Fix" />
+    <MESSAGE value="Change serialization plugin version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change serialization plugin version" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
@@ -693,6 +730,7 @@
     <watches-manager>
       <configuration name="JetRunConfigurationType">
         <watch expression="DataClasses.owners" language="kotlin" />
+        <watch expression="dbInfo.credentialsFilePath" language="kotlin" />
       </configuration>
     </watches-manager>
   </component>

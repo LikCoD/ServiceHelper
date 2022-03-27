@@ -14,6 +14,9 @@ import kotlin.system.exitProcess
 class MApp: App(LoadingView::class, MainStyle::class){
     override fun start(stage: Stage) {
         stage.minWidth = 400.0
+        stage.width = 400.0
+
+        stage.minHeight = 50.0
         super.start(stage)
 
         open(parameters.raw.firstOrNull(), stage)
